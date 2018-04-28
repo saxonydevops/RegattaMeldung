@@ -1,0 +1,83 @@
+﻿@model RegattaMeldung.Models.Member
+
+@{
+    ViewData["Title"] = "Mitglied bearbeiten";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Mitglied bearbeiten</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditMember">
+            <input type="hidden" name="guid" value="@ViewBag.Guid" />
+            <input type="hidden" name="ClubId" value="@Model.ClubId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MemberId" />
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Birthyear" class="control-label"></label>
+                <input asp-for="Birthyear" class="form-control" />
+                <span asp-validation-for="Birthyear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <select class="form-control" name="Gender" id="Gender" size="2">
+                        <option value="M" selected>männlich</option>
+                        <option value="W">weiblich</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>An Verein ausleihen</label>
+                @if (Model.isRented == true)
+                {
+                    <input type="checkbox" name="isRented" id="isRented" value="true" onchange="document.getElementById('RentedToClubId').disabled = !this.checked; document.getElementById('RentYear').disabled = !this.checked;" checked />
+                }
+                else
+                {
+                    <input type="checkbox" name="isRented" id="isRented" value="true" onchange="document.getElementById('RentedToClubId').disabled = !this.checked; document.getElementById('RentYear').disabled = !this.checked;" />
+                }
+            </div>                    
+                    <div class="form-group">
+                <label>Verein</label>
+                        @if (Model.isRented == true)
+                        {
+                            <select name="RentedToClubId" id="RentedToClubId" class="form-control" asp-items="ViewBag.RentedToClubId"></select>
+                        }
+                        else
+                        {
+                            <select name="RentedToClubId" id="RentedToClubId" class="form-control" asp-items="ViewBag.RentedToClubId" disabled></select>   
+                        }                
+            </div>
+            <div class="form-group">
+                <label>G&uuml;ltiges Jahr</label>     
+                @if (Model.isRented == true)
+                {
+                    <input class="form-control" type="number" name="RentYear" id="RentYear" value="@Model.RentYear" />
+                }
+                else
+                {
+                    <input class="form-control" type="number" name="RentYear" id="RentYear" value="@ViewBag.ThisYear" disabled />        
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Speichern" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a href="/Stammdaten/?guid=@ViewBag.Guid">Zur&uuml;ck zur Liste</a>
+</div>
+

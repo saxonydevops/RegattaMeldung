@@ -1,0 +1,54 @@
+﻿@model RegattaMeldung.Models.ReportedRace
+
+@{
+    ViewData["Title"] = "Rennen erstellen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rennen erstellen</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RaceCode" class="control-label"></label>
+                <input asp-for="RaceCode" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="RegattaId" class="control-label"></label>
+                <select asp-for="RegattaId" class="form-control" asp-items="ViewBag.RegattaId"></select>
+                <span asp-validation-for="RegattaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OldclassId" class="control-label"></label>
+                <select asp-for="OldclassId" class="form-control" asp-items="ViewBag.OldclassId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompetitionId" class="control-label"></label>
+                <select asp-for="CompetitionId" class="form-control" asp-items="ViewBag.CompetitionId"></select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" name="Gender" id="Gender" size="3">
+                    <option value="M" selected>männlich</option>
+                    <option value="W">weiblich</option>
+                    <option value="X">mixed</option>
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment" class="control-label"></label>
+                <input asp-for="Comment" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Erstellen" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Zur&uuml;ck zur Liste</a>
+</div>
+

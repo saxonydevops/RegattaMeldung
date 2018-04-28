@@ -1,0 +1,40 @@
+﻿@model RegattaMeldung.Models.Competition
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>Competition</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CompetitionId" />
+            <div class="form-group">
+                <label asp-for="BoatclassId" class="control-label"></label>
+                <select asp-for="BoatclassId" class="form-control" asp-items="ViewBag.BoatclassId"></select>
+                <span asp-validation-for="BoatclassId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RaceclassId" class="control-label"></label>
+                <select asp-for="RaceclassId" class="form-control" asp-items="ViewBag.RaceclassId"></select>
+                <span asp-validation-for="RaceclassId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

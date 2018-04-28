@@ -1,0 +1,164 @@
+﻿@model RegattaMeldung.Models.Club
+
+@{
+    ViewData["Title"] = "Stammdaten";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Stammdaten bearbeiten</h2>
+<h4>Willkommen @Model.Name</h4>
+
+<div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VNr)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.VNr)
+                </td>
+                <td>
+                    <!-- <a asp-action="Edit" asp-route-id="@Model.ClubId/?guid=@ViewBag.Guid">Bearbeiten</a>-->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h3>Mitglied hinzufügen</h3>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddMember" asp-controller="Stammdaten" asp-route-id="@Model.ClubId">
+            <input type="hidden" name="guid" value="@ViewBag.Guid" />
+            <div class="form-group">
+                <label>Vorname</label>
+                <input class="form-control" type="text" name="FirstName" id="FirstName" />
+            </div>
+            <div class="form-group">
+                <label>Nachname</label>
+                <input class="form-control" type="text" name="LastName" id="LastName" />
+            </div>
+            <div class="form-group">
+                <label>Geschlecht</label>
+                <select class="form-control" name="Gender" id="Gender" size="2">
+                    <option value="M" selected>männlich</option>
+                    <option value="W">weiblich</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Geburtsjahr</label>
+                <input class="form-control" type="number" name="Birthyear" id="Birthyear" value="@ViewBag.MemberYear" />
+            </div>
+            <div class="form-group">
+                <label>An Verein ausleihen</label>
+                <input type="checkbox" name="isRented" id="isRented" value="true" onchange="document.getElementById('RentedToClubId').disabled = !this.checked;document.getElementById('RentYear').disabled = !this.checked;" />
+            </div>
+            <div class="form-group">
+                <label>Verein</label>
+                <select name="RentedToClubId" id="RentedToClubId" class="form-control" asp-items="ViewBag.RentedToClubId" disabled><option selected>---Verein ausw&auml;hlen---</option></select>
+            </div>
+            <div class="form-group">
+                <label>G&uuml;ltiges Jahr</label>
+                <input class="form-control" type="number" name="RentYear" id="RentYear" value="@ViewBag.ThisYear" disabled />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Mitglied hinzufügen" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+        <h3>Mitglieder</h3>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @if (ViewBag.sortby == "Nachname")
+                        {
+                            <a href="/Stammdaten/?guid=@ViewBag.Guid&sortby=NachnameDesc">Nachname</a>
+                        }
+                        else
+                        {
+                            <a href="/Stammdaten/?guid=@ViewBag.Guid&sortby=Nachname">Nachname</a>
+                        }
+                    </th>
+                    <th>
+                        Vorname
+                    </th>
+                    <th>
+                        <a href="/Stammdaten/?guid=@ViewBag.Guid&sortby=Geschlecht">Geschlecht</a>
+                    </th>
+                    <th>
+                        @if (ViewBag.sortby == "Alter")
+                        {
+                            <a href="/Stammdaten/?guid=@ViewBag.Guid&sortby=AlterAsc">Geburtsjahr</a>
+                        }
+                        else
+                        {
+                            <a href="/Stammdaten/?guid=@ViewBag.Guid&sortby=Alter">Geburtsjahr</a>
+                        }
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var member in ViewBag.Members)
+                {
+                    <tr>
+                        <td>                            
+                            @member.LastName
+                            @if(member.isRented == true && member.RentedToClubId != Model.ClubId)
+                            {
+                                @:<br/>
+                                @foreach(var ac in ViewBag.AllClubs)
+                                {
+                                    if(ac.ClubId == member.RentedToClubId)
+                                    {
+                                        @:(@ac.Name)
+                                    }
+                                }
+                            }
+                            @if(member.isRented == true && member.RentedToClubId == Model.ClubId)
+                            {
+                                @:<br/>
+                                @:(ausgeliehen)
+                            }
+                        </td>
+                        <td>
+                            @member.FirstName
+                        </td>
+                        <td>
+                            @member.Gender
+                        </td>
+                        <td>
+                            @member.Birthyear
+                        </td>
+                        <td>
+                            <a href="/Stammdaten/DeleteMember/@member.MemberId/?guid=@ViewBag.Guid" class="btn btn-danger">L&ouml;schen</a> | <a href="/Stammdaten/EditMember/@member.MemberId/?guid=@ViewBag.Guid" class="btn btn-secondary">Bearbeiten</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+

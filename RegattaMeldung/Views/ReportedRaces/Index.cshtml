@@ -1,0 +1,117 @@
+﻿@model IEnumerable<RegattaMeldung.Models.ReportedRace>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Gemeldete Rennen</h2>
+
+<p>
+    <a asp-action="Create">Neues Rennen erstellen</a>
+</p>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+        <div class="form-group">        
+            <select name="rid" id="rid" class="form-control" asp-items="ViewBag.RegattaId"></select>    
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Anzeigen" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Renncode
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Oldclass)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Competition)
+                </th>
+                <th>
+                    Gemeldete Rennen
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.RaceCode
+                        @if (item.Comment != "")
+                        {
+                            @:&nbsp;
+                            @:<span class="badge badge-warning">@item.Comment</span>
+                            @if (@item.Comment == "Bier Cup")
+                            {
+                                @:&nbsp;<img src="/images/beer-512.png" height="15" />
+                            }
+                            @if (@item.Comment == "Prosecco Cup")
+                            {
+                                @:&nbsp;<img src="/images/prosecco.png" height="15" />
+                            }
+                        }
+                    </td>
+                    <td>
+                        @if (item.Gender.Equals("M"))
+                        {
+                            @if(item.Oldclass.FromAge >=17 && item.Oldclass.ToAge <= 99)
+                            {
+                                @:Herren
+                            }
+                            else if(item.Oldclass.FromAge >= 15 && item.Oldclass.ToAge <= 16)
+                            {
+                                @:männliche    
+                            }                            
+                        }
+                        else if (string.Equals(item.Gender, "W"))
+                        {
+                            @if (item.Oldclass.FromAge >= 17 && item.Oldclass.ToAge <= 99)
+                            {
+                                @:Damen
+                            }
+                            else
+                            {
+                                @:weibliche
+                            }
+                        }
+                        else if (string.Equals(item.Gender, "X"))
+                        {
+                            @:mixed
+                        }
+                        @Html.DisplayFor(modelItem => item.Oldclass.Name)                        
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Competition.Name)
+                    </td>
+                    <td>
+                        @{var x = 0;}
+                        @foreach(var repsb in ViewBag.ReportedStartboats)
+                        {
+                            if(repsb.ReportedRaceId == item.ReportedRaceId)
+                            {
+                                x++;
+                            }
+                        }
+                        @if(x > 0)
+                        {
+                            @x    
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ReportedRaceId" class="btn btn-secondary">Bearbeiten</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ReportedRaceId" class="btn btn-danger">L&ouml;schen</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

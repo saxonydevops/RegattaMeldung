@@ -1,0 +1,185 @@
+@model RegattaMeldung.Models.Regatta
+
+@{
+    ViewData["Title"] = "Meldung";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Regatta:  @Model.Name</h2>
+
+<table class="table">
+        <tr>
+            <td>
+                Von
+            </td>
+            <td>
+                @Model.FromDate
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Bis
+            </td>
+            <td>
+                @Model.ToDate
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Wassertiefe
+            </td>
+            <td>
+                @Model.Waterdepth Meter
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Startbahnen
+            </td>
+            <td>
+                @Model.Startslots
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Meldung
+            </td>
+            <td>
+                @Model.ReportText
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Meldeer&ouml;ffnung
+            </td>
+            <td>
+                @Model.ReportOpening
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Meldetermin
+            </td>
+            <td>
+                @Model.ReportSchedule
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Meldeanschrift
+            </td>
+            <td>
+                @Model.ReportAddress
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Telefon
+            </td>
+            <td>
+                @Model.ReportTel
+            </td>
+            <td>
+                Fax
+            </td>
+            <td>
+                @Model.ReportFax
+            </td>
+        </tr>
+        <tr>
+            <td>
+                E-Mail
+            </td>
+            <td>
+                @Model.ReportMail
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Kampfrichter
+            </td>
+            <td colspan="3">
+                @Model.Judge
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Auszeichnungen
+            </td>
+            <td colspan="3">
+                @Model.Awards
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Sicherheit
+            </td>
+            <td colspan="3">
+                @Model.Security
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Zeitplan
+            </td>
+            <td colspan="3">
+                @Model.ScheduleText
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Meldegeb&uuml;hr
+            </td>
+            <td>
+                @Model.SubscriberFee &euro;
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                Unterkunft
+            </td>
+            <td colspan="3">
+                @Model.Accomodation
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Verpflegung
+            </td>
+            <td colspan="3">
+                @Model.Catering
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Kommentar
+            </td>
+            <td colspan="3">
+                @Model.Comment
+            </td>
+        </tr>
+</table>

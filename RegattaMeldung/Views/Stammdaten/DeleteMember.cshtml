@@ -1,0 +1,70 @@
+﻿@model RegattaMeldung.Models.Member
+
+@{
+    ViewData["Title"] = "DeleteMember";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Mitglied l&ouml;schen</h2>
+
+<h3>Sind Sie sicher?</h3>
+<div>
+    <h4>Member</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthyear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Birthyear)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.isRented)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.isRented)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentedToClubId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentedToClubId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RentYear)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Club)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Club.ClubId)
+        </dd>
+    </dl>
+    
+    <form asp-action="DeleteMember">
+        <input type="hidden" asp-for="MemberId" />
+        <input type="submit" value="L&ouml;schen" class="btn btn-primary" /> |
+        <a asp-action="Index">Zur&uuml;ck zur Liste</a>
+    </form>
+</div>

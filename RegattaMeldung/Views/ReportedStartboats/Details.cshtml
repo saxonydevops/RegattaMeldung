@@ -1,0 +1,43 @@
+﻿@model RegattaMeldung.Models.ReportedStartboat
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ReportedStartboat</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Club)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Club.ClubId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReportedRace)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ReportedRace.ReportedRaceId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Regatta)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Regatta.RegattaId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ReportedStartboatId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

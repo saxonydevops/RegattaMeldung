@@ -1,0 +1,78 @@
+﻿@model RegattaMeldung.Models.ReportedRace
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Gemeldetes Rennen</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ReportedRaceId" />
+            <div class="form-group">
+                <label asp-for="RaceCode" class="control-label"></label>
+                <input asp-for="RaceCode" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="RegattaId" class="control-label"></label>
+                <select asp-for="RegattaId" class="form-control" asp-items="ViewBag.RegattaId"></select>
+                <span asp-validation-for="RegattaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OldclassId" class="control-label"></label>
+                <select asp-for="OldclassId" class="form-control" asp-items="ViewBag.OldclassId"></select>
+                <span asp-validation-for="OldclassId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompetitionId" class="control-label"></label>
+                <select asp-for="CompetitionId" class="form-control" asp-items="ViewBag.CompetitionId"></select>
+                <span asp-validation-for="CompetitionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <select class="form-control" name="Gender" id="Gender" size="3">
+                    @if (Model.Gender == "M")
+            {
+                <option value="M" selected>männlich</option>
+    }
+    else
+    {
+        <option value="M">männlich</option>
+}
+                    @if (Model.Gender == "W")
+            {
+                <option value="W" selected>weiblich</option>
+    }
+    else
+    {
+        <option value="W">weiblich</option>
+}
+                    @if (Model.Gender == "X")
+            {
+                <option value="X" selected>mixed</option>
+    }
+    else
+    {
+        <option value="X">mixed</option>
+}
+                </select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment" class="control-label"></label>
+                <input asp-for="Comment" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Speichern" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="/ReportedRaces/?rid=@Model.RegattaId">Zur&uuml;ck zur Liste</a>
+</div>
+

@@ -1,0 +1,50 @@
+﻿@model RegattaMeldung.Models.ReportedStartboat
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>ReportedStartboat</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ReportedStartboatId" />
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <input asp-for="Gender" class="form-control" />
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClubId" class="control-label"></label>
+                <select asp-for="ClubId" class="form-control" asp-items="ViewBag.ClubId"></select>
+                <span asp-validation-for="ClubId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegattaId" class="control-label"></label>
+                <select asp-for="RegattaId" class="form-control" asp-items="ViewBag.RegattaId"></select>
+                <span asp-validation-for="RegattaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportedRaceId" class="control-label"></label>
+                <select asp-for="ReportedRaceId" class="form-control" asp-items="ViewBag.ReportedRaceId"></select>
+                <span asp-validation-for="ReportedRaceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

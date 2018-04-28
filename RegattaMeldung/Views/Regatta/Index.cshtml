@@ -1,0 +1,90 @@
+﻿@model IEnumerable<RegattaMeldung.Models.Regatta>
+
+@{
+    ViewData["Title"] = "Regattaübersicht";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Regattaübersicht</h2>
+
+<p>
+    <a asp-action="Create">Neue Regatta erstellen</a>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FromDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Club)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Club.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.RegattaId" class="btn btn-secondary">Bearbeiten</a> <br/>
+                    <a asp-action="Delete" asp-route-id="@item.RegattaId" class="btn btn-danger">L&ouml;schen</a> <br />
+                    <a asp-action="createReportedRaces" asp-route-id="@item.RegattaId" class="btn btn-secondary">Rennliste generieren</a> <br />
+                    <a asp-action="Invite" asp-route-id="@item.RegattaId" class="btn btn-success">Vereine einladen</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<h4>Eingeladene Vereine</h4>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Verein
+            </th>
+            <th>
+                Regatta
+            </th>
+            <th>
+                Link
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var inv in ViewBag.Invited)
+        {
+            <tr>
+                <td>
+                    @inv.Club.Name
+                </td>
+                <td>
+                    @inv.Regatta.Name
+                </td>
+                <td>
+                    <a href="https://meldung.regattaplaner.net/Meldung/?guid=@inv.Guid">Meldelink</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

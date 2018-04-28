@@ -1,0 +1,43 @@
+﻿@model RegattaMeldung.Models.ReportedRace
+
+@{
+    ViewData["Title"] = "Rennen l&ouml;schen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Rennen l&ouml;schen</h2>
+
+<h3>Bist du sicher?</h3>
+<div>
+    <h4>Rennen</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RaceCode)
+        </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Competition)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Competition.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Oldclass)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Oldclass.Name)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ReportedRaceId" />
+        <input type="submit" value="L&ouml;schen" class="btn btn-default" /> |
+        <a asp-action="Index">Zur&uuml;ck zur Liste</a>
+    </form>
+</div>

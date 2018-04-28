@@ -1,0 +1,234 @@
+﻿@model RegattaMeldung.Models.ReportedRace
+
+@{
+    ViewData["Title"] = "EditStartboat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{var x = Model.Competition.Boatclasses.Seats;}
+
+
+<h2>Startboot bearbeiten</h2>
+<h3>@ViewBag.Club.Name</h3>
+<h4>@Model.Competition.Boatclasses.Name - @Model.Competition.Raceclasses.Name - @ViewBag.genderdesc @Model.Oldclass.Name</h4>
+@if (ViewBag.allAvailable == true)
+{
+    <div align="right">
+        <a href="/Meldung/Details/@Model.ReportedRaceId/?guid=@ViewBag.Guid" class="btn btn-outline-primary">Nur Sportler der Altersklasse anzeigen</a>
+    </div>
+    <br />
+}
+else
+{
+    <div align="right">
+        <a href="/Meldung/Details/@Model.ReportedRaceId/?guid=@ViewBag.Guid&allAvailable=true" class="btn btn-outline-primary">Alle verf&uuml;gbaren Sportler anzeigen</a>
+    </div>
+    <br />
+}
+@if (ViewBag.doppelt == true)
+{
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Fehler!</strong> Die Starter d&uuml;rfen nicht doppelt vergeben werden.
+    </div>
+}
+<form asp-action="EditStartboat" asp-controller="Meldung" asp-route-id="@ViewBag.ReportedStartboatId">
+    <input type="hidden" name="guid" value="@ViewBag.Guid" />
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Sitz
+                </th>
+                <th>
+                    Starter
+                </th>
+                <th colspan="2">
+                    Ersatz
+                </th>
+            </tr>
+        </thead>
+        @for (var i = 1; i <= x; i++)
+        {
+            <tr>
+                <td>
+                    @i
+                </td>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @switch (i)
+                            {
+                                case 1:
+                                    <select name="@string.Format("seat{0}",i)" id="@string.Format("seat{0}",i)" class="form-control" asp-items="@ViewBag.memberlist0"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    <input type="hidden" name="@string.Format("oldmemberid{0}",i)" value="@ViewBag.oldmemberid0" />
+                                    break;
+                                case 2:
+                                    <select name="@string.Format("seat{0}",i)" id="@string.Format("seat{0}",i)" class="form-control" asp-items="@ViewBag.memberlist1"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    <input type="hidden" name="@string.Format("oldmemberid{0}",i)" value="@ViewBag.oldmemberid1" />
+                                    break;
+                                case 3:
+                                    <select name="@string.Format("seat{0}",i)" id="@string.Format("seat{0}",i)" class="form-control" asp-items="@ViewBag.memberlist2"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    <input type="hidden" name="@string.Format("oldmemberid{0}",i)" value="@ViewBag.oldmemberid2" />
+                                    break;
+                                case 4:
+                                    <select name="@string.Format("seat{0}",i)" id="@string.Format("seat{0}",i)" class="form-control" asp-items="@ViewBag.memberlist3"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    <input type="hidden" name="@string.Format("oldmemberid{0}",i)" value="@ViewBag.oldmemberid3" />
+                                    break;
+                                case 5:
+                                    <select name="@string.Format("seat{0}",i)" id="@string.Format("seat{0}",i)" class="form-control" asp-items="@ViewBag.memberlist4"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    <input type="hidden" name="@string.Format("oldmemberid{0}",i)" value="@ViewBag.oldmemberid4" />
+                                    break;
+                                case 6:
+                                    <select name="@string.Format("seat{0}",i)" id="@string.Format("seat{0}",i)" class="form-control" asp-items="@ViewBag.memberlist5"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    <input type="hidden" name="@string.Format("oldmemberid{0}",i)" value="@ViewBag.oldmemberid5" />
+                                    break;
+                                case 7:
+                                    <select name="@string.Format("seat{0}",i)" id="@string.Format("seat{0}",i)" class="form-control" asp-items="@ViewBag.memberlist6"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    <input type="hidden" name="@string.Format("oldmemberid{0}",i)" value="@ViewBag.oldmemberid6" />
+                                    break;
+                                case 8:
+                                    <select name="@string.Format("seat{0}",i)" id="@string.Format("seat{0}",i)" class="form-control" asp-items="@ViewBag.memberlist7"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    <input type="hidden" name="@string.Format("oldmemberid{0}",i)" value="@ViewBag.oldmemberid7" />
+                                    break;
+                            }
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <label class="form-check-label">
+                        @switch (i)
+                        {
+                            case 1:
+                                <input class="form-check-input" name="@string.Format("standbycheck{0}",i)" value="true" type="checkbox" onchange="document.getElementById('@string.Format("standby{0}",i)').disabled = !this.checked;" @ViewBag.sbscheck0> @:Ersatz melden
+                                <input type="hidden" name="@string.Format("oldstandbyid{0}",i)" value="@ViewBag.oldstandbyid0" />
+                                break;
+                            case 2:
+                                <input class="form-check-input" name="@string.Format("standbycheck{0}",i)" value="true" type="checkbox" onchange="document.getElementById('@string.Format("standby{0}",i)').disabled = !this.checked;" @ViewBag.sbscheck1> @:Ersatz melden
+                                <input type="hidden" name="@string.Format("oldstandbyid{0}",i)" value="@ViewBag.oldstandbyid1" />
+                                break;
+                            case 3:
+                                <input class="form-check-input" name="@string.Format("standbycheck{0}",i)" value="true" type="checkbox" onchange="document.getElementById('@string.Format("standby{0}",i)').disabled = !this.checked;" @ViewBag.sbscheck2> @:Ersatz melden
+                                <input type="hidden" name="@string.Format("oldstandbyid{0}",i)" value="@ViewBag.oldstandbyid2" />
+                                break;
+                            case 4:
+                                <input class="form-check-input" name="@string.Format("standbycheck{0}",i)" value="true" type="checkbox" onchange="document.getElementById('@string.Format("standby{0}",i)').disabled = !this.checked;" @ViewBag.sbscheck3> @:Ersatz melden
+                                <input type="hidden" name="@string.Format("oldstandbyid{0}",i)" value="@ViewBag.oldstandbyid3" />
+                                break;
+                            case 5:
+                                <input class="form-check-input" name="@string.Format("standbycheck{0}",i)" value="true" type="checkbox" onchange="document.getElementById('@string.Format("standby{0}",i)').disabled = !this.checked;" @ViewBag.sbscheck4> @:Ersatz melden
+                                <input type="hidden" name="@string.Format("oldstandbyid{0}",i)" value="@ViewBag.oldstandbyid4" />
+                                break;
+                            case 6:
+                                <input class="form-check-input" name="@string.Format("standbycheck{0}",i)" value="true" type="checkbox" onchange="document.getElementById('@string.Format("standby{0}",i)').disabled = !this.checked;" @ViewBag.sbscheck5> @:Ersatz melden
+                                <input type="hidden" name="@string.Format("oldstandbyid{0}",i)" value="@ViewBag.oldstandbyid5" />
+                                break;
+                            case 7:
+                                <input class="form-check-input" name="@string.Format("standbycheck{0}",i)" value="true" type="checkbox" onchange="document.getElementById('@string.Format("standby{0}",i)').disabled = !this.checked;" @ViewBag.sbscheck6> @:Ersatz melden
+                                <input type="hidden" name="@string.Format("oldstandbyid{0}",i)" value="@ViewBag.oldstandbyid6" />
+                                break;
+                            case 8:
+                                <input class="form-check-input" name="@string.Format("standbycheck{0}",i)" value="true" type="checkbox" onchange="document.getElementById('@string.Format("standby{0}",i)').disabled = !this.checked;" @ViewBag.sbscheck7> @:Ersatz melden
+                                <input type="hidden" name="@string.Format("oldstandbyid{0}",i)" value="@ViewBag.oldstandbyid7" />
+                                break;
+                        }
+                    </label>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @switch (i)
+                            {
+                                case 1:
+                                    @if (@ViewBag.sbscheck0 == "")
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist0" disabled><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    else
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist0"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    break;
+                                case 2:
+                                    @if (@ViewBag.sbscheck1 == "")
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist1" disabled><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    else
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist1"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    break;
+                                case 3:
+                                    @if (@ViewBag.sbscheck2 == "")
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist2" disabled><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    else
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist2"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    break;
+                                case 4:
+                                    @if (@ViewBag.sbscheck3 == "")
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist3" disabled><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    else
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist3"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    break;
+                                case 5:
+                                    @if (@ViewBag.sbscheck4 == "")
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist4" disabled><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    else
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist4"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    break;
+                                case 6:
+                                    @if (@ViewBag.sbscheck5 == "")
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist5" disabled><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    else
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist5"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    break;
+                                case 7:
+                                    @if (@ViewBag.sbscheck6 == "")
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist6" disabled><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    else
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist6"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    break;
+                                case 8:
+                                    @if (@ViewBag.sbscheck7 == "")
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist7" disabled><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    else
+                                    {
+                                        <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.standbylist7"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                    }
+                                    break;
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    <input type="hidden" name="seatnumber" value="@x" />
+    <input type="hidden" name="clubid" value="@ViewBag.Club.ClubId" />
+    <input type="submit" class="btn btn-primary" value="Startboot speichern" />
+</form>
+<hr />
+<a href="/Meldung/Details/@Model.ReportedRaceId/?guid=@ViewBag.Guid">Zur&uuml;ck</a>

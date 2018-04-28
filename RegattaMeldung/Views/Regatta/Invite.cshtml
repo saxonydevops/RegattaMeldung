@@ -1,0 +1,61 @@
+﻿@model IEnumerable<RegattaMeldung.Models.Club>
+
+@{
+    ViewData["Title"] = "Vereine einladen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Verein Einladen</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VNr)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var x = 0;
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VNr)
+                    </td>
+                    <td>
+                        <form asp-controller="Regatta" asp-action="Invite">
+                            <input type="hidden" name="ClubId" value="@item.ClubId" />
+                            <input type="hidden" name="RegattaId" value=@ViewBag.RegattaId /> 
+                            <input type="submit" value="Einladen" class="btn btn-primary"
+                            @foreach (var rc in ViewBag.RegattaClubs)
+                            {                                
+                                if (rc.ClubId == item.ClubId && rc.RegattaId == ViewBag.RegattaId)
+                                {
+                                    x = 1;
+                                    @: disabled />
+                                    @:<br/><a href="https://meldung.regattaplaner.net/Meldung/?guid=@rc.Guid">Meldelink</a>
+                                }
+                            }
+                            @if(x == 0)
+                            {
+                                @: />
+                            }
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>    
