@@ -4,12 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @{var x = 0;}
-@{var y = 0;}
+
 <h2>Regatta:  @ViewBag.Regatta.Name</h2>
 <table border="0">
     <tr>
         <td>
-            <b>Von:</b> 
+            <b>Von:</b>
         </td>
         <td>
             @ViewBag.Regatta.FromDate
@@ -30,11 +30,11 @@
         <td>
             @ViewBag.Regatta.Club.Name
         </td>
-    </tr>    
+    </tr>
 </table>
-<br/><br/>
+<br /><br />
 <h4>Willkommen @ViewBag.Club.Name</h4>
-<br/>
+<br />
 <table class="table table-hover">
     <thead>
         <tr>
@@ -42,14 +42,14 @@
                 <a href="/Meldung/?guid=@ViewBag.Guid&sortby=Renncode">Renncode</a>
             </th>
             <th>
-                @if(ViewBag.sortby == "Alter")
+                @if (ViewBag.sortby == "Alter")
                 {
-                <a href="/Meldung/?guid=@ViewBag.Guid&sortby=AlterDesc">Altersklasse</a>    
+                    <a href="/Meldung/?guid=@ViewBag.Guid&sortby=AlterDesc">Altersklasse</a>
                 }
                 else
                 {
-                <a href="/Meldung/?guid=@ViewBag.Guid&sortby=Alter">Altersklasse</a>    
-                }                
+                    <a href="/Meldung/?guid=@ViewBag.Guid&sortby=Alter">Altersklasse</a>
+                }
             </th>
             <th>
                 <a href="/Meldung/?guid=@ViewBag.Guid&sortby=Bootsklasse">Bootsklasse</a>
@@ -67,10 +67,10 @@
         @foreach (var reportedraces in ViewBag.ReportedRaces)
         {
             x = 0;
-            y = 0;
-            @foreach(var repsb in ViewBag.ReportedStartboats)
+
+            @foreach (var repsb in ViewBag.ReportedStartboats)
             {
-                if(repsb.ReportedRaceId == reportedraces.ReportedRaceId)
+                if (repsb.ReportedRaceId == reportedraces.ReportedRaceId)
                 {
                     x++;
                 }
@@ -79,47 +79,47 @@
                 <td id="@reportedraces.ReportedRaceId">
                     @reportedraces.RaceCode
                     @if (reportedraces.Comment != "")
+                    {
+                        @:&nbsp;
+                        @:<span class="badge badge-warning">@reportedraces.Comment</span>
+                        @if (@reportedraces.Comment == "Bier Cup")
                         {
-                            @:&nbsp;
-                            @:<span class="badge badge-warning">@reportedraces.Comment</span>
-                            @if (@reportedraces.Comment == "Bier Cup")
-                            {
-                                @:&nbsp;<img src="/images/beer-512.png" height="15" />
-                            }
-                            @if (@reportedraces.Comment == "Prosecco Cup")
-                            {
-                                @:&nbsp;<img src="/images/prosecco.png" height="15" />
-                            }
+                            @:&nbsp;<img src="/images/beer-512.png" height="15" />
                         }
+                        @if (@reportedraces.Comment == "Prosecco Cup")
+                        {
+                            @:&nbsp;<img src="/images/prosecco.png" height="15" />
+                        }
+                    }
                 </td>
                 <td>
                     @if (reportedraces.Gender.Equals("M"))
+                    {
+                        @if (reportedraces.Oldclass.FromAge >= 17 && reportedraces.Oldclass.ToAge <= 99)
                         {
-                            @if(reportedraces.Oldclass.FromAge >=17 && reportedraces.Oldclass.ToAge <= 99)
-                            {
-                                @:Herren
-                            }
-                            else if(reportedraces.Oldclass.FromAge >= 15 && reportedraces.Oldclass.ToAge <= 16)
-                            {
-                                @:männliche    
-                            }                            
+                            @:Herren
                         }
-                        else if (string.Equals(reportedraces.Gender, "W"))
+                        else if (reportedraces.Oldclass.FromAge >= 15 && reportedraces.Oldclass.ToAge <= 16)
                         {
-                            @if (reportedraces.Oldclass.FromAge >= 17 && reportedraces.Oldclass.ToAge <= 99)
-                            {
-                                @:Damen
-                            }
-                            else
-                            {
-                                @:weibliche
-                            }
+                            @:männliche
                         }
-                        else if (string.Equals(reportedraces.Gender, "X"))
+                    }
+                    else if (string.Equals(reportedraces.Gender, "W"))
+                    {
+                        @if (reportedraces.Oldclass.FromAge >= 17 && reportedraces.Oldclass.ToAge <= 99)
                         {
-                            @:mixed
+                            @:Damen
                         }
-                        @reportedraces.Oldclass.Name
+                        else
+                        {
+                            @:weibliche
+                        }
+                    }
+                    else if (string.Equals(reportedraces.Gender, "X"))
+                    {
+                        @:mixed
+                    }
+                    @reportedraces.Oldclass.Name
                 </td>
                 <td>
                     @reportedraces.Competition.Boatclasses.Name
@@ -128,13 +128,13 @@
                     @reportedraces.Competition.Raceclasses.Name
                 </td>
                 <td>
-                    @if(x > 0)
+                    @if (x > 0)
                     {
-                        @x    
-                    }                    
+                        @x
+                    }
                 </td>
                 <td>
-                        <a href="/Meldung/Details/@reportedraces.ReportedRaceId/?guid=@ViewBag.Guid" class="btn btn-secondary">Startboot melden</a>                                            
+                    <a href="/Meldung/Details/@reportedraces.ReportedRaceId/?guid=@ViewBag.Guid" class="btn btn-secondary">Startboot melden</a>
                 </td>
             </tr>
         }

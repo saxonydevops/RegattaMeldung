@@ -181,8 +181,9 @@ namespace RegattaMeldung.Controllers
             int standby5, int standby6, int standby7, int standby8, bool standbycheck1, bool standbycheck2, bool standbycheck3, bool standbycheck4, bool standbycheck5,
             bool standbycheck6, bool standbycheck7, bool standbycheck8, int clubid, int seatnumber, string guid)
         {
+            var race = _context.ReportedRaces.FirstOrDefault(e => e.ReportedRaceId == id);
             var rid = _context.RegattaClubs.FirstOrDefault(e => e.Guid == guid).RegattaId;
-            _context.ReportedStartboats.Add(new ReportedStartboat { ClubId = clubid, ReportedRaceId = id, RegattaId = rid});
+            _context.ReportedStartboats.Add(new ReportedStartboat { ClubId = clubid, ReportedRaceId = id, RegattaId = rid, Gender = race.Gender });
 
             List<int> seats = new List<int>();
 
