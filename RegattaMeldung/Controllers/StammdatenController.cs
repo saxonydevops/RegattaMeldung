@@ -20,7 +20,7 @@ namespace RegattaMeldung.Controllers
             _context = context;
         }
         // GET: Stammdaten
-        public ActionResult Index(string guid, string sortby)
+        public ActionResult Index(string guid, string sortby, int RentedFromClubId, bool choosed)
         {           
             if (guid == null)
             {
@@ -61,9 +61,43 @@ namespace RegattaMeldung.Controllers
             ViewBag.Members = member;
             ViewBag.ThisYear = DateTime.Now.Year;
             ViewBag.MemberYear = DateTime.Now.Year - 6;
+            ViewBag.choosed = choosed;
+
             ViewData["RentedToClubId"] = new SelectList(_context.Clubs.OrderBy(e => e.Name), "ClubId", "Name");
 
+            if(choosed == true)
+            {
+                ViewData["RentedFromClubId"] = new SelectList(_context.Clubs.OrderBy(e => e.Name), "ClubId", "Name", RentedFromClubId);    
+                ViewData["RentedMemberId"] = new SelectList(_context.Members.Where(e => e.ClubId == RentedFromClubId).OrderBy(e => e.LastName), "MemberId", "FullName");
+            }
+            else
+            {
+                ViewData["RentedFromClubId"] = new SelectList(_context.Clubs.OrderBy(e => e.Name), "ClubId", "Name");
+                ViewData["RentedMemberId"] = new SelectList(_context.Members.OrderBy(e => e.LastName), "MemberId", "FullName");
+            }            
+
             return View(club);
+        }
+
+        public IActionResult RentMember(int id, string guid, bool choosed, int RentedMemberId, int RentedFromClubId, int RentYear)
+        {
+            var member = _context.Members.FirstOrDefault(e => e.MemberId == RentedMemberId);
+
+            if(member != null)
+            {
+                member.isRented = true;
+                member.RentedToClubId = id;
+                member.RentYear = RentYear;
+                _context.Members.Update(member);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index","Stammdaten", new {guid = guid});
+        }
+
+        public IActionResult ChooseClub(int id, int RentedFromClubId, string guid)
+        {
+            return RedirectToAction("Index","Stammdaten",new {guid = guid, RentedFromClubId = RentedFromClubId, choosed = true});
         }
 
         public IActionResult AddMember(int id, string lastname, string firstname, string gender, int birthyear, string guid, bool isRented, int RentedToClubId, int RentYear)
