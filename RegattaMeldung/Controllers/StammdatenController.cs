@@ -68,12 +68,12 @@ namespace RegattaMeldung.Controllers
             if(choosed == true)
             {
                 ViewData["RentedFromClubId"] = new SelectList(_context.Clubs.OrderBy(e => e.Name), "ClubId", "Name", RentedFromClubId);    
-                ViewData["RentedMemberId"] = new SelectList(_context.Members.Where(e => e.ClubId == RentedFromClubId).OrderBy(e => e.LastName), "MemberId", "FullName");
+                ViewData["RentedMemberId"] = new SelectList(_context.Members.Where(e => e.ClubId == RentedFromClubId && (e.isRented == false || (e.RentYear != DateTime.Now.Year))).OrderBy(e => e.LastName), "MemberId", "FullName");
             }
             else
             {
                 ViewData["RentedFromClubId"] = new SelectList(_context.Clubs.OrderBy(e => e.Name), "ClubId", "Name");
-                ViewData["RentedMemberId"] = new SelectList(_context.Members.OrderBy(e => e.LastName), "MemberId", "FullName");
+                ViewData["RentedMemberId"] = new SelectList(_context.Members.Where(e => e.isRented == false || (e.RentYear != DateTime.Now.Year)).OrderBy(e => e.LastName), "MemberId", "FullName");
             }            
 
             return View(club);
@@ -93,6 +93,22 @@ namespace RegattaMeldung.Controllers
             }
 
             return RedirectToAction("Index","Stammdaten", new {guid = guid});
+        }
+
+        public IActionResult UnrentMember(int id, string guid)
+        {
+            var member = _context.Members.FirstOrDefault(e => e.MemberId == id);
+
+            if (member != null)
+            {
+                member.isRented = false;
+                member.RentedToClubId = 0;
+                member.RentYear = 0;
+                _context.Members.Update(member);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Stammdaten", new { guid = guid });
         }
 
         public IActionResult ChooseClub(int id, int RentedFromClubId, string guid)

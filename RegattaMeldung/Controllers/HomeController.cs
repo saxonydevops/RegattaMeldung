@@ -10,22 +10,21 @@ namespace RegattaMeldung.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string guid)
         {
+            ViewBag.Guid = guid;
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult About(string guid)
         {
-            ViewData["Message"] = "Your application description page.";
-
+            ViewBag.Guid = guid;
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Help(string guid)
         {
-            ViewData["Message"] = "Your contact page.";
-
+            ViewBag.Guid = guid;
             return View();
         }
 

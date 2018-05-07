@@ -53,11 +53,11 @@
                 <label>Verein</label>
                         @if (Model.isRented == true)
                         {
-                            <select name="RentedToClubId" id="RentedToClubId" class="form-control" asp-items="ViewBag.RentedToClubId"></select>
+                            <select name="RentedToClubId" id="RentedToClubId" class="form-control" asp-items="ViewBag.RentedToClubId"><option selected>---Verein ausw&auml;hlen---</option></select>
                         }
                         else
                         {
-                            <select name="RentedToClubId" id="RentedToClubId" class="form-control" asp-items="ViewBag.RentedToClubId" disabled></select>   
+                            <select name="RentedToClubId" id="RentedToClubId" class="form-control" asp-items="ViewBag.RentedToClubId" disabled><option selected>---Verein ausw&auml;hlen---</option></select>   
                         }                
             </div>
             <div class="form-group">
