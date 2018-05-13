@@ -8,33 +8,100 @@
 <h2>Details</h2>
 
 <div>
-    <h4>ReportedRace</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RaceCode)
-        </dt>
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Competition)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Competition.CompetitionId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Oldclass)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Oldclass.OldclassId)
-        </dd>
-    </dl>
+    <h4>@Model.Competition.Boatclasses.Name - @Model.Competition.Raceclasses.Name - @ViewBag.genderdesc @Model.Oldclass.Name</h4>
 </div>
+
+<h2>Startboote</h2>
+<table class="table table-hover">
+    <tr>
+        <th>
+            Starter
+        </th>
+        <th>
+            Ersatz
+        </th>
+        <th>
+            Verein
+        </th>
+    </tr>
+    @foreach (var startboat in ViewBag.reportedstartboats)
+    {
+        if (startboat.ReportedRaceId == Model.ReportedRaceId)
+        {
+            <tr>
+                <td>
+                    @foreach (var sbm in ViewBag.reportedstartboatmembers)
+                    {
+                        if (sbm.ReportedStartboatId == startboat.ReportedStartboatId)
+                        {
+                            foreach (var member in ViewBag.members)
+                            {
+                                if (member.MemberId == sbm.MemberId)
+                                {
+                                    @string.Format("{0}", member.FullName);
+                                    @if (member.ClubId != startboat.ClubId && member.isRented == false)
+                                    {
+                                        @string.Format(" ({0})", member.Club.Name);
+                                    }
+                                    @if (member.isRented == true && member.RentedToClubId != startboat.ClubId && member.RentYear == ViewBag.ThisYear)
+                                    {
+                                        @foreach (var ac in ViewBag.AllClubs)
+                                        {
+                                            if (ac.ClubId == member.RentedToClubId)
+                                            {
+                                                @: (@ac.Name)
+                                            }
+                                        }
+                                    }
+                                    @if (member.isRented == true && member.RentedToClubId == startboat.ClubId && member.RentYear == ViewBag.ThisYear)
+                                    {
+                                        @: (ausgeliehen)
+                                    }
+                                    @:<br />
+                                }
+                            }
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var sbs in ViewBag.reportedstartboatstandbys)
+                    {
+                        if (sbs.ReportedStartboatId == startboat.ReportedStartboatId)
+                        {
+                            foreach (var member in ViewBag.members)
+                            {
+                                if (member.MemberId == sbs.MemberId)
+                                {
+                                    @string.Format("{0}", member.FullName);
+                                    @if (member.ClubId != startboat.ClubId && member.isRented == false)
+                                    {
+                                        @string.Format(" ({0})", member.Club.Name);
+                                    }
+                                    @if (member.isRented == true && member.RentedToClubId != startboat.ClubId && member.RentYear == ViewBag.ThisYear)
+                                    {
+                                        @foreach (var ac in ViewBag.AllClubs)
+                                        {
+                                            if (ac.ClubId == member.RentedToClubId)
+                                            {
+                                                @: (@ac.Name)
+                                            }
+                                        }
+                                    }
+                                    @:<br />
+                                }
+                            }
+                        }
+                    }
+                </td>
+                <td>
+                    @startboat.Club.Name
+                </td>
+            </tr>
+        }
+    }
+</table>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ReportedRaceId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a href="/ReportedRaces/?rid=@Model.RegattaId#@Model.ReportedRaceId">Back to List</a>
 </div>

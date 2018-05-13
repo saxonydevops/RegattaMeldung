@@ -44,7 +44,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+                <tr id="@item.ReportedRaceId">
                     <td>
                         @item.RaceCode
                         @if (item.Comment != "")
@@ -109,6 +109,7 @@
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.ReportedRaceId" class="btn btn-secondary">Bearbeiten</a> |
+                        <a asp-action="Details" asp-route-id="@item.ReportedRaceId" class="btn btn-secondary">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.ReportedRaceId" class="btn btn-danger">L&ouml;schen</a>
                     </td>
                 </tr>

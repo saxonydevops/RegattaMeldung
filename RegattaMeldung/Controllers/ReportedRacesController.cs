@@ -70,9 +70,33 @@ namespace RegattaMeldung.Controllers
                 .Include(r => r.Competition.Raceclasses)
                 .Include(r => r.Oldclass)
                 .SingleOrDefaultAsync(m => m.ReportedRaceId == id);
+
             if (reportedRace == null)
             {
                 return NotFound();
+            }
+
+            var reportedstartboats = _context.ReportedStartboats.Include(e => e.Club).ToList();
+            var reportedstartboatmembers = _context.ReportedStartboatMembers.ToList();
+            var reportedstartboatstandbys = _context.ReportedStartboatStandbys.ToList();
+            var members = _context.Members.ToList();
+
+            ViewBag.reportedstartboats = reportedstartboats;
+            ViewBag.reportedstartboatmembers = reportedstartboatmembers;
+            ViewBag.reportedstartboatstandbys = reportedstartboatstandbys;
+            ViewBag.members = members;
+
+            if (reportedRace.Gender == "M")
+            {
+                ViewBag.genderdesc = "männliche";
+            }
+            if (reportedRace.Gender == "W")
+            {
+                ViewBag.genderdesc = "weibliche";
+            }
+            if (reportedRace.Gender == "X")
+            {
+                ViewBag.genderdesc = "mixed";
             }
 
             return View(reportedRace);
