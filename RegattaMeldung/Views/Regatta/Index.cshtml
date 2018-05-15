@@ -4,6 +4,7 @@
     ViewData["Title"] = "Regattaübersicht";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{ var x = 0; }
 
 <h2>Regattaübersicht</h2>
 
@@ -67,6 +68,9 @@
                 Regatta
             </th>
             <th>
+                Anzahl Meldungen
+            </th>
+            <th>
                 Link
             </th>
         </tr>
@@ -74,12 +78,23 @@
     <tbody>
         @foreach (var inv in ViewBag.Invited)
         {
+            x = 0;
             <tr>
                 <td>
                     @inv.Club.Name
                 </td>
                 <td>
                     @inv.Regatta.Name
+                </td>
+                <td>
+                    @foreach(var sb in ViewBag.reportedstartboats)
+                    {
+                        if(sb.ClubId == inv.ClubId && sb.RegattaId == inv.RegattaId)
+                        {
+                            x++;
+                        }
+                    }
+                    @x
                 </td>
                 <td>
                     <a href="https://meldung.regattaplaner.net/Meldung/?guid=@inv.Guid">Meldelink</a>

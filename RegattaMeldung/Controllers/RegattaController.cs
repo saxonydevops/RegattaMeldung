@@ -27,8 +27,11 @@ namespace RegattaMeldung.Controllers
         {
             var applicationDbContext = _context.Regattas.Include(r => r.Club).Include(r => r.Waters);
 
-            IEnumerable<RegattaClub> invitedclubs = _context.RegattaClubs.Include(e => e.Club).Include(e => e.Regatta);
+            IEnumerable<RegattaClub> invitedclubs = _context.RegattaClubs.Include(e => e.Club).Include(e => e.Regatta).OrderBy(e => e.RegattaId).ThenBy(e => e.Club.Name);
             ViewBag.Invited = invitedclubs;
+
+            var reportedstartboats = _context.ReportedStartboats.ToList();
+            ViewBag.reportedstartboats = reportedstartboats;
 
             return View(await applicationDbContext.ToListAsync());
         }

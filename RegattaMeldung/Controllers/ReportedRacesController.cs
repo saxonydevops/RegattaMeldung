@@ -79,12 +79,13 @@ namespace RegattaMeldung.Controllers
             var reportedstartboats = _context.ReportedStartboats.Include(e => e.Club).ToList();
             var reportedstartboatmembers = _context.ReportedStartboatMembers.ToList();
             var reportedstartboatstandbys = _context.ReportedStartboatStandbys.ToList();
-            var members = _context.Members.ToList();
+            var members = _context.Members.Include(e => e.Club).ToList();
 
             ViewBag.reportedstartboats = reportedstartboats;
             ViewBag.reportedstartboatmembers = reportedstartboatmembers;
             ViewBag.reportedstartboatstandbys = reportedstartboatstandbys;
             ViewBag.members = members;
+            ViewBag.ThisYear = DateTime.Now.Year;
 
             if (reportedRace.Gender == "M")
             {
