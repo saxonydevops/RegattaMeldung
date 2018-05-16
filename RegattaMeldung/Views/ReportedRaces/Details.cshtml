@@ -55,7 +55,7 @@
                                     }
                                     @if (member.isRented == true && member.RentedToClubId == startboat.ClubId && member.RentYear == ViewBag.ThisYear)
                                     {
-                                        @: (@member.Club.Name)
+                                        @: (ausgeliehen von @member.Club.Name)
                                     }
                                     @:<br />
                                 }
