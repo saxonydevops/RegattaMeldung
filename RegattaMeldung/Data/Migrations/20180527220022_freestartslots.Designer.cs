@@ -11,9 +11,10 @@ using System;
 namespace RegattaMeldung.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180527220022_freestartslots")]
+    partial class freestartslots
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -546,20 +547,6 @@ namespace RegattaMeldung.Data.Migrations
                     b.HasIndex("MemberId");
 
                     b.ToTable("ReportedStartboatStandbys");
-                });
-
-            modelBuilder.Entity("RegattaMeldung.Models.RRFreeStartslots", b =>
-                {
-                    b.Property<int>("RRFreeStartslotsId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("FreeStartslots");
-
-                    b.Property<int>("ReportedRaceId");
-
-                    b.HasKey("RRFreeStartslotsId");
-
-                    b.ToTable("RRFreeStartslots");
                 });
 
             modelBuilder.Entity("RegattaMeldung.Models.StartingFee", b =>

@@ -10,6 +10,27 @@
 <h2>Startboot erstellen</h2>
 <h3>@ViewBag.Club.Name</h3>
 <h4>@Model.Competition.Boatclasses.Name - @Model.Competition.Raceclasses.Name - @ViewBag.genderdesc @Model.Oldclass.Name</h4>
+@if (ViewBag.freestartslots == 1)
+{
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        Noch @ViewBag.freestartslots Startbahn verfügbar!
+    </div>
+}
+else if (ViewBag.freestartslots > 1)
+{
+    <div class="alert alert-dismissible alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        Noch @ViewBag.freestartslots Startbahnen verfügbar!
+    </div>
+}
+else
+{
+    <div class="alert alert-dismissible alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p class="mb-0">Derzeit keine Startbahnen verfügbar. Sie kommen auf die Warteliste.</p>
+    </div>
+}
 @if (ViewBag.allAvailable == true)
 {
     <div align="right">

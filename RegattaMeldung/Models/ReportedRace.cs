@@ -26,6 +26,7 @@ namespace RegattaMeldung.Models
         public Regatta Regatta { get; set; }
         [Display(Name = "Kommentar")]
         public string Comment { get; set; }
+        public int FreeStartslots { get; set; }
         public List<ReportedStartboat> ReportedStartboats { get; set; }
     }
 }

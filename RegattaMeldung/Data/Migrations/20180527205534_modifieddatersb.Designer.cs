@@ -11,9 +11,10 @@ using System;
 namespace RegattaMeldung.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180527205534_modifieddatersb")]
+    partial class modifieddatersb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,30 +242,6 @@ namespace RegattaMeldung.Data.Migrations
                     b.ToTable("Competitions");
                 });
 
-            modelBuilder.Entity("RegattaMeldung.Models.DeletedStartboats", b =>
-                {
-                    b.Property<int>("DeletedStartboatId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ClubId");
-
-                    b.Property<string>("Gender");
-
-                    b.Property<int>("RegattaId");
-
-                    b.Property<int>("ReportedRaceId");
-
-                    b.Property<int>("ReportedStartboatId");
-
-                    b.Property<DateTime>("deleteDate");
-
-                    b.Property<bool>("wasLate");
-
-                    b.HasKey("DeletedStartboatId");
-
-                    b.ToTable("DeletedStartboats");
-                });
-
             modelBuilder.Entity("RegattaMeldung.Models.Member", b =>
                 {
                     b.Property<int>("MemberId")
@@ -463,8 +440,6 @@ namespace RegattaMeldung.Data.Migrations
 
                     b.Property<int>("CompetitionId");
 
-                    b.Property<int>("FreeStartslots");
-
                     b.Property<string>("Gender");
 
                     b.Property<int>("OldclassId");
@@ -494,8 +469,6 @@ namespace RegattaMeldung.Data.Migrations
                     b.Property<int?>("CompetitionId");
 
                     b.Property<string>("Gender");
-
-                    b.Property<bool>("NoStartslot");
 
                     b.Property<int>("RegattaId");
 
@@ -546,20 +519,6 @@ namespace RegattaMeldung.Data.Migrations
                     b.HasIndex("MemberId");
 
                     b.ToTable("ReportedStartboatStandbys");
-                });
-
-            modelBuilder.Entity("RegattaMeldung.Models.RRFreeStartslots", b =>
-                {
-                    b.Property<int>("RRFreeStartslotsId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("FreeStartslots");
-
-                    b.Property<int>("ReportedRaceId");
-
-                    b.HasKey("RRFreeStartslotsId");
-
-                    b.ToTable("RRFreeStartslots");
                 });
 
             modelBuilder.Entity("RegattaMeldung.Models.StartingFee", b =>

@@ -112,6 +112,7 @@ namespace RegattaMeldung.Controllers
             var availMembers = _context.Members.Where(e => (e.ClubId == clubid || e.RentedToClubId == clubid) && (!sbMembers.Contains(e.MemberId)));
             var allMembers = _context.Members.Include(e => e.Club).Where(e => e.ClubId == clubid || e.RentedToClubId == clubid);
             var vStartboats = _context.ReportedStartboats.Where(e => e.ReportedRaceId == id && e.ClubId == clubid).ToList();
+            var freestartslots = _context.RRFreeStartslots.FirstOrDefault(e => e.ReportedRaceId == id).FreeStartslots;
 
             if(model.Gender == "M" || model.Gender == "W")
             {
@@ -144,6 +145,7 @@ namespace RegattaMeldung.Controllers
             ViewBag.Club = _context.RegattaClubs.Include(e => e.Club).FirstOrDefault(e => e.Guid == guid).Club;
             ViewBag.doppelt = doppelt;
             ViewBag.allAvailable = allAvailable;
+            ViewBag.FreeStartslots = freestartslots;
 
             if(model.Gender == "M")
             {
@@ -183,7 +185,28 @@ namespace RegattaMeldung.Controllers
         {
             var race = _context.ReportedRaces.FirstOrDefault(e => e.ReportedRaceId == id);
             var rid = _context.RegattaClubs.FirstOrDefault(e => e.Guid == guid).RegattaId;
-            _context.ReportedStartboats.Add(new ReportedStartboat { ClubId = clubid, ReportedRaceId = id, RegattaId = rid, Gender = race.Gender });
+            var regatta = _context.Regattas.FirstOrDefault(e => e.RegattaId == rid);
+            bool isLate = false;
+            bool nostartslot = false;
+
+            if(DateTime.Now > regatta.ReportOpening)
+            {
+                isLate = true;
+            }
+
+            var rrfree = _context.RRFreeStartslots.FirstOrDefault(e => e.ReportedRaceId == race.ReportedRaceId);
+
+            if (rrfree != null)
+            {
+                rrfree.FreeStartslots = rrfree.FreeStartslots - 1;
+                _context.RRFreeStartslots.Update(rrfree);
+            }
+            else
+            {
+                nostartslot = true;
+            }
+
+            _context.ReportedStartboats.Add(new ReportedStartboat { ClubId = clubid, ReportedRaceId = id, RegattaId = rid, Gender = race.Gender, isLate = isLate, modifiedDate = DateTime.Now, NoStartslot = nostartslot });            
 
             List<int> seats = new List<int>();
 
@@ -505,11 +528,15 @@ namespace RegattaMeldung.Controllers
             foreach (var sbs in sbstandby)
             {
                 _context.ReportedStartboatStandbys.Remove(sbs);
-            }
+            }            
 
             var original = _context.ReportedStartboats.FirstOrDefault(e => e.ReportedStartboatId == id);
             if (original != null)
             {
+                _context.DeletedStartboats.Add(new DeletedStartboats { ReportedStartboatId = original.ReportedStartboatId, ClubId = original.ClubId, Gender = original.Gender, RegattaId = original.RegattaId, ReportedRaceId = original.ReportedRaceId, wasLate = original.isLate, deleteDate = DateTime.Now });
+                var rrfreesl = _context.RRFreeStartslots.FirstOrDefault(e => e.ReportedRaceId == original.ReportedRaceId);
+                rrfreesl.FreeStartslots = rrfreesl.FreeStartslots + 1;
+                _context.RRFreeStartslots.Update(rrfreesl);
                 _context.ReportedStartboats.Remove(original);
                 _context.SaveChanges();
             }
@@ -1028,7 +1055,7 @@ namespace RegattaMeldung.Controllers
                 if (MemberFromAge == 19)
                 {
                     ageFrom = yearnow - 17;
-                    ageTo = yearnow - 39;
+                    ageTo = yearnow - 49;
                 }
                 else if (MemberFromAge == 32)
                 {
@@ -1038,7 +1065,7 @@ namespace RegattaMeldung.Controllers
                 else if (MemberFromAge == 40)
                 {
                     ageFrom = yearnow - MemberFromAge;
-                    ageTo = yearnow - 59;
+                    ageTo = yearnow - 99;
                 }
                 else if (MemberFromAge == 50)
                 {

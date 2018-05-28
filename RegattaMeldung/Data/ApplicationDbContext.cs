@@ -145,5 +145,7 @@ namespace RegattaMeldung.Data
         public DbSet<RegattaMeldung.Models.ReportedRace> ReportedRaces { get; set; }
         public DbSet<RegattaMeldung.Models.StartingFee> StartingFees { get; set; }
         public DbSet<RegattaMeldung.Models.Water> Waters { get; set; }        
+        public DbSet<RegattaMeldung.Models.DeletedStartboats> DeletedStartboats { get; set; }
+        public DbSet<RegattaMeldung.Models.RRFreeStartslots> RRFreeStartslots { get; set; }
     }
 }
