@@ -109,12 +109,18 @@ namespace RegattaMeldung.Controllers
             var clubid = _context.RegattaClubs.Include(e => e.Club).FirstOrDefault(e => e.Guid == guid).ClubId;            
             var sbMembers = _context.ReportedStartboatMembers.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();
             var sbStandbys = _context.ReportedStartboatStandbys.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();
-            var availMembers = _context.Members.Where(e => (e.ClubId == clubid || e.RentedToClubId == clubid) && (!sbMembers.Contains(e.MemberId)));
-            var allMembers = _context.Members.Include(e => e.Club).Where(e => e.ClubId == clubid || e.RentedToClubId == clubid);
+            var availMembers = _context.Members.Where(e => (e.ClubId == clubid || e.RentedToClubId == clubid) && (!sbMembers.Contains(e.MemberId))).ToList();
+            var allMembers = _context.Members.Include(e => e.Club).Where(e => e.ClubId == clubid || e.RentedToClubId == clubid).ToList();
             var vStartboats = _context.ReportedStartboats.Where(e => e.ReportedRaceId == id && e.ClubId == clubid).ToList();
-            var freestartslots = _context.RRFreeStartslots.FirstOrDefault(e => e.ReportedRaceId == id).FreeStartslots;
 
-            if(model.Gender == "M" || model.Gender == "W")
+            var freestartslots = 0;
+
+            if(_context.RRFreeStartslots.Any(e => e.ReportedRaceId == id))
+            {
+                freestartslots = _context.RRFreeStartslots.FirstOrDefault(e => e.ReportedRaceId == id).FreeStartslots;
+            }
+
+            if (model.Gender == "M" || model.Gender == "W")
             {
                 var memberlist1 = new SelectList(availMembers.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct(), "MemberId", "FullName");
                 if(memberlist1.Count() == 0)
@@ -670,6 +676,7 @@ namespace RegattaMeldung.Controllers
             ViewBag.Club = _context.RegattaClubs.Include(e => e.Club).FirstOrDefault(e => e.Guid == guid).Club;
             ViewBag.Startboat = startboat;
             ViewBag.ReportedStartboatId = startboat.ReportedStartboatId;
+            ViewBag.allAvailable = allAvailable;
 
             if (model.Gender == "M")
             {

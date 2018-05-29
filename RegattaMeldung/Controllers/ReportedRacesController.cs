@@ -32,7 +32,7 @@ namespace RegattaMeldung.Controllers
                 OrderBy(c => c.Competition.Raceclasses.Length).
                 ThenBy(b => b.Competition.Boatclasses.Name).
                 ThenBy(g => g.Gender).
-                ThenBy(a => a.Oldclass.FromAge);
+                ThenBy(a => a.Oldclass.FromAge).ToList();
 
             if (rid > 0)
             {
@@ -43,13 +43,13 @@ namespace RegattaMeldung.Controllers
                     Where(e => e.RegattaId == rid).
                     OrderBy(c => c.Competition.Raceclasses.Length).
                     ThenBy(b => b.Competition.Boatclasses.Name).
-                    ThenBy(g => g.Gender).ThenBy(a => a.Oldclass.FromAge);
+                    ThenBy(g => g.Gender).ThenBy(a => a.Oldclass.FromAge).ToList();
             }
             else
             {
                 rid = firstregatta.RegattaId;
             }
-            IEnumerable<ReportedStartboat> reportedstartboats = _context.ReportedStartboats.Where(e => e.RegattaId == rid);
+            IEnumerable<ReportedStartboat> reportedstartboats = _context.ReportedStartboats.Where(e => e.RegattaId == rid).ToList();
             ViewBag.reportedstartboats = reportedstartboats;
             ViewData["RegattaId"] = new SelectList(_context.Regattas, "RegattaId", "Name", rid);
             ViewBag.rid = rid;            

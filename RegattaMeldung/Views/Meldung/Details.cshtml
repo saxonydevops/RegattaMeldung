@@ -103,7 +103,7 @@ else
                 </tr>
             </thead>
             @for (var i = 1; i <= x; i++)
-            {
+            {                
                 <tr>
                     <td>
                         @i
@@ -146,12 +146,13 @@ else
             Ersatz
         </th>
         <th></th>
+        <th></th>
     </tr>
     @foreach (var startboat in ViewBag.startboats)
     {
         if (startboat.ReportedRaceId == Model.ReportedRaceId)
         {
-            <tr>
+            <tr>        
                 <td>
                     @foreach (var sbm in ViewBag.startboatmembers)
                     {
@@ -214,6 +215,16 @@ else
                                 }
                             }
                         }
+                    }
+                </td>
+                <td>
+                    @if(startboat.isLate == true && startboat.NoStartslot == false)
+                    {
+                        @:<span class="badge badge-success">Nachmeldung</span>
+                    }
+                    else if(startboat.isLate == true && startboat.NoStartslot == true)
+                    {
+                        @:<span class="badge badge-warning">Warteliste</span>
                     }
                 </td>
                 <td>
