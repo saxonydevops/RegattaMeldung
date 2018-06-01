@@ -202,15 +202,13 @@ namespace RegattaMeldung.Controllers
 
             var rrfree = _context.RRFreeStartslots.FirstOrDefault(e => e.ReportedRaceId == race.ReportedRaceId);
 
-            if (rrfree != null)
-            {
-                rrfree.FreeStartslots = rrfree.FreeStartslots - 1;
-                _context.RRFreeStartslots.Update(rrfree);
-            }
-            else
+            if (rrfree.FreeStartslots <= 0)
             {
                 nostartslot = true;
             }
+            
+            rrfree.FreeStartslots = rrfree.FreeStartslots - 1;
+            _context.RRFreeStartslots.Update(rrfree);
 
             _context.ReportedStartboats.Add(new ReportedStartboat { ClubId = clubid, ReportedRaceId = id, RegattaId = rid, Gender = race.Gender, isLate = isLate, modifiedDate = DateTime.Now, NoStartslot = nostartslot });            
 
@@ -1067,7 +1065,7 @@ namespace RegattaMeldung.Controllers
                 else if (MemberFromAge == 32)
                 {
                     ageFrom = yearnow - MemberFromAge;
-                    ageTo = yearnow - 59;
+                    ageTo = yearnow - 99;
                 }
                 else if (MemberFromAge == 40)
                 {

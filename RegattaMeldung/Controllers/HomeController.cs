@@ -22,6 +22,12 @@ namespace RegattaMeldung.Controllers
             return View();
         }
 
+        public IActionResult GDPR(string guid)
+        {
+            ViewBag.Guid = guid;
+            return View();
+        }
+
         public IActionResult Help(string guid)
         {
             ViewBag.Guid = guid;
