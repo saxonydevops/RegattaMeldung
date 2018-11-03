@@ -23,12 +23,20 @@ namespace RegattaMeldung.Controllers
         }
 
         // GET: Regatta
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
             var applicationDbContext = _context.Regattas.Include(r => r.Club).Include(r => r.Waters);
 
-            IEnumerable<RegattaClub> invitedclubs = _context.RegattaClubs.Include(e => e.Club).Include(e => e.Regatta).OrderBy(e => e.RegattaId).ThenBy(e => e.Club.Name);
-            ViewBag.Invited = invitedclubs;
+            if(id == null)
+            {
+                IEnumerable<RegattaClub> invitedclubs = _context.RegattaClubs.Include(e => e.Club).Include(e => e.Regatta).OrderBy(e => e.RegattaId).ThenBy(e => e.Club.Name);
+                ViewBag.Invited = invitedclubs;
+            }            
+            else
+            {
+                IEnumerable<RegattaClub> invitedclubs = _context.RegattaClubs.Include(e => e.Club).Include(e => e.Regatta).Where(e => e.RegattaId == id).OrderBy(e => e.RegattaId).ThenBy(e => e.Club.Name);
+                ViewBag.Invited = invitedclubs;
+            }
 
             var reportedstartboats = _context.ReportedStartboats.ToList();
             ViewBag.reportedstartboats = reportedstartboats;

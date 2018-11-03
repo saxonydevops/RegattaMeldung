@@ -49,7 +49,8 @@
                     <a asp-action="Edit" asp-route-id="@item.RegattaId" class="btn btn-secondary">Bearbeiten</a> <br/>
                     <a asp-action="Delete" asp-route-id="@item.RegattaId" class="btn btn-danger">L&ouml;schen</a> <br />
                     <a asp-action="createReportedRaces" asp-route-id="@item.RegattaId" class="btn btn-secondary">Rennliste generieren</a> <br />
-                    <a asp-action="Invite" asp-route-id="@item.RegattaId" class="btn btn-success">Vereine einladen</a>
+                    <a asp-action="Invite" asp-route-id="@item.RegattaId" class="btn btn-success">Vereine einladen</a> <br />
+                    <a asp-action="Index" asp-route-id="@item.RegattaId" class="btn btn-dark">Filtern</a>
                 </td>
             </tr>
         }
