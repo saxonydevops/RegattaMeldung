@@ -111,7 +111,10 @@ else
                     <td>
                         <div class="form-group">
                             <div class="col-md-10">
-                                <select name="@string.Format("seat{0}",i)" id="@string.Format("seat{0}",i)" class="form-control" asp-items="@ViewBag.MemberId"><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                <select name="@string.Format("seat{0}",i)" id="@string.Format("seat{0}",i)" class="form-control" asp-items="@ViewBag.MemberId">
+                                    <option value="0" selected>---Sportler ausw&auml;hlen---</option>
+                                    <option value="1">ZU BESETZEN</option>
+                                </select>
                             </div>
                         </div>
                     </td>
@@ -123,7 +126,10 @@ else
                     <td>
                         <div class="form-group">
                             <div class="col-md-10">
-                                <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.MemberId" disabled><option value="0" selected>---Sportler ausw&auml;hlen---</option></select>
+                                <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.MemberId" disabled>
+                                    <option value="0" selected>---Sportler ausw&auml;hlen---</option>
+                                    <option value="1">ZU BESETZEN</option>
+                                </select>
                             </div>
                         </div>
                     </td>

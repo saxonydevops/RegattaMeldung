@@ -67,7 +67,7 @@ namespace RegattaMeldung.Controllers
         // GET: Regatta/Create
         public IActionResult Create()
         {
-            ViewData["ClubId"] = new SelectList(_context.Clubs, "ClubId", "Name");
+            ViewData["ClubId"] = new SelectList(_context.Clubs.OrderBy(e => e.Name), "ClubId", "Name");
             ViewData["WaterId"] = new SelectList(_context.Waters, "WaterId", "Name");
             ViewData["OldclassIds"] = new MultiSelectList(_context.Oldclasses.OrderBy(e => e.FromAge), "OldclassId", "Name");
             ViewData["CompetitionIds"] = new MultiSelectList(_context.Competitions.Include(e => e.Boatclasses).Include(e => e.Raceclasses).OrderBy(e => e.Boatclasses.Name).ThenBy(e => e.Raceclasses.Length), "CompetitionId", "Name");
@@ -342,11 +342,78 @@ namespace RegattaMeldung.Controllers
         // POST: Regatta/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var regatta = await _context.Regattas.SingleOrDefaultAsync(m => m.RegattaId == id);
+        public IActionResult DeleteConfirmed(int id)
+        {          
+            var regatta = _context.Regattas.SingleOrDefault(m => m.RegattaId == id);
+
+            var reportedstartboats = _context.ReportedStartboats.Where(e => e.RegattaId == id);
+
+            var reportedstartboatmembers = _context.ReportedStartboatMembers.Where(e => e.ReportedStartboatId == reportedstartboats.FirstOrDefault().ReportedStartboatId);
+            var reportedstartboatstandbys = _context.ReportedStartboatStandbys.Where(e => e.ReportedStartboatId == reportedstartboats.FirstOrDefault().ReportedStartboatId);
+
+            foreach (var rsb in reportedstartboats)
+            {
+                reportedstartboatmembers = _context.ReportedStartboatMembers.Where(e => e.ReportedStartboatId == rsb.ReportedStartboatId);
+                reportedstartboatstandbys = _context.ReportedStartboatStandbys.Where(e => e.ReportedStartboatId == rsb.ReportedStartboatId);
+
+                foreach(var rsbm in reportedstartboatmembers)
+                {
+                    _context.ReportedStartboatMembers.Remove(rsbm);
+                }
+
+                foreach(var rsbs in reportedstartboatstandbys)
+                {
+                    _context.ReportedStartboatStandbys.Remove(rsbs);
+                }
+                _context.SaveChanges();
+            }
+
+            _context.SaveChanges();
+
+            foreach(var rsb in reportedstartboats)
+            {
+                _context.ReportedStartboats.Remove(rsb);
+            }
+
+            _context.SaveChanges();
+
+            var regattacompetitions = _context.RegattaCompetitions.Where(e => e.RegattaId == id);
+
+            foreach(var rc in regattacompetitions)
+            {
+                _context.RegattaCompetitions.Remove(rc);
+            }
+
+            var reportedraces = _context.ReportedRaces.Where(e => e.RegattaId == id);
+
+            foreach(var rr in reportedraces)
+            {
+                _context.ReportedRaces.Remove(rr);
+            }
+
+            var regattaclubs = _context.RegattaClubs.Where(e => e.RegattaId == id);
+            
+            foreach(var rc in regattaclubs)
+            {
+                _context.RegattaClubs.Remove(rc);
+            }
+
+            var regattacampingfee = _context.RegattaCampingFees.Where(e => e.RegattaId == id);
+
+            foreach(var rcf in regattacampingfee)
+            {
+                _context.RegattaCampingFees.Remove(rcf);
+            }
+
+            var regattastartingfee = _context.RegattaStartingFees.Where(e => e.RegattaId == id);
+
+            foreach(var rsf in regattastartingfee)
+            {
+                _context.RegattaStartingFees.Remove(rsf);
+            }
+
             _context.Regattas.Remove(regatta);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
@@ -408,7 +475,7 @@ namespace RegattaMeldung.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("Rennen", "Index");
+            return RedirectToAction("ReportedRaces", "Index");
         }
 
         private RegattaVM populateRegattaVM(int? id)

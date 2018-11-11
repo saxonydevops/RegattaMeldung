@@ -24,37 +24,43 @@ namespace RegattaMeldung.Controllers
         // GET: ReportedRaces
         public IActionResult Index(int rid)
         {
-            var firstregatta = _context.Regattas.First();
-            IEnumerable<ReportedRace> applicationDbContext = _context.ReportedRaces.
-                Include(r => r.Competition.Boatclasses).Include(r => r.Competition.Raceclasses).
-                Include(r => r.Oldclass).
-                Where(e => e.RegattaId == firstregatta.RegattaId).
-                OrderBy(c => c.Competition.Raceclasses.Length).
-                ThenBy(b => b.Competition.Boatclasses.Name).
-                ThenBy(g => g.Gender).
-                ThenBy(a => a.Oldclass.FromAge).ToList();
-
-            if (rid > 0)
+            if(_context.Regattas.Any())
             {
-                applicationDbContext = _context.ReportedRaces.
-                    Include(r => r.Competition.Boatclasses).
-                    Include(r => r.Competition.Raceclasses).
+                var firstregatta = _context.Regattas.First();
+
+                IEnumerable<ReportedRace> applicationDbContext = _context.ReportedRaces.
+                    Include(r => r.Competition.Boatclasses).Include(r => r.Competition.Raceclasses).
                     Include(r => r.Oldclass).
-                    Where(e => e.RegattaId == rid).
+                    Where(e => e.RegattaId == firstregatta.RegattaId).
                     OrderBy(c => c.Competition.Raceclasses.Length).
                     ThenBy(b => b.Competition.Boatclasses.Name).
-                    ThenBy(g => g.Gender).ThenBy(a => a.Oldclass.FromAge).ToList();
-            }
-            else
-            {
-                rid = firstregatta.RegattaId;
-            }
-            IEnumerable<ReportedStartboat> reportedstartboats = _context.ReportedStartboats.Where(e => e.RegattaId == rid).ToList();
-            ViewBag.reportedstartboats = reportedstartboats;
-            ViewData["RegattaId"] = new SelectList(_context.Regattas, "RegattaId", "Name", rid);
-            ViewBag.rid = rid;            
+                    ThenBy(g => g.Gender).
+                    ThenBy(a => a.Oldclass.FromAge).ToList();
 
-            return View(applicationDbContext);
+                if (rid > 0)
+                {
+                    applicationDbContext = _context.ReportedRaces.
+                        Include(r => r.Competition.Boatclasses).
+                        Include(r => r.Competition.Raceclasses).
+                        Include(r => r.Oldclass).
+                        Where(e => e.RegattaId == rid).
+                        OrderBy(c => c.Competition.Raceclasses.Length).
+                        ThenBy(b => b.Competition.Boatclasses.Name).
+                        ThenBy(g => g.Gender).ThenBy(a => a.Oldclass.FromAge).ToList();
+                }
+                else
+                {
+                    rid = firstregatta.RegattaId;
+                }
+                IEnumerable<ReportedStartboat> reportedstartboats = _context.ReportedStartboats.Where(e => e.RegattaId == rid).ToList();
+                ViewBag.reportedstartboats = reportedstartboats;
+                ViewData["RegattaId"] = new SelectList(_context.Regattas, "RegattaId", "Name", rid);
+                ViewBag.rid = rid;
+
+                return View(applicationDbContext);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: ReportedRaces/Details/5
