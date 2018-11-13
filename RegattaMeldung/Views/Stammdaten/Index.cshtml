@@ -6,44 +6,11 @@
 }
 
 <h2>Stammdaten bearbeiten</h2>
-<h4>Willkommen @Model.Name</h4>
+<h5>Verein: @Model.Name</h5>
 
-<div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.City)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VNr)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => model.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => model.VNr)
-                </td>
-                <td>
-                    <!-- <a asp-action="Edit" asp-route-id="@Model.ClubId/?guid=@ViewBag.Guid">Bearbeiten</a>-->
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+<hr/>
 
-<h3>Mitglied hinzufügen</h3>
+<h3>Sportler hinzufügen</h3>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AddMember" asp-controller="Stammdaten" asp-route-id="@Model.ClubId">

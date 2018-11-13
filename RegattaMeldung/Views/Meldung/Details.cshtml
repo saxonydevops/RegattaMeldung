@@ -8,8 +8,22 @@
 
 
 <h2>Startboot erstellen</h2>
-<h3>@ViewBag.Club.Name</h3>
+<h5><div align="right">@ViewBag.Club.Name</div></h5>
 <h4>@Model.Competition.Boatclasses.Name - @Model.Competition.Raceclasses.Name - @ViewBag.genderdesc @Model.Oldclass.Name</h4>
+@if (ViewBag.allAvailable == true)
+{
+    <div align="right">
+        <a href="/Meldung/Details/@Model.ReportedRaceId/?guid=@ViewBag.Guid" class="btn btn-outline-primary">Nur Sportler der Altersklasse anzeigen</a>
+    </div>
+    <br />
+}
+else
+{
+    <div align="right">
+        <a href="/Meldung/Details/@Model.ReportedRaceId/?guid=@ViewBag.Guid&allAvailable=true" class="btn btn-outline-primary">Alle verf&uuml;gbaren Sportler anzeigen</a>
+    </div>
+    <br />
+}
 @if (ViewBag.freestartslots == 1)
 {
     <div class="alert alert-dismissible alert-success">
@@ -31,20 +45,6 @@ else
         <p class="mb-0">Derzeit keine Startbahnen verfügbar. Sie kommen auf die Warteliste.</p>
     </div>
 }
-@if (ViewBag.allAvailable == true)
-{
-    <div align="right">
-        <a href="/Meldung/Details/@Model.ReportedRaceId/?guid=@ViewBag.Guid" class="btn btn-outline-primary">Nur Sportler der Altersklasse anzeigen</a>
-    </div>
-    <br />
-}
-else
-{
-    <div align="right">
-        <a href="/Meldung/Details/@Model.ReportedRaceId/?guid=@ViewBag.Guid&allAvailable=true" class="btn btn-outline-primary">Alle verf&uuml;gbaren Sportler anzeigen</a>
-    </div>
-    <br />
-}
 @if (@ViewBag.doppelt == true)
 {
     <div class="alert alert-dismissible alert-danger">
@@ -56,9 +56,9 @@ else
 {
     <div class="alert alert-dismissible alert-warning">
         <h4 class="alert-heading">Leider keine geeigneten Mitglieder verf&uuml;gbar</h4>
-        <p class="mb-0">Sie können jetzt ein neues Mitglied anlegen
+        <p class="mb-0">Sie können jetzt einen neuen Sportler anlegen
     </div>
-    <h5>Mitglied hinzufügen</h5>
+    <h5>Sportler hinzufügen</h5>
     <form asp-action="AddMember" asp-controller="Stammdaten" asp-route-id="@ViewBag.Club.ClubId">
         <input type="hidden" name="guid" value="@ViewBag.Guid" />
         <table class="table table-hover">
