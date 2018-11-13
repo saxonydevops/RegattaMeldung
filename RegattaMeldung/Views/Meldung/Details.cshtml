@@ -113,7 +113,7 @@ else
                             <div class="col-md-10">
                                 <select name="@string.Format("seat{0}",i)" id="@string.Format("seat{0}",i)" class="form-control" asp-items="@ViewBag.MemberId">
                                     <option value="0" selected>---Sportler ausw&auml;hlen---</option>
-                                    <option value="1">ZU BESETZEN</option>
+                                    <option value="1">GESUCHT</option>
                                 </select>
                             </div>
                         </div>
@@ -128,7 +128,7 @@ else
                             <div class="col-md-10">
                                 <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.MemberId" disabled>
                                     <option value="0" selected>---Sportler ausw&auml;hlen---</option>
-                                    <option value="1">ZU BESETZEN</option>
+                                    <option value="1">GESUCHT</option>
                                 </select>
                             </div>
                         </div>
@@ -168,9 +168,18 @@ else
                             {
                                 if (member.MemberId == sbm.MemberId)
                                 {
-                                    @string.Format("{0}", member.FullName);
-                                    @if (member.ClubId != startboat.ClubId && member.isRented == false)
+                                    @if(member.MemberId ==1)
                                     {
+                                        @: <b>
+                                        @string.Format("{0}", member.LastName);
+                                        @: </b>
+                                    }
+                                    else
+                                    {
+                                        @string.Format("{0}", member.FullName);
+                                    }                                    
+                                    @if (member.ClubId != startboat.ClubId && member.isRented == false && member.MemberId != 1)
+                                    {                                        
                                         @string.Format(" ({0})", member.Club.Name);
                                     }
                                     @if (member.isRented == true && member.RentedToClubId != startboat.ClubId && member.RentYear == ViewBag.ThisYear)
@@ -202,8 +211,17 @@ else
                             {
                                 if (member.MemberId == sbs.MemberId)
                                 {
-                                    @string.Format("{0}", member.FullName);
-                                    @if (member.ClubId != startboat.ClubId && member.isRented == false)
+                                    @if(member.MemberId ==1)
+                                    {
+                                        @: <b>
+                                        @string.Format("{0}", member.LastName);
+                                        @: </b>
+                                    }
+                                    else
+                                    {
+                                        @string.Format("{0}", member.FullName);
+                                    }                                    
+                                    @if (member.ClubId != startboat.ClubId && member.isRented == false && member.MemberId != 1)
                                     {
                                         @string.Format(" ({0})", member.Club.Name);
                                     }

@@ -89,7 +89,7 @@ namespace RegattaMeldung.Controllers
             {
                 return RedirectToAction("Index","Home");
             }
-            var model = _context.ReportedRaces.Include(e => e.Competition.Boatclasses).Include(e => e.Competition.Raceclasses).Include(e => e.Oldclass).FirstOrDefault(e => e.ReportedRaceId == id);            
+            var model = _context.ReportedRaces.Include(e => e.Competition.Boatclasses).Include(e => e.Competition.Raceclasses).Include(e => e.Oldclass).Include(e => e.Regatta).FirstOrDefault(e => e.ReportedRaceId == id);            
 
             int yearnow = DateTime.Now.Year;
             int ageFrom = 0;
@@ -110,10 +110,10 @@ namespace RegattaMeldung.Controllers
             var sbMembers = _context.ReportedStartboatMembers.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();
             var sbStandbys = _context.ReportedStartboatStandbys.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();
             var availMembers = _context.Members.Where(e => (e.ClubId == clubid || e.RentedToClubId == clubid) && (!sbMembers.Contains(e.MemberId))).ToList();
-            var allMembers = _context.Members.Include(e => e.Club).Where(e => e.ClubId == clubid || e.RentedToClubId == clubid).ToList();
+            var allMembers = _context.Members.Include(e => e.Club).Where(e => e.ClubId == clubid || e.RentedToClubId == clubid || e.MemberId == 1).ToList();
             var vStartboats = _context.ReportedStartboats.Where(e => e.ReportedRaceId == id && e.ClubId == clubid).ToList();
 
-            var freestartslots = 0;
+            var freestartslots = model.Regatta.Startslots;
 
             if(_context.RRFreeStartslots.Any(e => e.ReportedRaceId == id))
             {
@@ -193,22 +193,32 @@ namespace RegattaMeldung.Controllers
             var rid = _context.RegattaClubs.FirstOrDefault(e => e.Guid == guid).RegattaId;
             var regatta = _context.Regattas.FirstOrDefault(e => e.RegattaId == rid);
             bool isLate = false;
-            bool nostartslot = false;
+            bool nostartslot = false;            
 
-            if(DateTime.Now > regatta.ReportOpening)
+            if(DateTime.Compare(DateTime.Now,regatta.ReportOpening) > 0)
             {
                 isLate = true;
             }
 
-            var rrfree = _context.RRFreeStartslots.FirstOrDefault(e => e.ReportedRaceId == race.ReportedRaceId);
-
-            if (rrfree.FreeStartslots <= 0)
+            if(_context.RRFreeStartslots.Any(e => e.ReportedRaceId == race.ReportedRaceId))
             {
-                nostartslot = true;
-            }
-            
-            rrfree.FreeStartslots = rrfree.FreeStartslots - 1;
-            _context.RRFreeStartslots.Update(rrfree);
+                var rrfree = _context.RRFreeStartslots.FirstOrDefault(e => e.ReportedRaceId == race.ReportedRaceId);
+
+                if (rrfree.FreeStartslots <= 0)
+                {
+                    nostartslot = true;
+                }
+
+                rrfree.FreeStartslots = rrfree.FreeStartslots - 1;
+                _context.RRFreeStartslots.Update(rrfree);
+            }  
+            else
+            {
+                RRFreeStartslots newrrfree = new RRFreeStartslots();
+                newrrfree.ReportedRaceId = race.ReportedRaceId;
+                newrrfree.FreeStartslots = regatta.Startslots - 1;
+                _context.RRFreeStartslots.Add(newrrfree);
+            }              
 
             _context.ReportedStartboats.Add(new ReportedStartboat { ClubId = clubid, ReportedRaceId = id, RegattaId = rid, Gender = race.Gender, isLate = isLate, modifiedDate = DateTime.Now, NoStartslot = nostartslot });            
 
