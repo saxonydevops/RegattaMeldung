@@ -12,8 +12,10 @@ namespace RegattaMeldung.Models
         public int RegattaId { get; set; }
         public string Name { get; set; }
         [Display(Name="Von")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime FromDate { get; set; }
         [Display(Name="Bis")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime ToDate { get; set; }
         public int Waterdepth { get; set; }
         public int Startslots { get; set; }

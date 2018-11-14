@@ -25,11 +25,14 @@
             </div>
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a href="/Meldung/?guid=@ViewBag.Guid" class="nav-link">Meldung</a></li>
-                    <li class="nav-item"><a href="/Stammdaten/?guid=@ViewBag.Guid" class="nav-link">Stammdaten</a></li>
-                    <li class="nav-item"><a href="https://programm.regattaplaner.net/" class="nav-link" target="_blank">Aktuelles Programm</a></li>
-                    <li class="nav-item"><a href="/Meldung/RegattaInfos/?guid=@ViewBag.Guid" class="nav-link">Regatta Info</a></li>
-                    <li class="nav-item"><a href="/Home/Help/?guid=@ViewBag.Guid" class="nav-link">Hilfe</a></li>
+                    @if(ViewBag.Guid != null)
+                    {
+                        <li class="nav-item"><a href="/Meldung/?guid=@ViewBag.Guid" class="nav-link">Meldung</a></li>
+                        <li class="nav-item"><a href="/Stammdaten/?guid=@ViewBag.Guid" class="nav-link">Stammdaten</a></li>
+                        <li class="nav-item"><a href="https://programm.regattaplaner.net/" class="nav-link" target="_blank">Aktuelles Programm</a></li>
+                        <li class="nav-item"><a href="/Meldung/RegattaInfos/?guid=@ViewBag.Guid" class="nav-link">Regatta Info</a></li>
+                        <li class="nav-item"><a href="/Home/Help/?guid=@ViewBag.Guid" class="nav-link">Hilfe</a></li>
+                    }                    
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

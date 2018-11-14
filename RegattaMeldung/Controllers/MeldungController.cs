@@ -95,6 +95,13 @@ namespace RegattaMeldung.Controllers
             int ageFrom = 0;
             int ageTo = yearnow - model.Oldclass.ToAge;
 
+            bool isLate = false;
+
+            if(DateTime.Compare(DateTime.Now,model.Regatta.ReportOpening) > 0)
+            {
+                isLate = true;
+            }
+
             if(allAvailable == true)
             {
                 ageFrom = getAgeFrom(model.Oldclass.FromAge, true);
@@ -152,6 +159,7 @@ namespace RegattaMeldung.Controllers
             ViewBag.doppelt = doppelt;
             ViewBag.allAvailable = allAvailable;
             ViewBag.FreeStartslots = freestartslots;
+            ViewBag.isLate = isLate;
 
             if(model.Gender == "M")
             {
@@ -206,10 +214,21 @@ namespace RegattaMeldung.Controllers
 
                 if (rrfree.FreeStartslots <= 0)
                 {
-                    nostartslot = true;
+                    if(isLate == false)
+                    {
+                        rrfree.FreeStartslots = rrfree.FreeStartslots + regatta.Startslots -1;
+                    }
+                    else
+                    {
+                        nostartslot = true;
+                        rrfree.FreeStartslots = rrfree.FreeStartslots - 1;
+                    }                    
                 }
+                else
+                {
+                    rrfree.FreeStartslots = rrfree.FreeStartslots - 1;
+                }                
 
-                rrfree.FreeStartslots = rrfree.FreeStartslots - 1;
                 _context.RRFreeStartslots.Update(rrfree);
             }  
             else

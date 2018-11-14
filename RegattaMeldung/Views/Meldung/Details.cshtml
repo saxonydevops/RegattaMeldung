@@ -24,21 +24,21 @@ else
     </div>
     <br />
 }
-@if (ViewBag.freestartslots == 1)
+@if (ViewBag.freestartslots == 1 && ViewBag.isLate == true)
 {
     <div class="alert alert-dismissible alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         Noch @ViewBag.freestartslots Startbahn verfügbar!
     </div>
 }
-else if (ViewBag.freestartslots > 1)
+else if (ViewBag.freestartslots > 1 && ViewBag.isLate == true)
 {
     <div class="alert alert-dismissible alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         Noch @ViewBag.freestartslots Startbahnen verfügbar!
     </div>
 }
-else
+else if(ViewBag.freestartslots <= 0 && ViewBag.isLate == true)
 {
     <div class="alert alert-dismissible alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>

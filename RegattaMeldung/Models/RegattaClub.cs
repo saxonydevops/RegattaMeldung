@@ -9,6 +9,7 @@ namespace RegattaMeldung.Models
     public class RegattaClub
     {
         public string Guid { get; set; }
+        public bool Invited { get; set; }
         public int ClubId { get; set; }
         public Club Club { get; set; }
         public int RegattaId { get; set; }
