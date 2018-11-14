@@ -45,7 +45,7 @@
                     @Html.DisplayFor(modelItem => item.Club.Name)
                 </td>
                 <td>
-                    <a asp-action="Subscribe" asp-route-id="@item.RegattaId" class="btn btn-primary">Teilnehmen</a>
+                    <a href="/Home/Subscribe/@item.RegattaId" class="btn btn-primary">Teilnehmen</a>
                 </td>
             </tr>
         }

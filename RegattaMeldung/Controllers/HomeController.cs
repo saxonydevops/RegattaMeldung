@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RegattaMeldung.Data;
 using RegattaMeldung.Models;
@@ -24,6 +25,16 @@ namespace RegattaMeldung.Controllers
             var model = _context.Regattas.Include(r => r.Club).Include(r => r.Waters);
 
             ViewBag.Guid = guid;
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Subscribe(int id)
+        {
+            var model = _context.Regattas.FirstOrDefault(e => e.RegattaId == id);
+            
+            ViewData["ClubId"] = new SelectList(_context.Clubs.OrderBy(e => e.Name).ToList(), "ClubId", "Name");            
 
             return View(model);
         }
