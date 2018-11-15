@@ -14,6 +14,7 @@ namespace RegattaMeldung.Models
         public string City { get; set; }
         [Display(Name="Vereinsnummer")]
         public string VNr { get; set; }        
+        [EmailAddress]
         public string EMail { get; set; }
         public List<Member> Members { get; set; }
         public List<Regatta> Regattas { get; set; }
