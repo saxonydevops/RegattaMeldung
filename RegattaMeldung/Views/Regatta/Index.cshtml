@@ -72,11 +72,17 @@
                 Anzahl Meldungen
             </th>
             <th>
+                E-Mail
+            </th>
+            <th>
                 Link
+            </th>
+            <th>
+                Löschen
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody>        
         @foreach (var inv in ViewBag.Invited)
         {
             x = 0;
@@ -98,9 +104,32 @@
                     @x
                 </td>
                 <td>
-                    <a href="https://meldung.regattaplaner.net/Meldung/?guid=@inv.Guid">Meldelink</a>
+                    <form asp-action="SendInvite">
+                        <input type="hidden" name="ClubId" value="@inv.Club.ClubId"/>
+                        <input type="hidden" name="RegattaId" value="@inv.Regatta.RegattaId"/>                        
+                        @inv.Club.EMail<br/>
+                        @if(@inv.Invited == false)
+                        {
+                            <input type="submit" value="Link senden" class="btn btn-info btn-sm"/> 
+                        }
+                        else
+                        {
+                            <input type="submit" value="Erneut senden" class="btn btn-success btn-sm"/> 
+                        }
+                    </form>
+                </td>
+                <td>
+                    <a href="https://meldung.regattaplaner.net/Meldung/?guid=@inv.Guid">Meldelink</a><br/>
+                    <input type="text" value="https://meldung.regattaplaner.net/Meldung/?guid=@inv.Guid"/>
+                </td>
+                <td>
+                    <form asp-action="DeleteInvite">
+                        <input type="hidden" name="ClubId" value="@inv.Club.ClubId"/>
+                        <input type="hidden" name="RegattaId" value="@inv.Regatta.RegattaId"/>                                                
+                        <input type="submit" value="Löschen" class="btn btn-danger"/> 
+                    </form>
                 </td>
             </tr>
-        }
+        }        
     </tbody>
 </table>

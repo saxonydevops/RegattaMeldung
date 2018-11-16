@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -453,6 +455,48 @@ namespace RegattaMeldung.Controllers
             var clubs = await _context.Clubs.Include(e => e.RegattaClubs).ToListAsync();
 
             return RedirectToAction("Invite", "Regatta", new { id = id });
+        }
+
+        public async Task<IActionResult> SendInvite(int ClubId, int RegattaId)
+        {
+            var club = _context.Clubs.FirstOrDefault(e => e.ClubId == ClubId);
+            var regattaclub = _context.RegattaClubs.FirstOrDefault(e => e.ClubId == ClubId && e.RegattaId == RegattaId);
+
+            var smtpClient = new SmtpClient
+            {
+                Host = "mailgate.tbls.biz",
+                Port = 25,                
+                Credentials = new NetworkCredential("regattaplanernet@regattaplaner.net","t/MRR0rPFzeoL/Gy9gK3uqr/XAexDN")                
+            };
+
+            using (var message = new MailMessage("info@regattaplaner.net", club.EMail)
+            {
+                Subject = "Dein Meldelink",
+                Body = "Hallo " + club.Name + "!\n\nDein Meldelink ist https://meldung.regattaplaner.net/Meldung/?guid=" + regattaclub.Guid + "\n\nViele Grüße,\nDas SKSV Mittweida e.V. Team"
+            })
+            {
+                await smtpClient.SendMailAsync(message);
+            }
+
+            regattaclub.Invited = true;
+
+            _context.RegattaClubs.Update(regattaclub);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteInvite(int ClubId, int RegattaId)
+        {
+            var regattaclub = _context.RegattaClubs.FirstOrDefault(e => e.ClubId == ClubId && e.RegattaId == RegattaId);
+
+            if(regattaclub != null)
+            {
+                _context.RegattaClubs.Remove(regattaclub);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult createReportedRaces(int id)
