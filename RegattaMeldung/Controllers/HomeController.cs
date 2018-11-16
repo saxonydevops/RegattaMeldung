@@ -31,6 +31,12 @@ namespace RegattaMeldung.Controllers
         }
 
         [HttpGet]
+        public IActionResult Thankyou()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult Subscribe(int id)
         {
             ClubVM clubvm = new ClubVM();            
@@ -61,9 +67,11 @@ namespace RegattaMeldung.Controllers
             {
                 _context.RegattaClubs.Add(new RegattaClub { RegattaId = regatta.RegattaId, ClubId = club.ClubId, Guid = g.ToString() });
                 _context.SaveChanges();
+
+                return RedirectToAction("Thankyou");
             }            
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Subscribe");
         }
 
         public IActionResult About(string guid)
