@@ -522,6 +522,68 @@ namespace RegattaMeldung.Controllers
             return RedirectToAction("ReportedRaces", "Index");
         }
 
+        private string getRaceCode(int ocid, int competitionid, string gender)
+        {
+            string raceCode = "";
+
+            string c1, c2, c3, c4, c5, c6 = "0";
+
+            var competition = _context.Competitions.Include(e => e.Boatclasses).Include(e => e.Raceclasses).FirstOrDefault(e => e.CompetitionId == competitionid);
+            var oldclass = _context.Oldclasses.FirstOrDefault(e => e.OldclassId == ocid);
+
+            string bcname = competition.Boatclasses.Name;
+            int ocfrom = oldclass.FromAge;
+            int octo = oldclass.ToAge;
+            string ocname = oldclass.Name;
+            int racelength = competition.Raceclasses.Length;
+
+            switch(bcname)
+            {
+                case "K1":
+                    c1 = "1";
+                    break;
+                case "K2":
+                    c1 = "2";
+                    break;
+                case "S4":
+                    c1 = "7";
+                    break;
+            }
+
+            switch(gender)
+            {
+                case "M":
+                    c2 = "1";
+                    break;
+                case "W":
+                    c2 = "2";
+                    break;
+                case "X":
+                    c2 = "3";
+                    break;
+            }
+
+            switch(ocname)
+            {
+                case "Schüler C/B10":
+                case "Schüler C7":
+                case "Schüler C8":
+                case "Schüler C9":
+                case "Schüler B10":
+                case "Schüler B11":
+                case "Schüler B12":
+                case "Schüler A13":
+                case "Schüler A14":
+                    c3 = "1";
+                    break;
+                default:
+                    c3 = "0";
+                    break;
+            }
+
+            return raceCode;
+        }
+
         private RegattaVM populateRegattaVM(int? id)
         {
             RegattaVM rvm = new RegattaVM();

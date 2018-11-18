@@ -24,7 +24,7 @@
     </div>
 </div>
     <br/><br/>
-    <table class="table table-hover">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>
@@ -77,24 +77,72 @@
                             else if(item.Oldclass.FromAge >= 15 && item.Oldclass.ToAge <= 16)
                             {
                                 @:männliche    
-                            }                            
+                            }              
+                            @Html.DisplayFor(modelItem => item.Oldclass.Name)                                      
                         }
                         else if (string.Equals(item.Gender, "W"))
-                        {
+                        {                            
                             @if (item.Oldclass.FromAge >= 17 && item.Oldclass.ToAge <= 99)
                             {
-                                @:Damen
+                                @:Damen 
+                                @Html.DisplayFor(modelItem => item.Oldclass.Name)
+                            }
+                            else if(item.Oldclass.FromAge >= 15 && item.Oldclass.ToAge <= 16)
+                            {                                
+                                @:weibliche
+                                @Html.DisplayFor(modelItem => item.Oldclass.Name)
                             }
                             else
                             {
-                                @:weibliche
+                                switch(item.Oldclass.Name)
+                                {                                    
+                                    case "Schüler C7":
+                                        @:Schülerinnen C7
+                                        break;
+                                    case "Schüler C8":
+                                        @:Schülerinnen C8
+                                        break;
+                                    case "Schüler C9":
+                                        @:Schülerinnen C9
+                                        break;
+                                    case "Schüler C":
+                                        @:Schülerinnen C
+                                        break;
+                                    case "Schüler B10":
+                                        @:Schülerinnen B10
+                                        break;
+                                    case "Schüler B11":
+                                        @:Schülerinnen B11
+                                        break;
+                                    case "Schüler B12":
+                                        @:Schülerinnen B12
+                                        break;
+                                    case "Schüler B":
+                                        @:Schülerinnen B
+                                        break;
+                                    case "Schüler C/B10":
+                                        @:Schülerinnen C/B10
+                                        break;
+                                    case "Schüler A13":
+                                        @:Schülerinnen A13
+                                        break;
+                                    case "Schüler A14":
+                                        @:Schülerinnen A14
+                                        break;
+                                    case "Schüler A":
+                                        @:Schülerinnen A
+                                        break;
+                                    default:
+                                        @Html.DisplayFor(modelItem => item.Oldclass.Name)
+                                        break;
+                                }
                             }
                         }
                         else if (string.Equals(item.Gender, "X"))
                         {
                             @:mixed
-                        }
-                        @Html.DisplayFor(modelItem => item.Oldclass.Name)                        
+                            @Html.DisplayFor(modelItem => item.Oldclass.Name)
+                        }                        
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Competition.Name)
