@@ -34,7 +34,8 @@
 </table>
 <br />
 <h5><div align="right">Verein: @ViewBag.Club.Name</div></h5>
-<table class="table table-hover">
+<input class="form-control" id="myInput" onkeyup="myFunction()" type="text" placeholder="Suche nach Altersklasse..."><br/>
+<table class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
@@ -62,7 +63,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="myTable">
         @foreach (var reportedraces in ViewBag.ReportedRaces)
         {
             x = 0;
@@ -139,3 +140,26 @@
         }
     </tbody>
 </table>
+
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
