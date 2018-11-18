@@ -23,6 +23,7 @@
     </form>
     </div>
 </div>
+    <br/><br/>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -46,20 +47,25 @@
             {
                 <tr id="@item.ReportedRaceId">
                     <td>
-                        @item.RaceCode
-                        @if (item.Comment != "")
-                        {
-                            @:&nbsp;
-                            @:<span class="badge badge-warning">@item.Comment</span>
-                            @if (@item.Comment == "Bier Cup")
+                        <form asp-action="SetRaceCode">
+                            <input type="submit" value="Speichern" class="btn btn-secondary btn-sm" />
+                            <input type="hidden" name="id" value="@item.RegattaId"/>
+                            <input type="hidden" name="rrid" value="@item.ReportedRaceId"/>
+                            <input type="text" name="racecode" value="@item.RaceCode"/>                                                    
+                            @if (item.Comment != "")
                             {
-                                @:&nbsp;<img src="/images/beer-512.png" height="15" />
+                                @:&nbsp;
+                                @:<span class="badge badge-warning">@item.Comment</span>
+                                @if (@item.Comment == "Bier Cup")
+                                {
+                                    @:&nbsp;<img src="/images/beer-512.png" height="15" />
+                                }
+                                @if (@item.Comment == "Prosecco Cup")
+                                {
+                                    @:&nbsp;<img src="/images/prosecco.png" height="15" />
+                                }
                             }
-                            @if (@item.Comment == "Prosecco Cup")
-                            {
-                                @:&nbsp;<img src="/images/prosecco.png" height="15" />
-                            }
-                        }
+                        </form>
                     </td>
                     <td>
                         @if (item.Gender.Equals("M"))
@@ -115,4 +121,4 @@
                 </tr>
             }
         </tbody>
-    </table>
+    </table>    
