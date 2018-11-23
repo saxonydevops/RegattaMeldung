@@ -227,19 +227,6 @@ namespace RegattaMeldung.Controllers
             return RedirectToAction(nameof(Index),new { rid = rid });
         }
 
-        public IActionResult SetRaceCode(int id, int rrid, string racecode)
-        {
-            var reportedrace = _context.ReportedRaces.FirstOrDefault(e => e.ReportedRaceId == rrid);
-
-            reportedrace.RaceCode = racecode;
-
-            _context.ReportedRaces.Update(reportedrace);
-            _context.SaveChanges();
-
-            //return RedirectToAction("Index",new {id = id});
-            return Redirect(Url.RouteUrl(new { controller = "ReportedRaces", action = "Index", id = id}) + "#" + rrid);
-        }
-
         private bool ReportedRaceExists(int id)
         {
             return _context.ReportedRaces.Any(e => e.ReportedRaceId == id);
