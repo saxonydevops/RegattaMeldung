@@ -83,7 +83,7 @@ namespace RegattaMeldung.Controllers
         }
 
         // GET: Meldung/Details/5
-        public ActionResult Details(int id, string guid, bool doppelt, bool allAvailable)
+        public ActionResult Details(int id, string guid, bool doppelt, bool allAvailable, bool isracegroup, int RGClubId)
         {
             if(guid == null)
             {
@@ -146,6 +146,19 @@ namespace RegattaMeldung.Controllers
                 ViewBag.MemberId = memberlist2;
             }
 
+            List<int> clubids = _context.RegattaClubs.Select(e => e.ClubId).ToList();
+
+            if(RGClubId > 0)
+            {
+                var rgclubmembers = _context.Members.Where(e => e.ClubId == RGClubId);
+                ViewBag.RGClubMembers = new SelectList(rgclubmembers,"MemberId", "FullName");
+                ViewBag.RGClubs = new SelectList(_context.Clubs.Where(e => !clubids.Contains(e.ClubId)).OrderBy(e => e.Name).ToList(), "ClubId", "Name");                    
+            }
+            else
+            {
+                ViewBag.RGClubs = new SelectList(_context.Clubs.Where(e => !clubids.Contains(e.ClubId)).OrderBy(e => e.Name).ToList(), "ClubId", "Name");                    
+            }
+
             IEnumerable<Club> allClubs = _context.Clubs;
 
             ViewBag.startboats = vStartboats;
@@ -160,6 +173,8 @@ namespace RegattaMeldung.Controllers
             ViewBag.allAvailable = allAvailable;
             ViewBag.FreeStartslots = freestartslots;
             ViewBag.isLate = isLate;
+            ViewBag.RGClubId = RGClubId;                      
+            
 
             if(model.Gender == "M")
             {
@@ -195,7 +210,7 @@ namespace RegattaMeldung.Controllers
 
         public IActionResult AddStartboat(int id, int seat1, int seat2, int seat3, int seat4, int seat5, int seat6, int seat7, int seat8, int standby1, int standby2, int standby3, int standby4,
             int standby5, int standby6, int standby7, int standby8, bool standbycheck1, bool standbycheck2, bool standbycheck3, bool standbycheck4, bool standbycheck5,
-            bool standbycheck6, bool standbycheck7, bool standbycheck8, int clubid, int seatnumber, string guid)
+            bool standbycheck6, bool standbycheck7, bool standbycheck8, int clubid, int seatnumber, bool isracegroup, string guid)
         {
             var race = _context.ReportedRaces.FirstOrDefault(e => e.ReportedRaceId == id);
             var rid = _context.RegattaClubs.FirstOrDefault(e => e.Guid == guid).RegattaId;

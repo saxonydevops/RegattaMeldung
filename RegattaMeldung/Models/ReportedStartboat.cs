@@ -14,6 +14,7 @@ namespace RegattaMeldung.Models
         public DateTime modifiedDate { get; set; }
         public bool isLate { get; set; }
         public bool NoStartslot { get; set; }
+        public bool IsRaceGroup { get; set; }
         public int ClubId { get; set; }
         public Club Club { get; set; }
         public int RegattaId { get; set; }

@@ -10,6 +10,39 @@
 <h2>Startboot erstellen</h2>
 <h5><div align="right">@ViewBag.Club.Name</div></h5>
 <h4>@Model.Competition.Boatclasses.Name - @Model.Competition.Raceclasses.Name - @ViewBag.genderdesc @Model.Oldclass.Name</h4>
+<div class="card border-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header">Renngemeinschaft</div>
+        <div class="card-body">
+            <p class="card-text">
+                <form asp-action="Details" asp-controller="Meldung" method="get" asp-route-id="@Model.ReportedRaceId">
+                    <input type="hidden" name="guid" value="@ViewBag.Guid"/>
+                    <div class="form-group">
+                        <div class="col-md-10">                              
+                            
+                            @if(ViewBag.RGClubId > 0)
+                            {
+                                <div class="form-group">                  
+                                    <select name="RGClubId" id="RGClubId" class="selectpicker form-control" asp-items="@ViewBag.RGClubs" data-live-search="true"></select>
+                                </div>
+                                <div class="form-group">                  
+                                    <select name="RGClubMember" id="RGClubMember" class="form-control" asp-items="@ViewBag.RGClubMembers"></select>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group">                  
+                                    <select name="RGClubId" id="RGClubId" class="selectpicker form-control" asp-items="@ViewBag.RGClubs" data-live-search="true"></select>
+                                </div>
+                            }
+                            <div class="form-group">                  
+                                <input type="submit" class="btn btn-secondary" value="Sportler anzeigen" />
+                            </div>          
+                        </div> 
+                    </div>         
+                </form>
+            </p>
+        </div>
+</div>
 @if (ViewBag.allAvailable == true)
 {
     <div align="right">
@@ -88,7 +121,7 @@ else
 {
     <form asp-action="AddStartboat" asp-controller="Meldung" asp-route-id="@Model.ReportedRaceId">
         <input type="hidden" name="guid" value="@ViewBag.Guid" />
-        <table class="table table-hover">
+        <table class="table">
             <thead>
                 <tr>
                     <th>
