@@ -117,10 +117,22 @@ namespace RegattaMeldung.Controllers
             var sbMembers = _context.ReportedStartboatMembers.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();
             var sbStandbys = _context.ReportedStartboatStandbys.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();
             var availMembers = _context.Members.Where(e => (e.ClubId == clubid || e.RentedToClubId == clubid) && (!sbMembers.Contains(e.MemberId))).ToList();
-            var allMembers = _context.Members.Include(e => e.Club).Where(e => e.ClubId == clubid || e.RentedToClubId == clubid || e.MemberId == 1).ToList();
+            var allMembers = _context.Members.Include(e => e.Club).ToList();
             var vStartboats = _context.ReportedStartboats.Where(e => e.ReportedRaceId == id && e.ClubId == clubid).ToList();
 
             var freestartslots = model.Regatta.Startslots;
+
+            List<int> clubids = _context.RegattaClubs.Select(e => e.ClubId).ToList();
+
+            if(RGClubId > 0)
+            {
+                var rgclubmembers = _context.Members.Where(e => e.ClubId == RGClubId);                  
+                ViewBag.SelectedRGClub = _context.Clubs.FirstOrDefault(e => e.ClubId == RGClubId);              
+            }
+            else
+            {
+                ViewBag.RGClubs = new SelectList(_context.Clubs.Where(e => !clubids.Contains(e.ClubId)).OrderBy(e => e.Name).ToList(), "ClubId", "Name");                    
+            }
 
             if(_context.RRFreeStartslots.Any(e => e.ReportedRaceId == id))
             {
@@ -129,35 +141,55 @@ namespace RegattaMeldung.Controllers
 
             if (model.Gender == "M" || model.Gender == "W")
             {
-                var memberlist1 = new SelectList(availMembers.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct(), "MemberId", "FullName");
+                IEnumerable<Member> mbl1;
+                
+                if(RGClubId > 0 && model.Competition.Boatclasses.Seats > 1)
+                {
+                    sbMembers = _context.ReportedStartboatMembers.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.ClubId == RGClubId || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();
+                    sbStandbys = _context.ReportedStartboatStandbys.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.ClubId == RGClubId || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();                    
+                    availMembers = _context.Members.Where(e => (e.ClubId == clubid || e.ClubId == RGClubId || e.RentedToClubId == clubid) && (!sbMembers.Contains(e.MemberId))).ToList();
+
+                    mbl1 = availMembers.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                }
+                else
+                {
+                    mbl1 = availMembers.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                }   
+
+                var memberlist1 = new SelectList(mbl1, "MemberId", "FullName");             
+                
                 if(memberlist1.Count() == 0)
                 {
                     ViewBag.MemberCount = 0;
                 }
+                
                 ViewBag.MemberId = memberlist1;
             }
             else
             {
-                var memberlist2 = new SelectList(availMembers.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct(), "MemberId", "FullName");
+                IEnumerable<Member> mbl2;
+
+                if(RGClubId > 0)
+                {
+                    sbMembers = _context.ReportedStartboatMembers.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.ClubId == RGClubId || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();
+                    sbStandbys = _context.ReportedStartboatStandbys.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.ClubId == RGClubId || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();                    
+                    availMembers = _context.Members.Where(e => (e.ClubId == clubid || e.ClubId == RGClubId || e.RentedToClubId == clubid) && (!sbMembers.Contains(e.MemberId))).ToList();
+                    
+                    mbl2 = availMembers.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                }
+                else
+                {
+                    mbl2 = availMembers.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                } 
+
+                var memberlist2 = new SelectList(mbl2, "MemberId", "FullName");
+
                 if (memberlist2.Count() == 0)
                 {
                     ViewBag.MemberCount = 0;
                 }
                 ViewBag.MemberId = memberlist2;
-            }
-
-            List<int> clubids = _context.RegattaClubs.Select(e => e.ClubId).ToList();
-
-            if(RGClubId > 0)
-            {
-                var rgclubmembers = _context.Members.Where(e => e.ClubId == RGClubId);
-                ViewBag.RGClubMembers = new SelectList(rgclubmembers,"MemberId", "FullName");
-                ViewBag.RGClubs = new SelectList(_context.Clubs.Where(e => !clubids.Contains(e.ClubId)).OrderBy(e => e.Name).ToList(), "ClubId", "Name");                    
-            }
-            else
-            {
-                ViewBag.RGClubs = new SelectList(_context.Clubs.Where(e => !clubids.Contains(e.ClubId)).OrderBy(e => e.Name).ToList(), "ClubId", "Name");                    
-            }
+            }            
 
             IEnumerable<Club> allClubs = _context.Clubs;
 
