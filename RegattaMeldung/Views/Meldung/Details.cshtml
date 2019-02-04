@@ -217,7 +217,7 @@ else
                                     }                                    
                                     @if (member.ClubId != startboat.ClubId && member.isRented == false && member.MemberId != 1)
                                     {                                        
-                                        @string.Format(" ({0})", member.Club.Name);
+                                        @string.Format(" ({0})", member.Club.ShortName);
                                     }
                                     @if (member.isRented == true && member.RentedToClubId != startboat.ClubId && member.RentYear == ViewBag.ThisYear)
                                     {
@@ -225,7 +225,7 @@ else
                                         {
                                             if (ac.ClubId == member.RentedToClubId)
                                             {
-                                                @: (@ac.Name)
+                                                @: (@ac.ShortName)
                                             }
                                         }
                                     }
@@ -260,7 +260,7 @@ else
                                     }                                    
                                     @if (member.ClubId != startboat.ClubId && member.isRented == false && member.MemberId != 1)
                                     {
-                                        @string.Format(" ({0})", member.Club.Name);
+                                        @string.Format(" ({0})", member.Club.ShortName);
                                     }
                                     @if (member.isRented == true && member.RentedToClubId != startboat.ClubId && member.RentYear == ViewBag.ThisYear)
                                     {
@@ -268,7 +268,7 @@ else
                                         {
                                             if (ac.ClubId == member.RentedToClubId)
                                             {
-                                                @: (@ac.Name)
+                                                @: (@ac.ShortName)
                                             }
                                         }
                                     }

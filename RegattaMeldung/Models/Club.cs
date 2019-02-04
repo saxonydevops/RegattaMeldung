@@ -16,6 +16,8 @@ namespace RegattaMeldung.Models
         public string VNr { get; set; }        
         [EmailAddress]
         public string EMail { get; set; }
+        [Display(Name = "Kurzname")]
+        public string ShortName { get; set; }
         public List<Member> Members { get; set; }
         public List<Regatta> Regattas { get; set; }
         public List<ReportedStartboat> ReportedStartboats { get; set; }

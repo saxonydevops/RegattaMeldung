@@ -131,7 +131,7 @@ namespace RegattaMeldung.Controllers
             }
             else
             {
-                ViewBag.RGClubs = new SelectList(_context.Clubs.Where(e => !clubids.Contains(e.ClubId)).OrderBy(e => e.Name).ToList(), "ClubId", "Name");                    
+                ViewBag.RGClubs = new SelectList(_context.Clubs.Where(e => !clubids.Contains(e.ClubId) && e.Members.Count > 0).OrderBy(e => e.Name).ToList(), "ClubId", "Name");                    
             }
 
             if(_context.RRFreeStartslots.Any(e => e.ReportedRaceId == id))
