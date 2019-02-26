@@ -111,6 +111,9 @@ namespace RegattaMeldung.Controllers
             regatta.Catering = regattaVM.Catering;
             regatta.ClubId = regattaVM.ClubId;
             regatta.WaterId = regattaVM.WaterId;
+            regatta.Organizer = regattaVM.Organizer;
+            regatta.StartersLastYear = regattaVM.StartersLastYear;
+            regatta.Category = regattaVM.Category;
 
             if (ModelState.IsValid)
             {
@@ -188,7 +191,7 @@ namespace RegattaMeldung.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("RegattaId,RegattaName,RegattaVon,RegattaBis,Waterdepth,Startslots,ReportText,ReportSchedule,ReportOpening," +
-            "ReportAddress,ReportTel,ReportFax,ReportMail,Judge,Awards,Security,ScheduleText,SubscriberFee,Accomodation,Comment,Catering,ClubId,WaterId")] RegattaVM regattaVM,
+            "ReportAddress,ReportTel,ReportFax,ReportMail,Judge,Awards,Security,ScheduleText,SubscriberFee,Accomodation,Comment,Catering,ClubId,WaterId,Organizer,Category,StartersLastYear")] RegattaVM regattaVM,
             IEnumerable<int> OldclassIds, IEnumerable<int> CompetitionIds, IEnumerable<int> StartingFeeIds, IEnumerable<int> CampingFeeIds)
         {
             if (id != regattaVM.RegattaId)
@@ -220,6 +223,9 @@ namespace RegattaMeldung.Controllers
             regatta.Comment = regattaVM.Comment;
             regatta.ClubId = regattaVM.ClubId;
             regatta.WaterId = regattaVM.WaterId;
+            regatta.Organizer = regattaVM.Organizer;
+            regatta.StartersLastYear = regattaVM.StartersLastYear;
+            regatta.Category = regattaVM.Category;
 
             IEnumerable<RegattaOldclass> roc = _context.RegattaOldclasses.Where(e => e.RegattaId == regattaVM.RegattaId);
             IEnumerable<RegattaCampingFee> rcf = _context.RegattaCampingFees.Where(e => e.RegattaId == regattaVM.RegattaId);
@@ -492,6 +498,29 @@ namespace RegattaMeldung.Controllers
 
             if(regattaclub != null)
             {
+                var rsb = _context.ReportedStartboats.Where(x => x.ClubId == ClubId);
+                var rsbm = _context.ReportedStartboatMembers.ToList();
+                var rsbs = _context.ReportedStartboatStandbys.ToList();
+
+                foreach(var sb in rsb)
+                {
+                    rsbm = _context.ReportedStartboatMembers.Where(e => e.ReportedStartboatId == sb.ReportedStartboatId).ToList();
+
+                    foreach(var sbm in rsbm)
+                    {
+                        _context.ReportedStartboatMembers.Remove(sbm);
+                    }
+
+                    rsbs = _context.ReportedStartboatStandbys.Where(e => e.ReportedStartboatId == sb.ReportedStartboatId).ToList();
+
+                    foreach(var sbs in rsbs)
+                    {
+                        _context.ReportedStartboatStandbys.Remove(sbs);
+                    }
+
+                    _context.ReportedStartboats.Remove(sb);
+                }
+
                 _context.RegattaClubs.Remove(regattaclub);
                 _context.SaveChanges();
             }
@@ -704,6 +733,9 @@ namespace RegattaMeldung.Controllers
             rvm.Catering = regatta.Catering;
             rvm.WaterId = regatta.WaterId;
             rvm.ClubId = regatta.ClubId;
+            rvm.Category = regatta.Category;
+            rvm.StartersLastYear = regatta.StartersLastYear;
+            rvm.Organizer = regatta.Organizer;
 
             rvm.RegattaOldclasses = roc;
             rvm.RegattaCampingFees = rcf;

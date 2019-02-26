@@ -60,6 +60,12 @@ namespace RegattaMeldung.ViewModels
         public string Catering { get; set; }
         [Display(Name = "Gewässer")]
         public int WaterId { get; set; }
+        [Display(Name = "Veranstalter")]
+        public string Organizer { get; set; }
+        [Display(Name = "Teilnehmer Vorjahr")]
+        public int StartersLastYear { get; set; }
+        [Display(Name = "Kategorie")]
+        public string Category { get; set; }
         [Display(Name = "Ausrichtender Verein")]
         public int ClubId { get; set; }
         public IEnumerable<Oldclass> Oldclasses { get; set; }

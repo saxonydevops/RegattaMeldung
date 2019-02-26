@@ -22,13 +22,23 @@
                     </td>
                 </tr>
                 <tr>
+                    <td><label asp-for="Organizer" class="control-label"></label></td>
+                    <td>
+                        <input asp-for="Organizer" class="form-control" />
+                        <span asp-validation-for="Organizer" class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
                     <td><label asp-for="ClubId" class="control-label"></label></td>
                     <td>
                         <select asp-for="ClubId" class="form-control" asp-items="ViewBag.ClubId"></select>
                         <span asp-validation-for="ClubId" class="text-danger"></span>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td><label asp-for="Category" class="control-label"></label></td>
+                    <td>
+                        <input asp-for="Category" class="form-control" />
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><label asp-for="RegattaVon" class="control-label"></label></td>
@@ -60,12 +70,17 @@
                         <input asp-for="Startslots" class="form-control" />
                         <span asp-validation-for="Startslots" class="text-danger"></span>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td><label asp-for="StartersLastYear" class="control-label"></label></td>
+                    <td>
+                        <input asp-for="StartersLastYear" class="form-control" />
+                        <span asp-validation-for="StartersLastYear" class="text-danger"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td><label asp-for="RegattaOldclasses" class="control-label"></label></td>
-                    <td>@Html.ListBox("OldclassIds", ViewBag.OldclassId as MultiSelectList, new { size = 15 })</td>
+                    <td>
+                        @Html.ListBox("OldclassIds", ViewBag.OldclassId as MultiSelectList, new { size = 15 })
+                    </td>
                     <td><label asp-for="RegattaCompetitions" class="control-label"></label></td>
                     <td>@Html.ListBox("CompetitionIds", ViewBag.CompetitionId as MultiSelectList, new { size = 15 })</td>
                 </tr>

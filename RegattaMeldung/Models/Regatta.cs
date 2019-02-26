@@ -17,6 +17,9 @@ namespace RegattaMeldung.Models
         [Display(Name="Bis")]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime ToDate { get; set; }
+        public string Organizer { get; set; }
+        public int StartersLastYear { get; set; }
+        public string Category { get; set; }
         public int Waterdepth { get; set; }
         public int Startslots { get; set; }
         public string ReportText { get; set; }
