@@ -51,7 +51,9 @@ namespace RegattaMeldung.Controllers
         // GET: StartingFee/Create
         public IActionResult Create()
         {
-            ViewData["BoatclassId"] = new SelectList(_context.Boatclasses, "BoatclassId", "BoatclassId");
+            //ViewData["BoatclassId"] = new SelectList(_context.Boatclasses, "BoatclassId", "BoatclassId");
+            ViewBag.Boatclasses = _context.Boatclasses.Select(c => new SelectListItem() {Text = c.Name, Value = c.BoatclassId.ToString()});
+            
             ViewData["OldclassId"] = new SelectList(_context.Oldclasses, "OldclassId", "OldclassId");
             return View();
         }
