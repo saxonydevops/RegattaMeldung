@@ -155,7 +155,11 @@
                 </td>
             </tr>
             <tr>
-                <td><label asp-for="RegattaStartingFees" class="control-label"></label></td>
+                <td>
+                    <label asp-for="RegattaStartingFees" class="control-label"></label>
+                    <br/>
+                    <a href="/StartingFee" class="btn btn-secondary">Bearbeiten</a>
+                </td>
                 <td>
                     @Html.ListBox("StartingFeeIds", ViewBag.StartingFeeId as MultiSelectList, new { size = 15 })
                 </td>

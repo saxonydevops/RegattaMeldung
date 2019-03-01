@@ -10,9 +10,12 @@ namespace RegattaMeldung.Models
     {
         [Key]
         public int StartingFeeId { get; set; }
+        [Display(Name = "Gebühr")]
         public float Amount { get; set; }
+        [Display(Name = "Bootsklasse")]
         public int BoatclassId { get; set; }
         public Boatclass Boatclasses { get; set; }
+        [Display(Name = "Altersklasse")]
         public int OldclassId { get; set; }
         public Oldclass Oldclasses { get; set; }
         public string Name
