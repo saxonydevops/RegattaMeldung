@@ -177,12 +177,14 @@ namespace RegattaMeldung.Controllers
             {
                 return NotFound();
             }
+
             ViewData["ClubId"] = new SelectList(_context.Clubs, "ClubId", "Name", rvm.ClubId);
             ViewData["WaterId"] = new SelectList(_context.Waters, "WaterId", "Name", rvm.WaterId);
-            ViewData["OldclassIds"] = new MultiSelectList(rvm.Oldclasses, "OldclassId", "Name", rvm.RegattaOldclasses.Select(e => e.OldclassId).ToList());
+            ViewData["OldclassIds"] = new MultiSelectList(rvm.Oldclasses, "OldclassId", "Name", rvm.RegattaOldclasses.Select(e => e.OldclassId).ToList());            
             ViewData["CompetitionIds"] = new MultiSelectList(rvm.Competitions, "CompetitionId", "Name", rvm.RegattaCompetitions.Select(e => e.CompetitionId).ToList());
             ViewData["StartingFeeIds"] = new MultiSelectList(rvm.StartingFees, "StartingFeeId", "Name", rvm.RegattaStartingFees.Select(e => e.StartingFeeId).ToList());
             ViewData["CampingFeeIds"] = new MultiSelectList(rvm.CampingFees, "CampingFeeId", "LongName", rvm.RegattaCampingFees.Select(e => e.CampingFeeId).ToList());
+
             return View(rvm);
         }
 
@@ -609,7 +611,7 @@ namespace RegattaMeldung.Controllers
             rvm.CampingFees = _context.CampingFees.ToList();
             rvm.StartingFees = _context.StartingFees.Include(e => e.Boatclasses).Include(e => e.Oldclasses).ToList();
             rvm.Raceclasses = _context.Raceclasses.ToList();
-            rvm.Competitions = _context.Competitions.Include(e => e.Boatclasses).Include(e => e.Raceclasses).ToList();
+            rvm.Competitions = _context.Competitions.Include(e => e.Boatclasses).Include(e => e.Raceclasses).OrderBy(e => e.Boatclasses.Name).ThenBy(e => e.Raceclasses.Length).ToList();            
 
             return rvm;
         }

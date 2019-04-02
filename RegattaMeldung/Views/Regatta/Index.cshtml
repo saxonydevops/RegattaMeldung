@@ -27,6 +27,7 @@
                 @Html.DisplayNameFor(model => model.Club)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -46,11 +47,14 @@
                     @Html.DisplayFor(modelItem => item.Club.Name)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.RegattaId" class="btn btn-secondary">Bearbeiten</a> <br/>
-                    <a asp-action="Delete" asp-route-id="@item.RegattaId" class="btn btn-danger">L&ouml;schen</a> <br />
-                    <a asp-action="createReportedRaces" asp-route-id="@item.RegattaId" class="btn btn-secondary">Rennliste generieren</a> <br />
-                    <a asp-action="Invite" asp-route-id="@item.RegattaId" class="btn btn-success">Vereine einladen</a> <br />
-                    <a asp-action="Index" asp-route-id="@item.RegattaId" class="btn btn-dark">Filtern</a>
+                    <a asp-action="Edit" asp-route-id="@item.RegattaId" class="btn btn-secondary btn-sm">Bearbeiten</a> <br />
+                    <a asp-action="Delete" asp-route-id="@item.RegattaId" class="btn btn-danger btn-sm">L&ouml;schen</a> <br />
+                    <a asp-action="Index" asp-route-id="@item.RegattaId" class="btn btn-dark btn-sm">Filtern</a>
+                </td>
+                <td>
+                    <a asp-action="Invite" asp-route-id="@item.RegattaId" class="btn btn-success btn-sm">Vereine einladen</a> <br />
+                    <a asp-action="createReportedRaces" asp-route-id="@item.RegattaId" class="btn btn-secondary btn-sm">Rennliste generieren</a>
+                    <a asp-action="createAnnouncement" asp-route-id="@item.RegattaId" class="btn btn-primary btn-sm">Ausschreibung</a>
                 </td>
             </tr>
         }
