@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RegattaMeldung.Data;
 using RegattaMeldung.Models;
+using RegattaMeldung.Extensions;
 
 namespace RegattaMeldung.Controllers
 {
@@ -123,10 +124,14 @@ namespace RegattaMeldung.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReportedRaceId,OldclassId,CompetitionId,Gender,RaceCode,RegattaId,Comment")] ReportedRace reportedRace)
+        public async Task<IActionResult> Create([Bind("ReportedRaceId,OldclassId,CompetitionId,Gender,RegattaId,Comment")] ReportedRace reportedRace)
         {
+            var competition = _context.Competitions.Include(e => e.Boatclasses).Include(e => e.Raceclasses).FirstOrDefault(e => e.CompetitionId == reportedRace.CompetitionId);
+            var oldclass = _context.Oldclasses.FirstOrDefault(e => e.OldclassId == reportedRace.OldclassId);
+
             if (ModelState.IsValid)
             {
+                reportedRace.RaceCode = RaceCode.getRaceCode(reportedRace.Gender, competition, oldclass);
                 _context.Add(reportedRace);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
