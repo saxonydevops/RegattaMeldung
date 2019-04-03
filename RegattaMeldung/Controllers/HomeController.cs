@@ -41,7 +41,7 @@ namespace RegattaMeldung.Controllers
         {
             ClubVM clubvm = new ClubVM();            
 
-            List<int> clubids = _context.RegattaClubs.Select(e => e.ClubId).ToList();
+            List<int> clubids = _context.RegattaClubs.Where(e => e.RegattaId == id).Select(e => e.ClubId).ToList();
             
             ViewData["ClubId"] = new SelectList(_context.Clubs.Where(e => !clubids.Contains(e.ClubId)).OrderBy(e => e.Name).ToList(), "ClubId", "Name");                    
 
