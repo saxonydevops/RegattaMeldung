@@ -6,7 +6,7 @@
 @{var x = 0;}
 
 <h2>Regatta:  @ViewBag.Regatta.Name</h2>
-<table border="0">
+<table border="0" width="100%">
     <tr>
         <td>
             <b>Von:</b>
@@ -31,9 +31,19 @@
             @ViewBag.Regatta.Club.Name
         </td>
     </tr>
+    <tr>
+        <td>
+            <form asp-action="AddComment" asp-controller="Meldung" asp-route-id="@ViewBag.Club.ClubId">
+                <input type="hidden" name="guid" value="@ViewBag.Guid"/>
+                <label for="comment"><b>Kommentar zur Meldung:</b></label>
+                <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="z.B. Brötchenanzahl">@ViewBag.ClubComment</textarea><br />
+                <input type="submit" class="btn btn-primary" value="Kommentar hinzufügen" />
+            </form>
+        </td>
+        <td align="right" valign="bottom"><h5>Verein: @ViewBag.Club.Name</h5></td>        
+    </tr>
 </table>
-<br />
-<h5><div align="right">Verein: @ViewBag.Club.Name</div></h5>
+<hr />
 <input class="form-control" id="myInput" onkeyup="myFunction()" type="text" placeholder="Suche nach Altersklasse..."><br/>
 <table class="table table-bordered table-striped">
     <thead>

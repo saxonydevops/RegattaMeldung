@@ -78,6 +78,7 @@ namespace RegattaMeldung.Controllers
             ViewBag.ReportedRaces = reportedraces;
             ViewBag.ReportedStartboats = reportedstartboats;
             ViewBag.Guid = guid;
+            ViewBag.ClubComment = rc.Comment;
 
             return View();
         }
@@ -1008,6 +1009,21 @@ namespace RegattaMeldung.Controllers
             }
 
             return RedirectToAction("Details", "Meldung", new { id = startboat.ReportedRaceId , guid = guid});
+        }
+
+        [HttpPost]
+        public IActionResult AddComment(int id, string guid, string comment)
+        {
+            var rc = _context.RegattaClubs.FirstOrDefault(e => e.Guid == guid);
+
+            if(rc != null)
+            {
+                rc.Comment = comment;
+                _context.RegattaClubs.Update(rc);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Meldung", new { guid = rc.Guid });
         }
 
         private void EditSeat(int seatnumber, int seatmemberid, bool standbycheck, int standbynumber, int standbymemberid, int oldmemberid, int oldstandbyid
