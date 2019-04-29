@@ -132,7 +132,7 @@ namespace RegattaMeldung.Controllers
             }
             else
             {
-                ViewBag.RGClubs = new SelectList(_context.Clubs.Where(e => !clubids.Contains(e.ClubId) && e.Members.Count > 0).OrderBy(e => e.Name).ToList(), "ClubId", "Name");                    
+                ViewBag.RGClubs = new SelectList(_context.Clubs.Where(e => clubids.Contains(e.ClubId) && e.Members.Count > 0).OrderBy(e => e.Name).ToList(), "ClubId", "Name");                    
             }
 
             if(_context.RRFreeStartslots.Any(e => e.ReportedRaceId == id))
@@ -648,15 +648,18 @@ namespace RegattaMeldung.Controllers
             {
                 ageFrom = getAgeFrom(model.Oldclass.FromAge, false);
                 ageTo = getAgeTo(model.Oldclass.FromAge, model.Oldclass.ToAge, false);
-            }            
+            }           
 
-            var clubid = _context.RegattaClubs.Include(e => e.Club).FirstOrDefault(e => e.Guid == guid).ClubId;            
+            var clubid = _context.RegattaClubs.Include(e => e.Club).FirstOrDefault(e => e.Guid == guid).ClubId;   
+
             var sbMembers = _context.ReportedStartboatMembers.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == startboat.ReportedRaceId).Select(e => e.MemberId).ToList();
             var sbStandbys = _context.ReportedStartboatStandbys.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == startboat.ReportedRaceId).Select(e => e.MemberId).ToList();
             var allMembers = _context.Members.Include(e => e.Club).Where(e => e.ClubId == clubid || e.RentedToClubId == clubid);
             var vStartboats = _context.ReportedStartboats.Where(e => e.ReportedRaceId == id && e.ClubId == clubid).ToList();
             var editSBMember = _context.ReportedStartboatMembers.Where(e => e.ReportedStartboatId == startboat.ReportedStartboatId).OrderBy(e => e.Seatnumber);            
             var editSBStandby = _context.ReportedStartboatStandbys.Where(e => e.ReportedStartboatId == startboat.ReportedStartboatId).OrderBy(e => e.Standbynumber);
+            
+            
             IQueryable<Member> tempmemberlist = _context.Members;
             IQueryable<Member> tempstandbylist = _context.Members;
 
@@ -1086,11 +1089,11 @@ namespace RegattaMeldung.Controllers
                 }
                 else if (MemberFromAge == 8)
                 {
-                    ageFrom = yearnow - 8;
+                    ageFrom = yearnow - 0;
                 }
                 else if (MemberFromAge == 9)
                 {
-                    ageFrom = yearnow - 9;
+                    ageFrom = yearnow - 0;
                 }
                 else if (MemberFromAge == 10)
                 {
