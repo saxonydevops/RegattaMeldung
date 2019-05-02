@@ -163,7 +163,7 @@ else
                     <td>
                         <div class="form-group">
                             <div class="col-md-10">
-                                <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.MemberId" disabled>
+                                <select name="@string.Format("standby{0}",i)" id="@string.Format("standby{0}",i)" class="form-control" asp-items="@ViewBag.StandbyId" disabled>
                                     <option value="0" selected>---Sportler ausw&auml;hlen---</option>
                                     <option value="1">GESUCHT</option>
                                 </select>
@@ -205,7 +205,7 @@ else
                             {
                                 if (member.MemberId == sbm.MemberId)
                                 {
-                                    @if(member.MemberId == 1)
+                                    @if(member.MemberId == 1 || member.MemberId == 2 || member.MemberId == 3 || member.MemberId == 4)
                                     {
                                         @: <b>
                                         @string.Format("{0}", member.LastName);
@@ -215,7 +215,7 @@ else
                                     {
                                         @string.Format("{0}", member.FullName);
                                     }                                    
-                                    @if (member.ClubId != startboat.ClubId && member.isRented == false && member.MemberId != 1)
+                                    @if (member.ClubId != startboat.ClubId && member.isRented == false && (member.MemberId != 1 && member.MemberId != 2 && member.MemberId != 3 && member.MemberId != 4))
                                     {                                        
                                         @string.Format(" ({0})", member.Club.ShortName);
                                     }
@@ -248,7 +248,7 @@ else
                             {
                                 if (member.MemberId == sbs.MemberId)
                                 {
-                                    @if(member.MemberId ==1)
+                                    @if(member.MemberId == 1 || member.MemberId == 2 || member.MemberId == 3 || member.MemberId == 4)
                                     {
                                         @: <b>
                                         @string.Format("{0}", member.LastName);

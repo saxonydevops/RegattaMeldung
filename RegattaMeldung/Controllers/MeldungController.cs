@@ -143,6 +143,7 @@ namespace RegattaMeldung.Controllers
             if (model.Gender == "M" || model.Gender == "W")
             {
                 IEnumerable<Member> mbl1;
+                IEnumerable<Member> sbl1;
                 
                 if(RGClubId > 0 && model.Competition.Boatclasses.Seats > 1)
                 {
@@ -151,10 +152,12 @@ namespace RegattaMeldung.Controllers
                     availMembers = _context.Members.Where(e => (e.ClubId == clubid || e.ClubId == RGClubId || e.RentedToClubId == clubid) && (!sbMembers.Contains(e.MemberId))).ToList();
 
                     mbl1 = availMembers.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                    sbl1 = _context.Members.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
                 }
                 else
                 {
                     mbl1 = availMembers.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                    sbl1 = _context.Members.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
                 }   
 
                 var memberlist1 = new SelectList(mbl1, "MemberId", "FullName");             
@@ -165,10 +168,12 @@ namespace RegattaMeldung.Controllers
                 }
                 
                 ViewBag.MemberId = memberlist1;
+                ViewBag.StandbyId = new SelectList(sbl1, "MemberId", "FullName");
             }
             else
             {
                 IEnumerable<Member> mbl2;
+                IEnumerable<Member> sbl2;
 
                 if(RGClubId > 0)
                 {
@@ -177,10 +182,12 @@ namespace RegattaMeldung.Controllers
                     availMembers = _context.Members.Where(e => (e.ClubId == clubid || e.ClubId == RGClubId || e.RentedToClubId == clubid) && (!sbMembers.Contains(e.MemberId))).ToList();
                     
                     mbl2 = availMembers.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                    sbl2 = _context.Members.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
                 }
                 else
                 {
                     mbl2 = availMembers.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                    sbl2 = _context.Members.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
                 } 
 
                 var memberlist2 = new SelectList(mbl2, "MemberId", "FullName");
@@ -189,7 +196,9 @@ namespace RegattaMeldung.Controllers
                 {
                     ViewBag.MemberCount = 0;
                 }
+
                 ViewBag.MemberId = memberlist2;
+                ViewBag.StandbyId = new SelectList(sbl2, "MemberId", "FullName");
             }            
 
             IEnumerable<Club> allClubs = _context.Clubs;
@@ -311,7 +320,7 @@ namespace RegattaMeldung.Controllers
                     seats.Add(standby1);
                 }
 
-                if (seats.GroupBy(s => s).SelectMany(grp => grp.Skip(1)).Count() >= 1)
+                if (seats.GroupBy(s => s).SelectMany(grp => grp.Skip(1)).Count() >= 1)  
                 {
                     isDouble = true;
                 }      
@@ -356,9 +365,16 @@ namespace RegattaMeldung.Controllers
                     seats.Add(standby2);
                 }
 
-                if (seats.GroupBy(s => s).SelectMany(grp => grp.Skip(1)).Count() >= 1)
+                if (seats.GroupBy(s => s).SelectMany(grp => grp.Skip(1)).Count() >= 1) 
                 {
-                    isDouble = true;
+                    if(seat2 == 1)
+                    {
+                        seat2 = 2;
+                    }
+                    else
+                    {
+                        isDouble = true;
+                    }
                 }                        
                 
                 if(isDouble == false)
@@ -426,7 +442,22 @@ namespace RegattaMeldung.Controllers
 
                 if (seats.GroupBy(s => s).SelectMany(grp => grp.Skip(1)).Count() >= 1)
                 {
-                    isDouble = true;
+                    if(seat2 == 1)
+                    {
+                        seat2 = 2;
+                    }
+                    else if(seat3 == 1)
+                    {
+                        seat3 = 3;
+                    }
+                    else if(seat4 == 1)
+                    {
+                        seat4 = 4;
+                    }
+                    else
+                    {
+                        isDouble = true;
+                    }
                 }  
 
                 if(isDouble == false)
