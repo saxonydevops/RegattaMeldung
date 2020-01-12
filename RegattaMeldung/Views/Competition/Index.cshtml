@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<RegattaMeldung.Models.Competition>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Wettkämpfe";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Wettk&auml;mpfe</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-success" asp-action="Create">Neuer Wettkampf</a>
+</p>
+<p>
+    <a class="btn btn-warning" asp-action="CreateAll">Wettk&auml;mpfe f&uuml;r alle Boots- und Rennklassen bilden</a>
 </p>
 <table class="table">
     <thead>
@@ -26,15 +29,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Boatclasses.BoatclassId)
+                @Html.DisplayFor(modelItem => item.Boatclasses.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Raceclasses.RaceclassId)
+                @Html.DisplayFor(modelItem => item.Raceclasses.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CompetitionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CompetitionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CompetitionId">Delete</a>
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.CompetitionId">Edit</a> |
+                <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.CompetitionId">Details</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CompetitionId">Delete</a>
             </td>
         </tr>
 }

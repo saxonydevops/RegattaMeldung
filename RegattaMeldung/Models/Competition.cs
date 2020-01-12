@@ -10,9 +10,13 @@ namespace RegattaMeldung.Models
     {
         [Key]
         public int CompetitionId { get; set; }
+        [Display(Name = "Bootsklasse")]
         public int BoatclassId { get; set; }
+        [Display(Name = "Bootsklasse")]
         public Boatclass Boatclasses { get; set; }
+        [Display(Name = "Rennklasse")]
         public int RaceclassId { get; set; }
+        [Display(Name = "Rennklasse")]
         public Raceclass Raceclasses { get; set; }
         public string Name
         {
