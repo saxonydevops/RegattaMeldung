@@ -120,14 +120,14 @@ namespace RegattaMeldung.Controllers
             {
                 _context.Add(regatta);
                 await _context.SaveChangesAsync();
-
+                /*
                 IEnumerable<RegattaOldclass> roc = _context.RegattaOldclasses.Where(e => e.RegattaId == regattaVM.RegattaId);
                 IEnumerable<RegattaCampingFee> rcf = _context.RegattaCampingFees.Where(e => e.RegattaId == regattaVM.RegattaId);
                 IEnumerable<RegattaCompetition> rc = _context.RegattaCompetitions.Where(e => e.RegattaId == regattaVM.RegattaId);
                 IEnumerable<RegattaStartingFee> rsf = _context.RegattaStartingFees.Where(e => e.RegattaId == regattaVM.RegattaId);
-
+                */
                 var reg = _context.Regattas.Last();
-
+                
                 foreach (var oc in OldclassIds)
                 {
                     _context.Regattas.Include(e => e.RegattaOldclasses).FirstOrDefault(m => m.RegattaId == reg.RegattaId).RegattaOldclasses.Add(new RegattaOldclass { RegattaId = regattaVM.RegattaId, OldclassId = oc });
@@ -609,7 +609,7 @@ namespace RegattaMeldung.Controllers
 
             rvm.Oldclasses = _context.Oldclasses.ToList();
             rvm.CampingFees = _context.CampingFees.ToList();
-            rvm.StartingFees = _context.StartingFees.Include(e => e.Boatclasses).Include(e => e.Oldclasses).ToList();
+            rvm.StartingFees = _context.StartingFees.Include(e => e.Boatclasses).ToList();
             rvm.Raceclasses = _context.Raceclasses.ToList();
             rvm.Competitions = _context.Competitions.Include(e => e.Boatclasses).Include(e => e.Raceclasses).OrderBy(e => e.Boatclasses.Name).ThenBy(e => e.Raceclasses.Length).ToList();            
 

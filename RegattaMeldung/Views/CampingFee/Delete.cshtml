@@ -1,13 +1,13 @@
 ﻿@model RegattaMeldung.Models.CampingFee
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Löschen";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Zeltplatzgeb&uuml;hr l&ouml;schen</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bist du sicher?</h3>
 <div>
     <h4>CampingFee</h4>
     <hr />
@@ -28,7 +28,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="CampingFeeId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="L&ouml;schen" class="btn btn-primary" /> |
+        <a asp-action="Index">Zur&uuml;ck</a>
     </form>
 </div>

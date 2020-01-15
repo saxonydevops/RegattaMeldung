@@ -13,195 +13,206 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="RegattaId" />
-            <table>
-                <tr>
-                    <td><label asp-for="RegattaName" class="control-label"></label></td>
-                    <td colspan="3">
-                        <input asp-for="RegattaName" class="form-control" />
-                        <span asp-validation-for="RegattaName" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="Organizer" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="Organizer" class="form-control" />
-                        <span asp-validation-for="Organizer" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="ClubId" class="control-label"></label></td>
-                    <td>
-                        <select asp-for="ClubId" class="form-control" asp-items="ViewBag.ClubId"></select>
-                        <span asp-validation-for="ClubId" class="text-danger"></span>
-                    </td>
-                    <td><label asp-for="Category" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="Category" class="form-control" />
-                        <span asp-validation-for="Category" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="RegattaVon" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="RegattaVon" class="form-control" />
-                        <span asp-validation-for="RegattaVon" class="text-danger"></span>
-                    </td>
-                    <td><label asp-for="RegattaBis" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="RegattaBis" class="form-control" />
-                        <span asp-validation-for="RegattaBis" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="WaterId" class="control-label"></label></td>
-                    <td>
-                        <select asp-for="WaterId" class="form-control" asp-items="ViewBag.WaterId"></select>
-                        <span asp-validation-for="WaterId" class="text-danger"></span>
-                    </td>
-                    <td><label asp-for="Waterdepth" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="Waterdepth" class="form-control" />
-                        <span asp-validation-for="Waterdepth" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="Startslots" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="Startslots" class="form-control" />
-                        <span asp-validation-for="Startslots" class="text-danger"></span>
-                    </td>
-                    <td><label asp-for="StartersLastYear" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="StartersLastYear" class="form-control" />
-                        <span asp-validation-for="StartersLastYear" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="RegattaOldclasses" class="control-label"></label></td>
-                    <td>
-                        @Html.ListBox("OldclassIds", ViewBag.OldclassId as MultiSelectList, new { size = 15 })
-                    </td>
-                    <td><label asp-for="RegattaCompetitions" class="control-label"></label></td>
-                    <td>@Html.ListBox("CompetitionIds", ViewBag.CompetitionId as MultiSelectList, new { size = 15 })</td>
-                </tr>
-                <tr>
-                    <td><label asp-for="ReportText" class="control-label"></label></td>
-                    <td colspan="3">
-                        <textarea asp-for="ReportText" class="form-control"></textarea>
-                        <span asp-validation-for="ReportText" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="ReportSchedule" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="ReportSchedule" class="form-control" />
-                        <span asp-validation-for="ReportSchedule" class="text-danger"></span>
-                    </td>
-                    <td><label asp-for="ReportOpening" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="ReportOpening" class="form-control" />
-                        <span asp-validation-for="ReportOpening" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="ReportAddress" class="control-label"></label></td>
-                    <td>
-                        <textarea asp-for="ReportAddress" class="form-control"></textarea>
-                        <span asp-validation-for="ReportAddress" class="text-danger"></span>
-                    </td>
-                    <td><label asp-for="ReportTel" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="ReportTel" class="form-control" />
-                        <span asp-validation-for="ReportTel" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="ReportMail" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="ReportMail" class="form-control" />
-                        <span asp-validation-for="ReportMail" class="text-danger"></span>
-                    </td>
-                    <td><label asp-for="ReportFax" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="ReportFax" class="form-control" />
-                        <span asp-validation-for="ReportFax" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="Judge" class="control-label"></label></td>
-                    <td colspan="3">
-                        <textarea asp-for="Judge" class="form-control"></textarea>
-                        <span asp-validation-for="Judge" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="Awards" class="control-label"></label></td>
-                    <td colspan="3">
-                        <textarea asp-for="Awards" class="form-control"></textarea>
-                        <span asp-validation-for="Awards" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="Security" class="control-label"></label></td>
-                    <td colspan="3">
-                        <textarea asp-for="Security" class="form-control"></textarea>
-                        <span asp-validation-for="Security" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="ScheduleText" class="control-label"></label></td>
-                    <td colspan="3">
-                        <textarea asp-for="ScheduleText" class="form-control"></textarea>
-                        <span asp-validation-for="ScheduleText" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="RegattaStartingFees" class="control-label"></label></td>
-                    <td>
-                        @Html.ListBox("StartingFeeIds", ViewBag.StartingFeeId as MultiSelectList, new { size = 15 })
-                    </td>
-                    <td><label asp-for="RegattaCampingFees" class="control-label"></label></td>
-                    <td>
-                        @Html.ListBox("CampingFeeIds", ViewBag.CampingFeeId as MultiSelectList, new { size = 15 })
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="SubscriberFee" class="control-label"></label></td>
-                    <td>
-                        <input asp-for="SubscriberFee" class="form-control" />
-                        <span asp-validation-for="SubscriberFee" class="text-danger"></span>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><label asp-for="Accomodation" class="control-label"></label></td>
-                    <td colspan="3">
-                        <textarea asp-for="Accomodation" class="form-control"></textarea>
-                        <span asp-validation-for="Accomodation" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="Comment" class="control-label"></label></td>
-                    <td colspan="3">
-                        <textarea asp-for="Comment" class="form-control"></textarea>
-                        <span asp-validation-for="Comment" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label asp-for="Catering" class="control-label"></label></td>
-                    <td colspan="3">
-                        <textarea asp-for="Catering" class="form-control"></textarea>
-                        <span asp-validation-for="Catering" class="text-danger"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><input type="submit" value="Speichern" class="btn btn-primary" /></td>
-                </tr>
-            </table>
+            <div class="form-group">
+                <label asp-for="RegattaName" class="control-label"></label>
+                <div>
+                    <input asp-for="RegattaName" class="form-control" />
+                    <span asp-validation-for="RegattaName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Organizer" class="control-label"></label>
+                <div>
+                    <input asp-for="Organizer" class="form-control" />
+                    <span asp-validation-for="Organizer" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClubId" class="control-label"></label>
+                <div>
+                    <select asp-for="ClubId" class="form-control" asp-items="ViewBag.ClubId"></select>
+                    <span asp-validation-for="ClubId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <div>
+                    <input asp-for="Category" class="form-control" />
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegattaVon" class="control-label"></label>
+                <div>
+                    <input asp-for="RegattaVon" class="form-control" />
+                    <span asp-validation-for="RegattaVon" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegattaBis" class="control-label"></label>
+                <div>
+                    <input asp-for="RegattaBis" class="form-control" />
+                    <span asp-validation-for="RegattaBis" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="WaterId" class="control-label"></label>
+                <div>
+                    <select asp-for="WaterId" class="form-control" asp-items="ViewBag.WaterId"></select>
+                    <span asp-validation-for="WaterId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Waterdepth" class="control-label"></label>
+                <div>
+                    <input asp-for="Waterdepth" class="form-control" />
+                    <span asp-validation-for="Waterdepth" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Startslots" class="control-label"></label>
+                <div>
+                    <input asp-for="Startslots" class="form-control" />
+                    <span asp-validation-for="Startslots" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartersLastYear" class="control-label"></label>
+                <div>
+                    <input asp-for="StartersLastYear" class="form-control" />
+                    <span asp-validation-for="StartersLastYear" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegattaOldclasses" class="control-label"></label>
+                <div>
+                    @Html.ListBox("OldclassIds", ViewBag.OldclassId as MultiSelectList, new { size = 15, @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegattaCompetitions" class="control-label"></label>
+                <div>
+                    @Html.ListBox("CompetitionIds", ViewBag.CompetitionId as MultiSelectList, new { size = 15, @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportText" class="control-label"></label>
+                <div>
+                    <textarea asp-for="ReportText" class="form-control"></textarea>
+                    <span asp-validation-for="ReportText" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportSchedule" class="control-label"></label>
+                <div>
+                    <input asp-for="ReportSchedule" class="form-control" />
+                    <span asp-validation-for="ReportSchedule" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportOpening" class="control-label"></label>
+                <div>
+                    <input asp-for="ReportOpening" class="form-control" />
+                    <span asp-validation-for="ReportOpening" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportAddress" class="control-label"></label>
+                <div>
+                    <textarea asp-for="ReportAddress" class="form-control"></textarea>
+                    <span asp-validation-for="ReportAddress" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <td><label asp-for="ReportTel" class="control-label"></label></td>
+                <td>
+                    <input asp-for="ReportTel" class="form-control" />
+                    <span asp-validation-for="ReportTel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportMail" class="control-label"></label>
+                <div>
+                    <input asp-for="ReportMail" class="form-control" />
+                    <span asp-validation-for="ReportMail" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportFax" class="control-label"></label>
+                <div>
+                    <input asp-for="ReportFax" class="form-control" />
+                    <span asp-validation-for="ReportFax" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Judge" class="control-label"></label>
+                <div>
+                    <textarea asp-for="Judge" class="form-control"></textarea>
+                    <span asp-validation-for="Judge" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Awards" class="control-label"></label>
+                <div>
+                    <textarea asp-for="Awards" class="form-control"></textarea>
+                    <span asp-validation-for="Awards" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Security" class="control-label"></label>
+                <div>
+                    <textarea asp-for="Security" class="form-control"></textarea>
+                    <span asp-validation-for="Security" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ScheduleText" class="control-label"></label>
+                <div>
+                    <textarea asp-for="ScheduleText" class="form-control"></textarea>
+                    <span asp-validation-for="ScheduleText" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegattaStartingFees" class="control-label"></label>
+                <div>
+                    @Html.ListBox("StartingFeeIds", ViewBag.StartingFeeId as MultiSelectList, new { size = 15, @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegattaCampingFees" class="control-label"></label>
+                <div>
+                    @Html.ListBox("CampingFeeIds", ViewBag.CampingFeeId as MultiSelectList, new { size = 15, @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubscriberFee" class="control-label"></label>
+                <div>
+                    <input asp-for="SubscriberFee" class="form-control" />
+                    <span asp-validation-for="SubscriberFee" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Accomodation" class="control-label"></label>
+                <div>
+                    <textarea asp-for="Accomodation" class="form-control"></textarea>
+                    <span asp-validation-for="Accomodation" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comment" class="control-label"></label>
+                <div>
+                    <textarea asp-for="Comment" class="form-control"></textarea>
+                    <span asp-validation-for="Comment" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Catering" class="control-label"></label>
+                <div>
+                    <textarea asp-for="Catering" class="form-control"></textarea>
+                    <span asp-validation-for="Catering" class="text-danger"></span>
+                </div>
+            </div>
+
+            <input type="submit" value="Speichern" class="btn btn-primary" />            
         </form>
     </div>
 </div>

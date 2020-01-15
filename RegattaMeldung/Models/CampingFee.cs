@@ -11,7 +11,10 @@ namespace RegattaMeldung.Models
         [Key]
         public int CampingFeeId { get; set; }
         public string Name { get; set; }
+        [Display(Name = "Gebühr")]
+        [DataType(DataType.Currency)]
         public float Amount { get; set; }
+        [Display(Name = "Name")]
         public virtual string LongName
         {
             get

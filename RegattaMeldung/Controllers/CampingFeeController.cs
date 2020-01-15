@@ -27,24 +27,6 @@ namespace RegattaMeldung.Controllers
             return View(await _context.CampingFees.ToListAsync());
         }
 
-        // GET: CampingFee/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var campingFee = await _context.CampingFees
-                .SingleOrDefaultAsync(m => m.CampingFeeId == id);
-            if (campingFee == null)
-            {
-                return NotFound();
-            }
-
-            return View(campingFee);
-        }
-
         // GET: CampingFee/Create
         public IActionResult Create()
         {
@@ -76,10 +58,12 @@ namespace RegattaMeldung.Controllers
             }
 
             var campingFee = await _context.CampingFees.SingleOrDefaultAsync(m => m.CampingFeeId == id);
+
             if (campingFee == null)
             {
                 return NotFound();
             }
+
             return View(campingFee);
         }
 
@@ -98,7 +82,7 @@ namespace RegattaMeldung.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
+                {                    
                     _context.Update(campingFee);
                     await _context.SaveChangesAsync();
                 }

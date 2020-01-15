@@ -6,6 +6,11 @@
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200115213056_StartingFeeCurrency.cs" />
+    <Compile Remove="Data\Migrations\20200115213056_StartingFeeCurrency.Designer.cs" />
+  </ItemGroup>
+
   
 
   <ItemGroup>

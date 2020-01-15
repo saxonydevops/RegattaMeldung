@@ -1,48 +1,66 @@
 ﻿@model IEnumerable<RegattaMeldung.Models.StartingFee>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Startgebühren";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Startgeb&uuml;hren</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-success" asp-action="Create">Erstellen</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Amount)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Boatclasses)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Oldclasses)
+                @Html.DisplayNameFor(model => model.FromOldclassId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToOldclassId)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Boatclasses.BoatclassId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Oldclasses.OldclassId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.StartingFeeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StartingFeeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StartingFeeId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Boatclasses.Name)
+                </td>
+                <td>
+                    @foreach (var oc in ViewBag.oldclasses)
+                    {
+                        if (oc.OldclassId == item.FromOldclassId)
+                        {
+                            @:@oc.Name
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var oc in ViewBag.oldclasses)
+                    {
+                        if (oc.OldclassId == item.ToOldclassId)
+                        {
+                            @:@oc.Name
+                        }
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.StartingFeeId">Bearbeiten</a> |                    
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.StartingFeeId">L&ouml;schen</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

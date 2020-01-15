@@ -1,15 +1,15 @@
 ﻿@model RegattaMeldung.Models.StartingFee
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Startgebühr löschen";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Startgeb&uuml;hr l&ouml;schen</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bist du sicher?</h3>
 <div>
-    <h4>StartingFee</h4>
+    <h4>Startgeb&uuml;hr</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -25,16 +25,22 @@
             @Html.DisplayFor(model => model.Boatclasses.BoatclassId)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Oldclasses)
+            @Html.DisplayNameFor(model => model.FromOldclassId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Oldclasses.OldclassId)
+            @Html.DisplayFor(model => model.FromOldclassId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ToOldclassId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ToOldclassId)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="StartingFeeId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="L&ouml;schen" class="btn btn-danger" /> |
+        <a asp-action="Index">Zur&uuml;ck</a>
     </form>
 </div>

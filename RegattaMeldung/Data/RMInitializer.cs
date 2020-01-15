@@ -255,27 +255,5 @@ namespace RegattaMeldung.Data
                 Amount = 2
             },
         };
-
-        List<StartingFee> _StartingFee = new List<StartingFee>
-        {
-            new StartingFee()
-            {
-                Amount = 2,
-                BoatclassId = 1,
-                OldclassId = 2
-            },
-            new StartingFee()
-            {
-                Amount = 2,
-                BoatclassId = 1,
-                OldclassId = 3
-            },
-            new StartingFee()
-            {
-                Amount = 2,
-                BoatclassId = 1,
-                OldclassId = 4
-            },
-        };
     }
 }
