@@ -82,6 +82,8 @@ namespace RegattaMeldung.ViewModels
         public IEnumerable<RegattaCompetition> RegattaCompetitions { get; set; }
         public IEnumerable<Raceclass> Raceclasses { get; set; }
         [Display(Name = "Teilnehmende Vereine")]
-        public IEnumerable<RegattaClub> RegattaClubs { get; set; }        
+        public IEnumerable<RegattaClub> RegattaClubs { get; set; }
+        [Display(Name = "Startgebühren")]
+        public List<StartingFeeVM> StartingFeeVMs { get; set; }
     }
 }

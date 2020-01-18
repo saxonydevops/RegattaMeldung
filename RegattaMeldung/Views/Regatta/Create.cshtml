@@ -9,7 +9,7 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="RegattaId" />
@@ -44,14 +44,14 @@
             <div class="form-group">
                 <label asp-for="RegattaVon" class="control-label"></label>
                 <div>
-                    <input asp-for="RegattaVon" class="form-control" />
+                    <input asp-for="RegattaVon" class="form-control" type="date" />
                     <span asp-validation-for="RegattaVon" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="RegattaBis" class="control-label"></label>
                 <div>
-                    <input asp-for="RegattaBis" class="form-control" />
+                    <input asp-for="RegattaBis" class="form-control" type="date" />
                     <span asp-validation-for="RegattaBis" class="text-danger"></span>
                 </div>
             </div>
@@ -174,13 +174,13 @@
             <div class="form-group">
                 <label asp-for="RegattaStartingFees" class="control-label"></label>
                 <div>
-                    @Html.ListBox("StartingFeeIds", ViewBag.StartingFeeId as MultiSelectList, new { size = 15, @class = "form-control" })
+                    @Html.ListBox("StartingFeeIds", ViewBag.StartingFeeIds as MultiSelectList, new { size = 15, @class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="RegattaCampingFees" class="control-label"></label>
                 <div>
-                    @Html.ListBox("CampingFeeIds", ViewBag.CampingFeeId as MultiSelectList, new { size = 15, @class = "form-control" })
+                    @Html.ListBox("CampingFeeIds", ViewBag.CampingFeeIds as MultiSelectList, new { size = 15, @class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
