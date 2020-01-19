@@ -44,7 +44,6 @@
     </tr>
 </table>
 <hr />
-<input class="form-control" id="myInput" onkeyup="myFunction()" type="text" placeholder="Suche nach Altersklasse..."><br/>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -71,6 +70,14 @@
                 Gemeldete Boote
             </th>
             <th></th>
+        </tr>
+        <tr>
+            <td><input class="form-control" id="rcInput" onkeyup="searchList()" type="text" placeholder="Filter Renncode..."></td>
+            <td><input class="form-control" id="ocInput" onkeyup="searchList()" type="text" placeholder="Filter Altersklasse..."></td>
+            <td><input class="form-control" id="bcInput" onkeyup="searchList()" type="text" placeholder="Filter Bootsklasse..."></td>
+            <td><input class="form-control" id="streckeInput" onkeyup="searchList()" type="text" placeholder="Filter Streckenlänge..."></td>
+            <td></td>
+            <td></td>
         </tr>
     </thead>
     <tbody id="myTable">
@@ -200,24 +207,38 @@
 </table>
 
 <script>
-function myFunction() {
-  // Declare variables
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
+    function searchList() {
+        // Declare variables
+        var inputRC, inputOC, inputBC, inputStrecke, filterRC, filterOC, filterBC, filterStrecke, table, tr, tdRC, tdOC, tdBC, tdStrecke, i;
+        inputRC = document.getElementById("rcInput");
+        inputOC = document.getElementById("ocInput");
+        inputBC = document.getElementById("bcInput");
+        inputStrecke = document.getElementById("streckeInput");
+        filterRC = inputRC.value.toUpperCase();
+        filterOC = inputOC.value.toUpperCase();
+        filterBC = inputBC.value.toUpperCase();
+        filterStrecke = inputStrecke.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+
+            tdRC = tr[i].getElementsByTagName("td")[0];
+            tdOC = tr[i].getElementsByTagName("td")[1];
+            tdBC = tr[i].getElementsByTagName("td")[2];
+            tdStrecke = tr[i].getElementsByTagName("td")[3];
+
+            if (tdRC || tdOC || tdBC || tdStrecke) {
+                if ((tdRC.innerHTML.toUpperCase().indexOf(filterRC) > -1)
+                    && (tdOC.innerHTML.toUpperCase().indexOf(filterOC) > -1)
+                    && (tdBC.innerHTML.toUpperCase().indexOf(filterBC) > -1)
+                    && (tdStrecke.innerHTML.toUpperCase().indexOf(filterStrecke) > -1)) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
     }
-  }
-}
 </script>

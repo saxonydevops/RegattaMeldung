@@ -41,11 +41,13 @@
                 Gemeldete Rennen
             </th>
             <th></th>
+            <th></th>
         </tr>
         <tr>
-            <td><input class="form-control" id="rcInput" onkeyup="searchListRC()" type="text" placeholder="Filter Renncode..."></td>
-            <td><input class="form-control" id="ocInput" onkeyup="searchListOC()" type="text" placeholder="Filter Altersklasse..."></td>
-            <td><input class="form-control" id="compInput" onkeyup="searchListComp()" type="text" placeholder="Filter Wettkampf..."></td>
+            <td><input class="form-control" id="rcInput" onkeyup="searchList()" type="text" placeholder="Filter Renncode..."></td>
+            <td><input class="form-control" id="ocInput" onkeyup="searchList()" type="text" placeholder="Filter Altersklasse..."></td>
+            <td><input class="form-control" id="compInput" onkeyup="searchList()" type="text" placeholder="Filter Wettkampf..."></td>
+            <td></td>
             <td></td>
             <td></td>
         </tr>
@@ -165,8 +167,9 @@
                     }
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ReportedRaceId" class="btn btn-secondary">Bearbeiten</a> |
-                    <a asp-action="Details" asp-route-id="@item.ReportedRaceId" class="btn btn-secondary">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ReportedRaceId" class="btn btn-secondary">Bearbeiten</a>
+                </td>
+                <td>
                     <a asp-action="Delete" asp-route-id="@item.ReportedRaceId" class="btn btn-danger">L&ouml;schen</a>
                 </td>
             </tr>
@@ -175,66 +178,32 @@
 </table>
 
 <script>
-    function searchListRC() {
+    function searchList() {
         // Declare variables
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("rcInput");
-        filter = input.value.toUpperCase();
+        var inputRC, inputOC, inputComp, filterRC, filterOC, filterComp, table, tr, tdRC, tdOC, tdComp, i;
+        inputRC = document.getElementById("rcInput");
+        inputOC = document.getElementById("ocInput");
+        inputComp = document.getElementById("compInput");
+        filterRC = inputRC.value.toUpperCase();
+        filterOC = inputOC.value.toUpperCase();
+        filterComp = inputComp.value.toUpperCase();
         table = document.getElementById("myTable");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+
+            tdRC = tr[i].getElementsByTagName("td")[0];
+            tdOC = tr[i].getElementsByTagName("td")[1];
+            tdComp = tr[i].getElementsByTagName("td")[2];
+
+            if (tdRC || tdOC || tdComp) {
+                if ((tdRC.innerHTML.toUpperCase().indexOf(filterRC) > -1) && (tdOC.innerHTML.toUpperCase().indexOf(filterOC) > -1) && (tdComp.innerHTML.toUpperCase().indexOf(filterComp) > -1)) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
                 }
-            }
-        }
-    }
-
-    function searchListOC() {
-        // Declare variables
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("ocInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-
-    function searchListComp() {
-        // Declare variables
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("compInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
+            }            
         }
     }
 </script>

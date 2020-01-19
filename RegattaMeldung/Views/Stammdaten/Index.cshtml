@@ -35,17 +35,17 @@
                 <input class="form-control" type="number" name="Birthyear" id="Birthyear" value="@ViewBag.MemberYear" />
             </div>
             <div class="form-group">
-                <label>An Verein ausleihen</label>
+                <label>Fremdverein im Programm und Meldung anzeigen</label>
                 <input type="checkbox" name="isRented" id="isRented" value="true" onchange="document.getElementById('RentedToClubId').disabled = !this.checked;document.getElementById('RentYear').disabled = !this.checked;" />
             </div>
             <div class="form-group">
                 <label>Verein</label>
-                <select name="RentedToClubId" id="RentedToClubId" class="form-control" asp-items="@ViewBag.RentedToClubId" disabled><option selected>---Verein ausw&auml;hlen---</option></select>
+                <select name="RentedToClubId" id="RentedToClubId" class="selectpicker form-control" asp-items="@ViewBag.RentedToClubId" data-live-search="true" data-size="10"><option selected>---Verein ausw&auml;hlen---</option></select>
             </div>
             <div class="form-group">
                 <label>G&uuml;ltiges Jahr</label>
                 <input class="form-control" type="number" name="RentYear" id="RentYear" value="@ViewBag.ThisYear" disabled />
-            </div>
+            </div> 
             <div class="form-group">
                 <input type="submit" value="Sportler hinzufügen" class="btn btn-primary" />
             </div>
@@ -53,6 +53,7 @@
     </div>
     <div class="col-md-4">
     </div>
+    <!--
     <div class="col-md-4">
         <form asp-action="ChooseClub" asp-controller="Stammdaten" asp-route-id="@Model.ClubId">
             <input type="hidden" name="guid" value="@ViewBag.Guid" />
@@ -85,7 +86,8 @@
             </form>
         }
     </div>
-    </div>
+        -->
+</div>
     <h3>Mitglieder</h3>
 
     <table class="table table-hover">
@@ -118,11 +120,20 @@
                     }
                 </th>
                 <th>
-
+                </th>
+                <th>
                 </th>
             </tr>
+            <tr>
+                <td><input class="form-control" id="lastnameInput" onkeyup="searchList()" type="text" placeholder="Filter Nachname..."></td>
+                <td><input class="form-control" id="firstnameInput" onkeyup="searchList()" type="text" placeholder="Filter Vorname..."></td>
+                <td><input class="form-control" id="genderInput" onkeyup="searchList()" type="text" placeholder="Filter Geschlecht..."></td>
+                <td><input class="form-control" id="birthyearInput" onkeyup="searchList()" type="text" placeholder="Filter Geburtsjahr..."></td>
+                <td></td>
+                <td></td>
+            </tr>
         </thead>
-        <tbody>
+        <tbody id="myTable">
             @foreach (var member in ViewBag.Members)
             {
                 <tr>
@@ -155,14 +166,10 @@
                         @member.Birthyear
                     </td>
                     <td>
-                        @if(member.ClubId == Model.ClubId)
-                        { 
-                            @:<a href="/Stammdaten/DeleteMember/@member.MemberId/?guid=@ViewBag.Guid" class="btn btn-danger">L&ouml;schen</a> | <a href="/Stammdaten/EditMember/@member.MemberId/?guid=@ViewBag.Guid" class="btn btn-secondary">Bearbeiten</a>
-                        }
-                        else
-                        {
-                            @:<a href="/Stammdaten/UnrentMember/@member.MemberId/?guid=@ViewBag.Guid" class="btn btn-warning">Zurückgeben</a>
-                        }
+                        <a href="/Stammdaten/DeleteMember/@member.MemberId/?guid=@ViewBag.Guid" class="btn btn-danger">L&ouml;schen</a>
+                    </td>
+                    <td>
+                        <a href="/Stammdaten/EditMember/@member.MemberId/?guid=@ViewBag.Guid" class="btn btn-secondary">Bearbeiten</a>
                     </td>
                 </tr>
     }
@@ -170,3 +177,39 @@
     </table>
 
 
+    <script>
+        function searchList() {
+            // Declare variables
+            var inputLN, inputFN, inputGender, inputBY, filterLN, filterFN, filterGender, filterBY, table, tr, tdLN, tdFN, tdGender, tdBY, i;
+            inputLN = document.getElementById("lastnameInput");
+            inputFN = document.getElementById("firstnameInput");
+            inputGender = document.getElementById("genderInput");
+            inputBY = document.getElementById("birthyearInput");
+            filterLN = inputLN.value.toUpperCase();
+            filterFN = inputFN.value.toUpperCase();
+            filterGender = inputGender.value.toUpperCase();
+            filterBY = inputBY.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+
+                tdLN = tr[i].getElementsByTagName("td")[0];
+                tdFN = tr[i].getElementsByTagName("td")[1];
+                tdGender = tr[i].getElementsByTagName("td")[2];
+                tdBY = tr[i].getElementsByTagName("td")[2];
+
+                if (tdLN || tdFN || tdGender || tdBY) {
+                    if ((tdLN.innerHTML.toUpperCase().indexOf(filterLN) > -1)
+                        && (tdFN.innerHTML.toUpperCase().indexOf(filterFN) > -1)
+                        && (tdGender.innerHTML.toUpperCase().indexOf(filterGender) > -1)
+                        && (tdBY.innerHTML.toUpperCase().indexOf(filterBY) > -1)) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
