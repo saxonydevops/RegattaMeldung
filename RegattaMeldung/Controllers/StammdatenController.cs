@@ -60,11 +60,10 @@ namespace RegattaMeldung.Controllers
             ViewBag.sortby = sortby;
             ViewBag.Guid = guid;
             ViewBag.Members = member;
-            ViewBag.ThisYear = DateTime.Now.Year;
             ViewBag.MemberYear = DateTime.Now.Year - 6;
             ViewBag.choosed = choosed;
 
-            ViewData["RentedToClubId"] = new SelectList(_context.Clubs.OrderBy(e => e.Name), "ClubId", "Name");
+            ViewData["RentedToClubId"] = new SelectList(_context.Clubs.OrderBy(e => e.ShortName), "ClubId", "ShortName");
 
             if(choosed == true)
             {

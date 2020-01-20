@@ -35,17 +35,12 @@
                 <input class="form-control" type="number" name="Birthyear" id="Birthyear" value="@ViewBag.MemberYear" />
             </div>
             <div class="form-group">
-                <label>Fremdverein im Programm und Meldung anzeigen</label>
-                <input type="checkbox" name="isRented" id="isRented" value="true" onchange="document.getElementById('RentedToClubId').disabled = !this.checked;document.getElementById('RentYear').disabled = !this.checked;" />
+                <input type="checkbox" name="isRented" id="isRented" value="true" onchange="if (this.checked == false) $('.selectpicker').selectpicker('hide'); if (this.checked == true) $('.selectpicker').selectpicker('show'); " />
+                <label>Fremdverein im Programm anzeigen</label>
             </div>
-            <div class="form-group">
-                <label>Verein</label>
+            <div class="form-group" id="RentClub">                
                 <select name="RentedToClubId" id="RentedToClubId" class="selectpicker form-control" asp-items="@ViewBag.RentedToClubId" data-live-search="true" data-size="10"><option selected>---Verein ausw&auml;hlen---</option></select>
             </div>
-            <div class="form-group">
-                <label>G&uuml;ltiges Jahr</label>
-                <input class="form-control" type="number" name="RentYear" id="RentYear" value="@ViewBag.ThisYear" disabled />
-            </div> 
             <div class="form-group">
                 <input type="submit" value="Sportler hinzufügen" class="btn btn-primary" />
             </div>
