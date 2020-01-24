@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -24,37 +25,17 @@ namespace RegattaMeldung.Controllers
         // GET: StartingFee
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.StartingFees.Include(s => s.Boatclasses).Include(s => s.Oldclasses);
+            ViewBag.oldclasses = await _context.Oldclasses.ToListAsync();
+            var applicationDbContext = _context.StartingFees.Include(s => s.Boatclasses);
+
             return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: StartingFee/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var startingFee = await _context.StartingFees
-                .Include(s => s.Boatclasses)
-                .Include(s => s.Oldclasses)
-                .SingleOrDefaultAsync(m => m.StartingFeeId == id);
-            if (startingFee == null)
-            {
-                return NotFound();
-            }
-
-            return View(startingFee);
         }
 
         // GET: StartingFee/Create
         public IActionResult Create()
         {
-            //ViewData["BoatclassId"] = new SelectList(_context.Boatclasses, "BoatclassId", "BoatclassId");
-            ViewBag.Boatclasses = _context.Boatclasses.Select(c => new SelectListItem() {Text = c.Name, Value = c.BoatclassId.ToString()}).OrderBy(c => c.Text);
-            ViewBag.Oldclasses = _context.Oldclasses.Select(o => new SelectListItem() {Text = o.Name, Value = o.OldclassId.ToString()}).OrderBy(o => o.Text);
-
+            ViewData["BoatclassId"] = new SelectList(_context.Boatclasses, "BoatclassId", "Name");
+            ViewData["OldclassId"] = new SelectList(_context.Oldclasses, "OldclassId", "Name");
             return View();
         }
 
@@ -63,17 +44,27 @@ namespace RegattaMeldung.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StartingFeeId,Amount,BoatclassId,OldclassId")] StartingFee startingFee)
+        public async Task<IActionResult> Create(string Amount, int BoatclassId, int FromOldclassId, int ToOldclassId)
         {
-            if (ModelState.IsValid)
+            StartingFee startingFee = new StartingFee();
+            startingFee.Amount = decimal.Parse(Amount, CultureInfo.InvariantCulture);
+            startingFee.BoatclassId = BoatclassId;
+            startingFee.FromOldclassId = FromOldclassId;
+            startingFee.ToOldclassId = ToOldclassId;
+
+            try
             {
                 _context.Add(startingFee);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["BoatclassId"] = new SelectList(_context.Boatclasses, "BoatclassId", "BoatclassId", startingFee.BoatclassId);
-            ViewData["OldclassId"] = new SelectList(_context.Oldclasses, "OldclassId", "OldclassId", startingFee.OldclassId);
-            return View(startingFee);
+            catch
+            {
+                ViewData["BoatclassId"] = new SelectList(_context.Boatclasses, "BoatclassId", "Name");
+                ViewData["OldclassId"] = new SelectList(_context.Oldclasses, "OldclassId", "Name");
+                return View();
+            }          
+                        
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: StartingFee/Edit/5
@@ -89,8 +80,10 @@ namespace RegattaMeldung.Controllers
             {
                 return NotFound();
             }
-            ViewData["BoatclassId"] = new SelectList(_context.Boatclasses, "BoatclassId", "BoatclassId", startingFee.BoatclassId);
-            ViewData["OldclassId"] = new SelectList(_context.Oldclasses, "OldclassId", "OldclassId", startingFee.OldclassId);
+
+            ViewData["BoatclassId"] = new SelectList(_context.Boatclasses, "BoatclassId", "Name");
+            ViewData["OldclassId"] = new SelectList(_context.Oldclasses, "OldclassId", "Name");
+
             return View(startingFee);
         }
 
@@ -99,9 +92,11 @@ namespace RegattaMeldung.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StartingFeeId,Amount,BoatclassId,OldclassId")] StartingFee startingFee)
+        public async Task<IActionResult> Edit(int id, string Amount, int BoatclassId, int FromOldclassId, int ToOldclassId)
         {
-            if (id != startingFee.StartingFeeId)
+            StartingFee startingFee = _context.StartingFees.FirstOrDefault(x => x.StartingFeeId == id);
+
+            if (!await _context.StartingFees.AnyAsync(x => x.StartingFeeId == id))
             {
                 return NotFound();
             }
@@ -110,24 +105,22 @@ namespace RegattaMeldung.Controllers
             {
                 try
                 {
+                    startingFee.Amount = decimal.Parse(Amount, CultureInfo.InvariantCulture);
+                    startingFee.BoatclassId = BoatclassId;
+                    startingFee.FromOldclassId = FromOldclassId;
+                    startingFee.ToOldclassId = ToOldclassId;
+
                     _context.Update(startingFee);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StartingFeeExists(startingFee.StartingFeeId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BoatclassId"] = new SelectList(_context.Boatclasses, "BoatclassId", "BoatclassId", startingFee.BoatclassId);
-            ViewData["OldclassId"] = new SelectList(_context.Oldclasses, "OldclassId", "OldclassId", startingFee.OldclassId);
+            ViewData["BoatclassId"] = new SelectList(_context.Boatclasses, "BoatclassId", "BoatclassId", startingFee.BoatclassId);            
             return View(startingFee);
         }
 
@@ -140,8 +133,7 @@ namespace RegattaMeldung.Controllers
             }
 
             var startingFee = await _context.StartingFees
-                .Include(s => s.Boatclasses)
-                .Include(s => s.Oldclasses)
+                .Include(s => s.Boatclasses)                
                 .SingleOrDefaultAsync(m => m.StartingFeeId == id);
             if (startingFee == null)
             {

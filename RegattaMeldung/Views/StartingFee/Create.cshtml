@@ -1,13 +1,12 @@
 ﻿@model RegattaMeldung.Models.StartingFee
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Startgebühr erstellen";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Startgeb&uuml;hr erstellen</h2>
 
-<h4>StartingFee</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,21 +19,25 @@
             </div>
             <div class="form-group">
                 <label asp-for="BoatclassId" class="control-label"></label>
-                <div asp-checklistbox="@ViewBag.Boatclasses" asp-modelname="Boatclass"></div>
+                <select asp-for="BoatclassId" class="form-control" asp-items="ViewBag.BoatclassId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="OldclassId" class="control-label"></label>
-                <div asp-checklistbox="@ViewBag.Oldclasses" asp-modelname="Oldclass"></div>
+                <label asp-for="FromOldclassId" class="control-label"></label>
+                <select asp-for="FromOldclassId" class="form-control" asp-items="ViewBag.OldclassId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-secondary" />
+                <label asp-for="ToOldclassId" class="control-label"></label>
+                <select asp-for="ToOldclassId" class="form-control" asp-items="ViewBag.OldclassId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Erstellen" class="btn btn-secondary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Zur&uuml;ck</a>
 </div>
 
 @section Scripts {

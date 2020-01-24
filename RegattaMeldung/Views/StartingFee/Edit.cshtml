@@ -1,13 +1,12 @@
 ﻿@model RegattaMeldung.Models.StartingFee
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Bearbeiten";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Startgeb&uuml;hr bearbeiten</h2>
 
-<h4>StartingFee</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -25,19 +24,24 @@
                 <span asp-validation-for="BoatclassId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OldclassId" class="control-label"></label>
-                <select asp-for="OldclassId" class="form-control" asp-items="ViewBag.OldclassId"></select>
-                <span asp-validation-for="OldclassId" class="text-danger"></span>
+                <label asp-for="FromOldclassId" class="control-label"></label>
+                <select asp-for="FromOldclassId" class="form-control" asp-items="ViewBag.OldclassId"></select>
+                <span asp-validation-for="FromOldclassId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <label asp-for="ToOldclassId" class="control-label"></label>
+                <select asp-for="ToOldclassId" class="form-control" asp-items="ViewBag.OldclassId"></select>
+                <span asp-validation-for="ToOldclassId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Speichern" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Zur&uuml;ck</a>
 </div>
 
 @section Scripts {

@@ -23,8 +23,15 @@
                 </th>
                 <th></th>
             </tr>
+            <tr>
+                <td><input class="form-control" id="nameInput" onkeyup="searchList()" type="text" placeholder="Filter Name..."></td>
+                <td><input class="form-control" id="snameInput" onkeyup="searchList()" type="text" placeholder="Filter Kurzname..."></td>
+                <td><input class="form-control" id="cityInput" onkeyup="searchList()" type="text" placeholder="Filter Stadt..."></td>
+                <td><input class="form-control" id="VNrInput" onkeyup="searchList()" type="text" placeholder="Filter VNr..."></td>
+                <td></td>                
+            </tr>
         </thead>
-        <tbody>
+        <tbody id="myTable">
             @foreach (var item in Model)
             {
                 var x = 0;
@@ -65,3 +72,40 @@
             }
             </tbody>
         </table>    
+
+    <script>
+    function searchList() {
+        // Declare variables
+        var inputName, inputSName, inputCity, inputVNr, filterName, filterSName, filterCity, filterVNr, table, tr, tdName, tdSName, tdCity, tdVNr, i;
+        inputName = document.getElementById("nameInput");
+        inputSName = document.getElementById("snameInput");
+        inputCity = document.getElementById("cityInput");
+        inputVNr = document.getElementById("VNrInput");
+        filterName = inputName.value.toUpperCase();
+        filterSName = inputSName.value.toUpperCase();
+        filterCity = inputCity.value.toUpperCase();
+        filterVNr = inputVNr.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+
+            tdName = tr[i].getElementsByTagName("td")[0];
+            tdSName = tr[i].getElementsByTagName("td")[1];
+            tdCity = tr[i].getElementsByTagName("td")[2];
+            tdVNr = tr[i].getElementsByTagName("td")[3];
+
+            if (tdName || tdSName || tdCity || tdVNr) {
+                if ((tdName.innerHTML.toUpperCase().indexOf(filterName) > -1)
+                    && (tdSName.innerHTML.toUpperCase().indexOf(filterSName) > -1)
+                    && (tdCity.innerHTML.toUpperCase().indexOf(filterCity) > -1)
+                    && (tdVNr.innerHTML.toUpperCase().indexOf(filterVNr) > -1)) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    </script>

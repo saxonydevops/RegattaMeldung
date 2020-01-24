@@ -1,4 +1,6 @@
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@using Microsoft.AspNetCore.Identity.UI
 @using RegattaMeldung.Models
 
 @inject SignInManager<ApplicationUser> SignInManager
@@ -7,9 +9,21 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav ml-auto">            
+        <ul class="nav navbar-nav ml-auto">
             <li class="nav-item"><a asp-area="" asp-controller="Regatta" asp-action="Index" class="nav-link">Regatta</a></li>
             <li class="nav-item"><a asp-area="" asp-controller="ReportedRaces" asp-action="Index" class="nav-link">Rennen</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="Verwaltung">Stammdaten<span class="caret"></span></a>
+                <div class="dropdown-menu" aria-labelledby="Stammdaten">
+                    <a class="dropdown-item" asp-controller="Competition" asp-action="Index">Wettk&auml;mpfe</a>
+                    <a class="dropdown-item" asp-controller="Boatclasses" asp-action="Index">Bootsklassen</a>
+                    <a class="dropdown-item" asp-controller="Raceclasses" asp-action="Index">Rennklassen</a>
+                    <a class="dropdown-item" asp-controller="Oldclasses" asp-action="Index">Altersklassen</a>
+                    <a class="dropdown-item" asp-controller="Waters" asp-action="Index">Gew&auml;sser</a>
+                    <a class="dropdown-item" asp-controller="CampingFee" asp-action="Index">Zeltplatzgeb&uuml;hren</a>
+                    <a class="dropdown-item" asp-controller="StartingFee" asp-action="Index">Startgeb&uuml;hren</a>
+                </div>
+            </li>
             <li class="nav-item">
                 <button type="submit" class="btn btn-secondary my-2 my-sm-0">Log out</button>
             </li>
@@ -18,8 +32,8 @@
 }
 else
 {
-    if(ViewBag.Guid == null)
-    { 
+    if (ViewBag.Guid == null)
+    {
         <ul class="nav navbar-nav ml-auto">
             <li><a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link">Anmelden</a></li>
         </ul>

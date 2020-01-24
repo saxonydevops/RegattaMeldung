@@ -1,13 +1,13 @@
 ﻿@model RegattaMeldung.Models.CampingFee
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Bearbeiten";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Bearbeiten</h2>
 
-<h4>CampingFee</h4>
+<h4>Zeltplatzgeb&uuml;hren</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,19 +20,19 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
+                <label asp-for="Amount" class="control-label"></label>               
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Speichern" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Zur&uuml;ck</a>
 </div>
 
 @section Scripts {

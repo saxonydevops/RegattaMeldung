@@ -13,155 +13,197 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Index">
-        <div class="form-group">        
-            <select name="rid" id="rid" class="form-control" asp-items="ViewBag.RegattaId"></select>    
-            <br />
             <div class="form-group">
-                <input type="submit" value="Anzeigen" class="btn btn-primary" />
+                <select name="rid" id="rid" class="form-control" asp-items="ViewBag.RegattaId"></select>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Anzeigen" class="btn btn-primary" />
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
     </div>
 </div>
-    <br/><br/>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>
-                    Renncode
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Oldclass)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Competition)
-                </th>
-                <th>
-                    Gemeldete Rennen
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr id="@item.ReportedRaceId">
-                    <td>
-                        @item.RaceCode                                                
-                        @if (item.Comment != "")
+<br />
+<br />
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                Renncode
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Oldclass)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Competition)
+            </th>
+            <th>
+                Gemeldete Rennen
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td><input class="form-control" id="rcInput" onkeyup="searchList()" type="text" placeholder="Filter Renncode..."></td>
+            <td><input class="form-control" id="ocInput" onkeyup="searchList()" type="text" placeholder="Filter Altersklasse..."></td>
+            <td><input class="form-control" id="compInput" onkeyup="searchList()" type="text" placeholder="Filter Wettkampf..."></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody id="myTable">
+        @foreach (var item in Model)
+        {
+            <tr id="@item.ReportedRaceId">
+                <td>
+                    @item.RaceCode
+                    @if (item.Comment != "")
+                    {
+                        @:&nbsp;
+                        @:<span class="badge badge-warning">@item.Comment</span>
+                        @if (@item.Comment == "Bier Cup")
                         {
-                            @:&nbsp;
-                            @:<span class="badge badge-warning">@item.Comment</span>
-                            @if (@item.Comment == "Bier Cup")
-                            {
-                                @:&nbsp;<img src="/images/beer-512.png" height="15" />
-                            }
-                            @if (@item.Comment == "Prosecco Cup")
-                            {
-                                @:&nbsp;<img src="/images/prosecco.png" height="15" />
-                            }
+                            @:&nbsp;<img src="/images/beer-512.png" height="15" />
                         }
-                    </td>
-                    <td>
-                        @if (item.Gender.Equals("M"))
+                        @if (@item.Comment == "Prosecco Cup")
                         {
-                            @if(item.Oldclass.FromAge >=17 && item.Oldclass.ToAge <= 99)
-                            {
-                                @:Herren
-                            }
-                            else if(item.Oldclass.FromAge >= 15 && item.Oldclass.ToAge <= 16)
-                            {
-                                @:männliche    
-                            }              
-                            @Html.DisplayFor(modelItem => item.Oldclass.Name)                                      
+                            @:&nbsp;<img src="/images/prosecco.png" height="15" />
                         }
-                        else if (string.Equals(item.Gender, "W"))
-                        {                            
-                            @if (item.Oldclass.FromAge >= 17 && item.Oldclass.ToAge <= 99)
-                            {
-                                @:Damen 
-                                @Html.DisplayFor(modelItem => item.Oldclass.Name)
-                            }
-                            else if(item.Oldclass.FromAge >= 15 && item.Oldclass.ToAge <= 16)
-                            {                                
-                                @:weibliche
-                                @Html.DisplayFor(modelItem => item.Oldclass.Name)
-                            }
-                            else
-                            {
-                                switch(item.Oldclass.Name)
-                                {                                    
-                                    case "Schüler C7":
-                                        @:Schülerinnen C7
-                                        break;
-                                    case "Schüler C8":
-                                        @:Schülerinnen C8
-                                        break;
-                                    case "Schüler C9":
-                                        @:Schülerinnen C9
-                                        break;
-                                    case "Schüler C":
-                                        @:Schülerinnen C
-                                        break;
-                                    case "Schüler B10":
-                                        @:Schülerinnen B10
-                                        break;
-                                    case "Schüler B11":
-                                        @:Schülerinnen B11
-                                        break;
-                                    case "Schüler B12":
-                                        @:Schülerinnen B12
-                                        break;
-                                    case "Schüler B":
-                                        @:Schülerinnen B
-                                        break;
-                                    case "Schüler C/B10":
-                                        @:Schülerinnen C/B10
-                                        break;
-                                    case "Schüler A13":
-                                        @:Schülerinnen A13
-                                        break;
-                                    case "Schüler A14":
-                                        @:Schülerinnen A14
-                                        break;
-                                    case "Schüler A":
-                                        @:Schülerinnen A
-                                        break;
-                                    default:
-                                        @Html.DisplayFor(modelItem => item.Oldclass.Name)
-                                        break;
-                                }
-                            }
-                        }
-                        else if (string.Equals(item.Gender, "X"))
+                    }
+                </td>
+                <td>
+                    @if (item.Gender.Equals("M"))
+                    {
+                        @if (item.Oldclass.FromAge >= 17 && item.Oldclass.ToAge <= 99)
                         {
-                            @:mixed
+                            @:Herren
+                        }
+                        else if (item.Oldclass.FromAge >= 15 && item.Oldclass.ToAge <= 16)
+                        {
+                            @:männliche
+                        }
+                        @Html.DisplayFor(modelItem => item.Oldclass.Name)
+                    }
+                    else if (string.Equals(item.Gender, "W"))
+                    {
+                        @if (item.Oldclass.FromAge >= 17 && item.Oldclass.ToAge <= 99)
+                        {
+                            @:Damen
                             @Html.DisplayFor(modelItem => item.Oldclass.Name)
-                        }                        
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Competition.Name)
-                    </td>
-                    <td>
-                        @{var x = 0;}
-                        @foreach(var repsb in ViewBag.ReportedStartboats)
+                        }
+                        else if (item.Oldclass.FromAge >= 15 && item.Oldclass.ToAge <= 16)
                         {
-                            if(repsb.ReportedRaceId == item.ReportedRaceId)
+                            @:weibliche
+                            @Html.DisplayFor(modelItem => item.Oldclass.Name)
+                        }
+                        else
+                        {
+                            switch (item.Oldclass.Name)
                             {
-                                x++;
+                                case "Schüler C7":
+                                    @:Schülerinnen C7
+                                    break;
+                                case "Schüler C8":
+                                    @:Schülerinnen C8
+                                    break;
+                                case "Schüler C9":
+                                    @:Schülerinnen C9
+                                    break;
+                                case "Schüler C":
+                                    @:Schülerinnen C
+                                    break;
+                                case "Schüler B10":
+                                    @:Schülerinnen B10
+                                    break;
+                                case "Schüler B11":
+                                    @:Schülerinnen B11
+                                    break;
+                                case "Schüler B12":
+                                    @:Schülerinnen B12
+                                    break;
+                                case "Schüler B":
+                                    @:Schülerinnen B
+                                    break;
+                                case "Schüler C/B10":
+                                    @:Schülerinnen C/B10
+                                    break;
+                                case "Schüler A13":
+                                    @:Schülerinnen A13
+                                    break;
+                                case "Schüler A14":
+                                    @:Schülerinnen A14
+                                    break;
+                                case "Schüler A":
+                                    @:Schülerinnen A
+                                    break;
+                                default:
+                                    @Html.DisplayFor(modelItem => item.Oldclass.Name)
+                                    break;
                             }
                         }
-                        @if(x > 0)
+                    }
+                    else if (string.Equals(item.Gender, "X"))
+                    {
+                        @:mixed
+                        @Html.DisplayFor(modelItem => item.Oldclass.Name)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Competition.Name)
+                </td>
+                <td>
+                    @{var x = 0;}
+                    @foreach (var repsb in ViewBag.ReportedStartboats)
+                    {
+                        if (repsb.ReportedRaceId == item.ReportedRaceId)
                         {
-                            @x    
+                            x++;
                         }
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.ReportedRaceId" class="btn btn-secondary">Bearbeiten</a> |
-                        <a asp-action="Details" asp-route-id="@item.ReportedRaceId" class="btn btn-secondary">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ReportedRaceId" class="btn btn-danger">L&ouml;schen</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>    
+                    }
+                    @if (x > 0)
+                    {
+                        @x
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ReportedRaceId" class="btn btn-secondary">Bearbeiten</a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.ReportedRaceId" class="btn btn-danger">L&ouml;schen</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function searchList() {
+        // Declare variables
+        var inputRC, inputOC, inputComp, filterRC, filterOC, filterComp, table, tr, tdRC, tdOC, tdComp, i;
+        inputRC = document.getElementById("rcInput");
+        inputOC = document.getElementById("ocInput");
+        inputComp = document.getElementById("compInput");
+        filterRC = inputRC.value.toUpperCase();
+        filterOC = inputOC.value.toUpperCase();
+        filterComp = inputComp.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+
+            tdRC = tr[i].getElementsByTagName("td")[0];
+            tdOC = tr[i].getElementsByTagName("td")[1];
+            tdComp = tr[i].getElementsByTagName("td")[2];
+
+            if (tdRC || tdOC || tdComp) {
+                if ((tdRC.innerHTML.toUpperCase().indexOf(filterRC) > -1) && (tdOC.innerHTML.toUpperCase().indexOf(filterOC) > -1) && (tdComp.innerHTML.toUpperCase().indexOf(filterComp) > -1)) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }            
+        }
+    }
+</script>
