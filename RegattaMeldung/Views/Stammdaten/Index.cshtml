@@ -47,41 +47,7 @@
         </form>
     </div>
     <div class="col-md-4">
-    </div>
-    <!--
-    <div class="col-md-4">
-        <form asp-action="ChooseClub" asp-controller="Stammdaten" asp-route-id="@Model.ClubId">
-            <input type="hidden" name="guid" value="@ViewBag.Guid" />
-            <div class="form-group">
-                <h4>Sportler ausleihen</h4>
-            </div>
-            <div class="form-group">
-                <label>Verein</label>
-                <select name="RentedFromClubId" id="RentedFromClubId" class="form-control" asp-items="@ViewBag.RentedFromClubId"><option selected>---Verein ausw&auml;hlen---</option></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Verein ausw&auml;hlen" class="btn btn-primary" />
-            </div>
-        </form>
-        @if (ViewBag.Choosed == true)
-        {
-            <form asp-action="RentMember" asp-controller="Stammdaten" asp-route-id="@Model.ClubId">
-                <input type="hidden" name="guid" value="@ViewBag.Guid" />
-                <div class="form-group">
-                    <label>Sportler</label>
-                    <select name="RentedMemberId" id="RentedMemberId" class="form-control" asp-items="@ViewBag.RentedMemberId"><option selected>---Sportler ausw&auml;hlen---</option></select>
-                </div>
-                <div class="form-group">
-                    <label>G&uuml;ltiges Jahr</label>
-                    <input class="form-control" type="number" name="RentYear" id="RentYear" value="@ViewBag.ThisYear" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Sportler ausleihen" class="btn btn-primary" />
-                </div>
-            </form>
-        }
-    </div>
-        -->
+    </div>    
 </div>
     <h3>Mitglieder</h3>
 
@@ -173,6 +139,10 @@
 
 
     <script>
+        function hideClublist() {
+            $('.selectpicker').selectpicker('hide');
+        }
+
         function searchList() {
             // Declare variables
             var inputLN, inputFN, inputGender, inputBY, filterLN, filterFN, filterGender, filterBY, table, tr, tdLN, tdFN, tdGender, tdBY, i;
