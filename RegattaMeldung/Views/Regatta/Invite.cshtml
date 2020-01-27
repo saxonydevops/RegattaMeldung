@@ -51,20 +51,19 @@
                     <td>
                         <form asp-controller="Regatta" asp-action="Invite">
                             <input type="hidden" name="ClubId" value="@item.ClubId" />
-                            <input type="hidden" name="RegattaId" value=@ViewBag.RegattaId /> 
-                            <input type="submit" value="Einladen" class="btn btn-primary"
+                            <input type="hidden" name="RegattaId" value=@ViewBag.RegattaId />                             
                             @foreach (var rc in ViewBag.RegattaClubs)
                             {                                
                                 if (rc.ClubId == item.ClubId && rc.RegattaId == ViewBag.RegattaId)
                                 {
                                     x = 1;
-                                    @: disabled />
+                                    @:<input type="submit" value="Einladen" class="btn btn-primary" disabled />
                                     @:<br/><a href="https://meldung.regattaplaner.net/Meldung/?guid=@rc.Guid">Meldelink</a>
                                 }
                             }
                             @if(x == 0)
                             {
-                                @: />
+                                @:<input type="submit" value="Einladen" class="btn btn-primary" />
                             }
                         </form>
                     </td>
