@@ -120,27 +120,29 @@ namespace RegattaMeldung.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Add(regatta);                
-                
+                _context.Add(regatta);                                                                                
+
+                _context.SaveChanges();
+
                 foreach (var oc in OldclassIds)
                 {
-                    _context.Regattas.Include(e => e.RegattaOldclasses).FirstOrDefault(m => m.RegattaId == regatta.RegattaId).RegattaOldclasses.Add(new RegattaOldclass { RegattaId = regattaVM.RegattaId, OldclassId = oc });
+                    _context.RegattaOldclasses.Add(new RegattaOldclass { RegattaId = regatta.RegattaId, OldclassId = oc });
                 }
 
                 foreach (var cf in CampingFeeIds)
                 {
-                    _context.Regattas.Include(e => e.RegattaCampingFees).FirstOrDefault(m => m.RegattaId == regatta.RegattaId).RegattaCampingFees.Add(new RegattaCampingFee { RegattaId = regattaVM.RegattaId, CampingFeeId = cf });
+                    _context.RegattaCampingFees.Add(new RegattaCampingFee { RegattaId = regatta.RegattaId, CampingFeeId = cf });
                 }
 
                 foreach (var rcid in CompetitionIds)
                 {
-                    _context.Regattas.Include(e => e.RegattaCompetitions).FirstOrDefault(m => m.RegattaId == regatta.RegattaId).RegattaCompetitions.Add(new RegattaCompetition { RegattaId = regattaVM.RegattaId, CompetitionId = rcid });
+                    _context.RegattaCompetitions.Add(new RegattaCompetition { RegattaId = regatta.RegattaId, CompetitionId = rcid });
                 }
 
                 foreach (var rsfid in StartingFeeIds)
                 {
 
-                    _context.Regattas.Include(e => e.RegattaStartingFees).FirstOrDefault(m => m.RegattaId == regatta.RegattaId).RegattaStartingFees.Add(new RegattaStartingFee { RegattaId = regattaVM.RegattaId, StartingFeeId = rsfid });
+                    _context.RegattaStartingFees.Add(new RegattaStartingFee { RegattaId = regatta.RegattaId, StartingFeeId = rsfid });
                 }
 
                 _context.SaveChanges();

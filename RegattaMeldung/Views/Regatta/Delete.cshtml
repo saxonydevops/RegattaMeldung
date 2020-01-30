@@ -1,13 +1,13 @@
 ﻿@model RegattaMeldung.Models.Regatta
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Löschen";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Regatta l&ouml;schen</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bist du sicher?</h3>
 <div>
     <h4>Regatta</h4>
     <hr />
@@ -29,121 +29,7 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ToDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Waterdepth)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Waterdepth)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Startslots)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Startslots)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReportText)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReportText)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReportOpening)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReportOpening)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReportSchedule)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReportSchedule)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReportAddress)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReportAddress)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReportTel)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReportTel)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReportFax)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReportFax)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReportMail)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReportMail)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Judge)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Judge)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Awards)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Awards)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Security)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Security)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ScheduleText)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ScheduleText)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SubscriberFee)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SubscriberFee)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Accomodation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Accomodation)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Catering)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Catering)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Club)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Club.ClubId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Waters)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Waters.WaterId)
-        </dd>
+        </dd>        
     </dl>
     
     <form asp-action="Delete">

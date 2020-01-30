@@ -23,7 +23,11 @@ namespace RegattaMeldung.Models
         public int Waterdepth { get; set; }
         public int Startslots { get; set; }
         public string ReportText { get; set; }
+        [Display(Name="Meldeeröffnung")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime ReportOpening { get; set; }
+        [Display(Name="Meldetermin")]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime ReportSchedule { get; set; }
         public string ReportAddress { get; set; }
         public string ReportTel { get; set; }
