@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label asp-for="ClubId" class="control-label"></label>
                 <div>
-                    <select asp-for="ClubId" class="form-control" asp-items="ViewBag.ClubId"></select>
+                    <select asp-for="ClubId" class="selectpicker form-control" asp-items="ViewBag.ClubId" data-live-search="true" data-size="10"></select>
                     <span asp-validation-for="ClubId" class="text-danger"></span>
                 </div>
             </div>
@@ -105,14 +105,14 @@
             <div class="form-group">
                 <label asp-for="ReportSchedule" class="control-label"></label>
                 <div>
-                    <input asp-for="ReportSchedule" class="form-control" />
+                    <input asp-for="ReportSchedule" class="form-control" type="date" />
                     <span asp-validation-for="ReportSchedule" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="ReportOpening" class="control-label"></label>
                 <div>
-                    <input asp-for="ReportOpening" class="form-control" />
+                    <input asp-for="ReportOpening" class="form-control" type="date" />
                     <span asp-validation-for="ReportOpening" class="text-danger"></span>
                 </div>
             </div>
