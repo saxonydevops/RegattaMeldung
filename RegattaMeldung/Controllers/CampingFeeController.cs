@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RegattaMeldung.Data;
 using RegattaMeldung.Models;
+using System.Globalization;
 
 namespace RegattaMeldung.Controllers
 {
@@ -38,8 +39,12 @@ namespace RegattaMeldung.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CampingFeeId,Name,Amount")] CampingFee campingFee)
+        public async Task<IActionResult> Create(string Name, string Amount)
         {
+            CampingFee campingFee = new CampingFee();
+            campingFee.Amount = decimal.Parse(Amount, CultureInfo.InvariantCulture);
+            campingFee.Name = Name;
+
             if (ModelState.IsValid)
             {
                 _context.Add(campingFee);

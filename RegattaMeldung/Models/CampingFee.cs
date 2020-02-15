@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,7 +14,8 @@ namespace RegattaMeldung.Models
         public string Name { get; set; }
         [Display(Name = "Gebühr")]
         [DataType(DataType.Currency)]
-        public float Amount { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Amount { get; set; }
         [Display(Name = "Name")]
         public virtual string LongName
         {
