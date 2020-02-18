@@ -23,7 +23,7 @@ namespace RegattaMeldung.Controllers
 
         public IActionResult Index(string guid)
         {            
-            var model = _context.Regattas.Include(r => r.Club).Include(r => r.Waters).Where(e => e.ReportOpening >= DateTime.Now);
+            var model = _context.Regattas.Include(r => r.Club).Where(e => e.ReportOpening >= DateTime.Now && e.IsApproved == true);
 
             ViewBag.Guid = guid;
 

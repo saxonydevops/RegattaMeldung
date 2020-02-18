@@ -66,6 +66,8 @@ namespace RegattaMeldung.ViewModels
         public int StartersLastYear { get; set; }
         [Display(Name = "Kategorie")]
         public string Category { get; set; }
+        [Display(Name = "Freigegeben")]
+        public bool IsApproved { get; set; }
         [Display(Name = "Ausrichtender Verein")]
         public int ClubId { get; set; }
         public IEnumerable<Oldclass> Oldclasses { get; set; }
