@@ -41,6 +41,7 @@ namespace RegattaMeldung.Models
         public string Accomodation { get; set; }
         public string Comment { get; set; }
         public string Catering { get; set; }
+        public bool IsApproved { get; set; }
         public int ClubId { get; set; }
         [Display(Name="Verein")]
         public Club Club { get; set; }

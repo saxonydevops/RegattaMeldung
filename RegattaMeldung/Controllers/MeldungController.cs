@@ -151,13 +151,13 @@ namespace RegattaMeldung.Controllers
                     sbStandbys = _context.ReportedStartboatStandbys.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.ClubId == RGClubId || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();                    
                     availMembers = _context.Members.Where(e => (e.ClubId == clubid || e.ClubId == RGClubId || e.RentedToClubId == clubid) && (!sbMembers.Contains(e.MemberId))).ToList();
 
-                    mbl1 = availMembers.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
-                    sbl1 = _context.Members.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                    mbl1 = availMembers.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
+                    sbl1 = _context.Members.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true ))).OrderBy(e => e.LastName).Distinct();
                 }
                 else
                 {
-                    mbl1 = availMembers.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
-                    sbl1 = _context.Members.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                    mbl1 = availMembers.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
+                    sbl1 = _context.Members.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
                 }   
 
                 var memberlist1 = new SelectList(mbl1, "MemberId", "FullName");             
@@ -181,13 +181,13 @@ namespace RegattaMeldung.Controllers
                     sbStandbys = _context.ReportedStartboatStandbys.Include(e => e.Member).Where(e => (e.Member.ClubId == clubid || e.Member.ClubId == RGClubId || e.Member.RentedToClubId == clubid) && e.ReportedStartboat.ReportedRaceId == id).Select(e => e.MemberId).ToList();                    
                     availMembers = _context.Members.Where(e => (e.ClubId == clubid || e.ClubId == RGClubId || e.RentedToClubId == clubid) && (!sbMembers.Contains(e.MemberId))).ToList();
                     
-                    mbl2 = availMembers.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
-                    sbl2 = _context.Members.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                    mbl2 = availMembers.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
+                    sbl2 = _context.Members.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || e.ClubId == RGClubId || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
                 }
                 else
                 {
-                    mbl2 = availMembers.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
-                    sbl2 = _context.Members.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                    mbl2 = availMembers.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
+                    sbl2 = _context.Members.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
                 } 
 
                 var memberlist2 = new SelectList(mbl2, "MemberId", "FullName");
@@ -713,12 +713,12 @@ namespace RegattaMeldung.Controllers
 
                 if(model.Gender == "M" || model.Gender == "W")
                 {                    
-                    tempmemberlist = tempmemberlist.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                    tempmemberlist = tempmemberlist.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
                     memberlist[i] = new SelectList(tempmemberlist, "MemberId", "FullName",member[i].MemberId);                    
                 }  
                 else
                 {
-                    tempmemberlist = tempmemberlist.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                    tempmemberlist = tempmemberlist.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
                     memberlist[i] = new SelectList(tempmemberlist, "MemberId", "FullName",member[i].MemberId);
                 }
 
@@ -733,12 +733,12 @@ namespace RegattaMeldung.Controllers
 
                     if(model.Gender == "M" || model.Gender == "W")
                     {
-                        tempstandbylist = tempstandbylist.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                        tempstandbylist = tempstandbylist.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
                         standbylist[i] = new SelectList(tempstandbylist, "MemberId", "FullName", standby[i].MemberId);                    
                     }  
                     else
                     {
-                        tempstandbylist = tempstandbylist.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                        tempstandbylist = tempstandbylist.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
                         standbylist[i] = new SelectList(tempstandbylist, "MemberId", "FullName", standby[i].MemberId);
                     }                  
 
@@ -755,12 +755,12 @@ namespace RegattaMeldung.Controllers
                     
                     if(model.Gender == "M" || model.Gender == "W")
                     {
-                        tempstandbylist = tempstandbylist.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                        tempstandbylist = tempstandbylist.Where(e => e.Gender == model.Gender && e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
                         standbylist[i] = new SelectList(tempstandbylist, "MemberId", "FullName");                    
                     }  
                     else
                     {
-                        tempstandbylist = tempstandbylist.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true && e.RentYear == yearnow))).OrderBy(e => e.LastName).Distinct();
+                        tempstandbylist = tempstandbylist.Where(e => e.Birthyear >= ageTo && e.Birthyear <= ageFrom && (e.ClubId == clubid || (e.RentedToClubId == clubid && e.isRented == true))).OrderBy(e => e.LastName).Distinct();
                         standbylist[i] = new SelectList(tempstandbylist, "MemberId", "FullName");
                     }  
 

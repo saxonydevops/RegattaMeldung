@@ -19,8 +19,7 @@ namespace RegattaMeldung.Models
         [Display(Name ="Geschlecht")]
         public string Gender { get; set; }
         public bool isRented { get; set; }
-        public int RentedToClubId { get; set; }
-        public int RentYear { get; set; }
+        public int RentedToClubId { get; set; }        
         public string FullName
         {
             get
