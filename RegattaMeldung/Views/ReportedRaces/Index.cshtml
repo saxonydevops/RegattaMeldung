@@ -25,9 +25,14 @@
 </div>
 <br />
 <br />
+<form asp-action="DeleteMany">
+    <div class="form-group">
+        <input type="submit" value="Ausgewählte löschen" class="btn btn-danger" />
+    </div>
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
+            <th></th>
             <th>
                 Renncode
             </th>
@@ -44,6 +49,7 @@
             <th></th>
         </tr>
         <tr>
+            <td></td>
             <td><input class="form-control" id="rcInput" onkeyup="searchList()" type="text" placeholder="Filter Renncode..."></td>
             <td><input class="form-control" id="ocInput" onkeyup="searchList()" type="text" placeholder="Filter Altersklasse..."></td>
             <td><input class="form-control" id="compInput" onkeyup="searchList()" type="text" placeholder="Filter Wettkampf..."></td>
@@ -56,6 +62,7 @@
         @foreach (var item in Model)
         {
             <tr id="@item.ReportedRaceId">
+                <td><input type="checkbox" id="ReportedRaceIds" name="ReportedRaceIds" value="@item.ReportedRaceId"/></td>
                 <td>
                     @item.RaceCode
                     @if (item.Comment != "")
@@ -176,7 +183,7 @@
         }
     </tbody>
 </table>
-
+</form>
 <script>
     function searchList() {
         // Declare variables
@@ -193,9 +200,9 @@
         // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
 
-            tdRC = tr[i].getElementsByTagName("td")[0];
-            tdOC = tr[i].getElementsByTagName("td")[1];
-            tdComp = tr[i].getElementsByTagName("td")[2];
+            tdRC = tr[i].getElementsByTagName("td")[1];
+            tdOC = tr[i].getElementsByTagName("td")[2];
+            tdComp = tr[i].getElementsByTagName("td")[3];
 
             if (tdRC || tdOC || tdComp) {
                 if ((tdRC.innerHTML.toUpperCase().indexOf(filterRC) > -1) && (tdOC.innerHTML.toUpperCase().indexOf(filterOC) > -1) && (tdComp.innerHTML.toUpperCase().indexOf(filterComp) > -1)) {

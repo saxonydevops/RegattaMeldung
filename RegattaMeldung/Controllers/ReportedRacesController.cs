@@ -199,6 +199,16 @@ namespace RegattaMeldung.Controllers
             return View(reportedRace);
         }
 
+        public IActionResult DeleteMany(List<int> ReportedRaceIds)
+        {
+            List<ReportedRace> rrlist = _context.ReportedRaces.Where(e => ReportedRaceIds.Contains(e.ReportedRaceId)).ToList();
+            
+            _context.RemoveRange(rrlist);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
+
         // GET: ReportedRaces/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
