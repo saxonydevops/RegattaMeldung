@@ -132,9 +132,11 @@ namespace RegattaMeldung.Controllers
             if (ModelState.IsValid)
             {
                 reportedRace.RaceCode = RaceCode.getRaceCode(reportedRace.Gender, competition, oldclass);
+
                 _context.Add(reportedRace);
+
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { rid = reportedRace.RegattaId });
             }
             ViewData["RegattaId"] = new SelectList(_context.Regattas, "RegattaId", "Name",reportedRace.RegattaId);
             ViewData["CompetitionId"] = new SelectList(_context.Competitions, "CompetitionId", "Name", reportedRace.CompetitionId);
@@ -200,13 +202,14 @@ namespace RegattaMeldung.Controllers
         }
 
         public IActionResult DeleteMany(List<int> ReportedRaceIds)
-        {
+        {            
             List<ReportedRace> rrlist = _context.ReportedRaces.Where(e => ReportedRaceIds.Contains(e.ReportedRaceId)).ToList();
+            int rid = _context.ReportedRaces.FirstOrDefault(e => e.ReportedRaceId == rrlist[0].ReportedRaceId).RegattaId;
             
             _context.RemoveRange(rrlist);
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index),new { rid = rid });
         }
 
         // GET: ReportedRaces/Delete/5

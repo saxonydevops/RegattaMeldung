@@ -17,6 +17,13 @@ FROM build AS publish
 RUN dotnet publish "RegattaMeldung.csproj" -c Release -o /app/publish
 
 FROM base AS final
+
+# Set the locale
+#RUN locale-gen de_DE.UTF-8 
+ENV LANG de_DE.UTF-8
+ENV LANGUAGE de_DE:de
+ENV LC_ALL de_DE.UTF-8
+
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "RegattaMeldung.dll"]

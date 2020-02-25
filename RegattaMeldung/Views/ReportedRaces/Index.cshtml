@@ -49,7 +49,7 @@
             <th></th>
         </tr>
         <tr>
-            <td></td>
+            <td><input type="checkbox" id="checkAll" name="checkAll" onchange="toggle()" /></td>
             <td><input class="form-control" id="rcInput" onkeyup="searchList()" type="text" placeholder="Filter Renncode..."></td>
             <td><input class="form-control" id="ocInput" onkeyup="searchList()" type="text" placeholder="Filter Altersklasse..."></td>
             <td><input class="form-control" id="compInput" onkeyup="searchList()" type="text" placeholder="Filter Wettkampf..."></td>
@@ -211,6 +211,34 @@
                     tr[i].style.display = "none";
                 }
             }            
+        }
+    }
+
+    function toggle() {
+        var table, tr, ckAll;
+
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        ckAll = document.getElementById("checkAll");
+
+        for (i = 0; i < tr.length; i++) {
+            var oInputs = tr[i].getElementsByTagName("input");
+
+            if(tr[i].style.display != "none")
+            {
+                for( var j=0; j < oInputs.length; j++ ) {
+			        if( oInputs[j].name == "ReportedRaceIds" ) {
+                        if(ckAll.checked == true)
+                        {
+                            oInputs[j].checked = true;
+                        }
+                        else if(ckAll.checked == false)
+                        {
+                            oInputs[j].checked = false;
+                        }
+                    }
+                }
+            }
         }
     }
 </script>
