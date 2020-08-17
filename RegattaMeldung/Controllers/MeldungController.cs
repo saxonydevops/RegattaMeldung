@@ -328,11 +328,11 @@ namespace RegattaMeldung.Controllers
                 if(isDouble == false)
                 {
                     _context.SaveChanges();
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat1, Seatnumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat1, Seatnumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
 
                     if (standbycheck1 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby1, Standbynumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby1, Standbynumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
 
                     _context.SaveChanges();
@@ -383,14 +383,15 @@ namespace RegattaMeldung.Controllers
 
                     if(standbycheck1 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby1, Standbynumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby1, Standbynumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
                     if(standbycheck2 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby2, Standbynumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby2, Standbynumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat1, Seatnumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat2, Seatnumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat1, Seatnumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat2, Seatnumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });                                           
 
                     _context.SaveChanges();
                 }                
@@ -464,26 +465,25 @@ namespace RegattaMeldung.Controllers
                 {
                    _context.SaveChanges();
 
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat1, Seatnumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat2, Seatnumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat3, Seatnumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat4, Seatnumber = 4, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-
-                    if (standbycheck1 == true)
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat1, Seatnumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat2, Seatnumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat3, Seatnumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat3, Seatnumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                                        
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby1, Standbynumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby1, Standbynumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
                     if (standbycheck2 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby2, Standbynumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby2, Standbynumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
                     if (standbycheck3 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby3, Standbynumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby3, Standbynumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
                     if (standbycheck4 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby4, Standbynumber = 4, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby4, Standbynumber = 4, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
 
                     _context.SaveChanges();
@@ -578,46 +578,46 @@ namespace RegattaMeldung.Controllers
                 if(isDouble == false)
                 {
                     _context.SaveChanges();
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat1, Seatnumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat2, Seatnumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat3, Seatnumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat4, Seatnumber = 4, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat5, Seatnumber = 5, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat6, Seatnumber = 6, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat7, Seatnumber = 7, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                    _context.ReportedStartboats.Include(e => e.ReportedStartboatMembers).Last().ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat8, Seatnumber = 8, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat1, Seatnumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat2, Seatnumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat3, Seatnumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat4, Seatnumber = 4, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat5, Seatnumber = 5, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat6, Seatnumber = 6, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat7, Seatnumber = 7, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat8, Seatnumber = 8, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
 
                     if (standbycheck1 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby1, Standbynumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby1, Standbynumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
                     if (standbycheck2 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby2, Standbynumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby2, Standbynumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
                     if (standbycheck3 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby3, Standbynumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby3, Standbynumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
                     if (standbycheck4 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby4, Standbynumber = 4, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby4, Standbynumber = 4, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
                     if (standbycheck5 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby5, Standbynumber = 5, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby5, Standbynumber = 5, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
                     if (standbycheck6 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby6, Standbynumber = 6, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby6, Standbynumber = 6, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
                     if (standbycheck7 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby7, Standbynumber = 7, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby7, Standbynumber = 7, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
                     if (standbycheck8 == true)
                     {
-                        _context.ReportedStartboats.Include(e => e.ReportedStartboatStandbys).Last().ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby8, Standbynumber = 8, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby8, Standbynumber = 8, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
 
                     _context.SaveChanges();

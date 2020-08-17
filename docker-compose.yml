@@ -1,0 +1,93 @@
+version: '2.1'
+services:
+
+    nginx-proxy:
+      image: jwilder/nginx-proxy
+      restart: always
+      volumes:
+        - nginx-proxy-certs:/etc/nginx/certs:ro
+        - nginx-proxy-vhost:/etc/nginx/vhost.d
+        - /opt/docker-files/nginx-proxy/network_internal.conf:/etc/nginx/network_internal.conf
+        - /usr/share/nginx/html
+        - /var/run/docker.sock:/tmp/docker.sock:ro
+      ports:
+        - 80:80
+        - 443:443
+      labels:
+        - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+      networks:
+        rm-network:
+
+    nginx-letsencrypt:
+      image: jrcs/letsencrypt-nginx-proxy-companion
+      restart: always
+      volumes:
+        - nginx-proxy-certs:/etc/nginx/certs:rw
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+      volumes_from:
+        - nginx-proxy
+      networks:
+        rm-network:
+
+    rmweb:
+      image: tuxone/regattameldung:1.8
+      restart: always
+      environment:
+        - PORT=80
+        - VIRTUAL_HOST=meldung.regattaplaner.net
+        - VIRTUAL_PORT=80
+        - VIRTUAL_PROTO=http
+        - LETSENCRYPT_HOST=meldung.regattaplaner.net
+        - LETSENCRYPT_EMAIL=info@regattameldung.net
+        - RESOLVE_TO_PROXY_IP=true
+      depends_on:
+        - sksvsqlserver
+      networks:
+        rm-network:
+        
+    rmanweb:
+      image: tuxone/regattamanager:1.0
+      restart: always
+      environment:
+        - PORT=80
+        - VIRTUAL_HOST=programm.regattaplaner.net
+        - VIRTUAL_PORT=80
+        - VIRTUAL_PROTO=http
+        - LETSENCRYPT_HOST=programm.regattaplaner.net
+        - LETSENCRYPT_EMAIL=info@regattameldung.net
+        - RESOLVE_TO_PROXY_IP=true
+      depends_on:
+        - sksvsqlserver
+      networks:
+        rm-network:
+
+    sksvsqlserver:
+      image: mcr.microsoft.com/mssql/server:2017-latest
+      restart: always
+      environment:
+        - SA_PASSWORD=93bVYzWSQbWU2fbB
+        - ACCEPT_EULA=Y
+        - MSSQL_PID=Express
+      volumes:
+        - sksvsqldata:/var/opt/mssql
+      networks:
+        rm-network:    
+          aliases:
+            - sksvsqlserver
+    
+networks:
+  rm-network:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-mailcow
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: ${IPV4_NETWORK:-172.22.1}.0/24
+        - subnet: ${IPV6_NETWORK:-fd4d:6169:6c63:6f77::/64}
+
+volumes:
+  sksvsqldata:
+  nginx-proxy-certs:
+  nginx-proxy-vhost:
