@@ -464,6 +464,11 @@ namespace RegattaMeldung.Data
             builder.Entity<Raceclass>().HasData(new Raceclass { RaceclassId = 1004, Length = 6000, Name = "6000m" });
             builder.Entity<Raceclass>().HasData(new Raceclass { RaceclassId = 1005, Length = 100, Name = "100m" });
             builder.Entity<Raceclass>().HasData(new Raceclass { RaceclassId = 1006, Length = 250, Name = "250m" });
+
+            builder.Entity<Member>().HasData(new Member { MemberId = 1, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
+            //builder.Entity<Member>().HasData(new Member { MemberId = 2, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
+            //builder.Entity<Member>().HasData(new Member { MemberId = 3, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
+            //builder.Entity<Member>().HasData(new Member { MemberId = 4, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
         }
 
         public DbSet<RegattaMeldung.Models.Boatclass> Boatclasses { get; set; }

@@ -1132,7 +1132,7 @@ namespace RegattaMeldung.Controllers
                 }
                 else if (MemberFromAge == 11)
                 {
-                    ageFrom = yearnow - 11;
+                    ageFrom = yearnow - 10;
                 }
                 else if (MemberFromAge == 12)
                 {
