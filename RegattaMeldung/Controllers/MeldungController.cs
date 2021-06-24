@@ -396,6 +396,89 @@ namespace RegattaMeldung.Controllers
                     _context.SaveChanges();
                 }                
             }
+            else if (seatnumber == 3)
+            {
+                if (seat1 == 0 || seat2 == 0 || seat3 == 0)
+                {
+                    return RedirectToAction("Details", "Meldung", new { id = id, guid = guid });
+                }
+
+                seats.Add(seat1); 
+                seats.Add(seat2);
+                seats.Add(seat3);
+
+                if(standbycheck1 == true)
+                {
+                    if (standby1 == 0)
+                    {
+                        return RedirectToAction("Details", "Meldung", new { id = id, guid = guid });
+                    }
+                    seats.Add(standby1);
+                }
+                if(standbycheck2 == true)
+                {
+                    if (standby2 == 0)
+                    {
+                        return RedirectToAction("Details", "Meldung", new { id = id, guid = guid });
+                    }
+                    seats.Add(standby2);
+                }
+                if(standbycheck3 == true)
+                {
+                    if (standby3 == 0)
+                    {
+                        return RedirectToAction("Details", "Meldung", new { id = id, guid = guid });
+                    }
+                    seats.Add(standby3);
+                }
+                if(standbycheck4 == true)
+                {
+                    if (standby4 == 0)
+                    {
+                        return RedirectToAction("Details", "Meldung", new { id = id, guid = guid });
+                    }
+                    seats.Add(standby4);
+                }
+
+                if (seats.GroupBy(s => s).SelectMany(grp => grp.Skip(1)).Count() >= 1)
+                {
+                    if(seat2 == 1)
+                    {
+                        seat2 = 2;
+                    }
+                    else if(seat3 == 1)
+                    {
+                        seat3 = 3;
+                    }
+                    else
+                    {
+                        isDouble = true;
+                    }
+                }  
+
+                if(isDouble == false)
+                {
+                   _context.SaveChanges();
+
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat1, Seatnumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat2, Seatnumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat3, Seatnumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                                        
+                    {
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby1, Standbynumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    }
+                    if (standbycheck2 == true)
+                    {
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby2, Standbynumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    }
+                    if (standbycheck3 == true)
+                    {
+                        _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby3, Standbynumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
+                    }
+
+                    _context.SaveChanges();
+                }
+            }
             else if (seatnumber == 4)
             {
                 if (seat1 == 0 || seat2 == 0 || seat3 == 0 || seat4 == 0)

@@ -30,7 +30,7 @@ services:
         rm-network:
 
     rmweb:
-      image: tuxone/regattameldung:1.8
+      image: tuxone/regattameldung:1.16
       restart: always
       environment:
         - PORT=80
