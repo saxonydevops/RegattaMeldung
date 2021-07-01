@@ -463,7 +463,8 @@ namespace RegattaMeldung.Controllers
                     _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat1, Seatnumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat2, Seatnumber = 2, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     _context.ReportedStartboatMembers.Add(new ReportedStartboatMember { MemberId = seat3, Seatnumber = 3, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
-                                        
+
+                    if (standbycheck1 == true)                    
                     {
                         _context.ReportedStartboatStandbys.Add(new ReportedStartboatStandby { MemberId = standby1, Standbynumber = 1, ReportedStartboatId = _context.ReportedStartboats.Max(i => i.ReportedStartboatId) });
                     }
