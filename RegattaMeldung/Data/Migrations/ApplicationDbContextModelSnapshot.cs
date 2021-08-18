@@ -2800,6 +2800,19 @@ namespace RegattaMeldung.Data.Migrations
                     b.HasIndex("ClubId");
 
                     b.ToTable("Members");
+
+                    b.HasData(
+                        new
+                        {
+                            MemberId = 1,
+                            Birthyear = 2000,
+                            ClubId = 294,
+                            FirstName = "WIRD",
+                            Gender = "M",
+                            LastName = "GESUCHT",
+                            RentedToClubId = 0,
+                            isRented = false
+                        });
                 });
 
             modelBuilder.Entity("RegattaMeldung.Models.Oldclass", b =>
