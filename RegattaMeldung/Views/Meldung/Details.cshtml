@@ -205,8 +205,14 @@ else
                             {
                                 if (member.MemberId == sbm.MemberId)
                                 {
-                                    //@if(member.MemberId == 1 || member.MemberId == 2 || member.MemberId == 3 || member.MemberId == 4)
-                                    @if(member.MemberId == 1)
+                                    @if(member.MemberId == 1 
+                                        || member.MemberId == 2 
+                                        || member.MemberId == 3 
+                                        || member.MemberId == 4 
+                                        || member.MemberId == 5 
+                                        || member.MemberId == 6 
+                                        || member.MemberId == 7 
+                                        || member.MemberId == 8)
                                     {
                                         @: <b>
                                         @string.Format("{0}", member.LastName);

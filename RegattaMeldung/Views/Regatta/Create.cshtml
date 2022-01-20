@@ -1,4 +1,5 @@
 ﻿@model RegattaMeldung.ViewModels.RegattaVM
+@using System.Linq
 
 @{
     ViewData["Title"] = "Regatta Erstellen";
@@ -85,14 +86,85 @@
             </div>
             <div class="form-group">
                 <label asp-for="RegattaOldclasses" class="control-label"></label>
-                <div>
-                    @Html.ListBox("OldclassIds", ViewBag.OldclassId as MultiSelectList, new { size = 15, @class = "form-control" })
+                <div class="form-check">
+                    <h4>Bis Schüler A</h4>
+                    <input class="from-check-input" type="checkbox" onClick="toggleSchueler(this)" />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Alle Klassen
+                    </label><br/> 
+                    @foreach(var oc in ViewBag.Oldclasses)
+                    {                        
+                        if(oc.ToAge <= 14)
+                        {                                    
+                                <input class="form-check-input" name="schueler" type="checkbox" value="@oc.OldclassId" id="schueler">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    @oc.Name
+                                </label>                            
+                            <br/>
+                        }
+                    }
+                    <h4>Jugend, Junioren und Leistungsklasse</h4>
+                    <input class="from-check-input" type="checkbox" onClick="toggleJugend(this)" />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Alle Klassen
+                    </label> <br/>
+                    @foreach(var oc in ViewBag.Oldclasses)
+                    {                        
+                        if(oc.FromAge >= 15 && oc.ToAge <= 31)
+                        {                                    
+                                <input class="form-check-input" name="jugend" type="checkbox" value="@oc.OldclassId" id="jugend">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    @oc.Name
+                                </label>                            
+                            <br/>
+                        }
+                    }
+                    <h4>Altersklassen</h4>
+                    <input class="from-check-input" type="checkbox" onClick="toggleAltersklassen(this)" />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Alle Klassen
+                    </label> <br/>
+                    @foreach(var oc in ViewBag.Oldclasses)
+                    {                        
+                        if(oc.FromAge >= 32 && oc.ToAge <= 99)
+                        {                                    
+                                <input class="form-check-input" name="altersklassen" type="checkbox" value="@oc.OldclassId" id="altersklassen">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    @oc.Name
+                                </label>                            
+                            <br/>
+                        }
+                    }
+                    <h4>alle Altersklassen</h4>
+                    @foreach(var oc in ViewBag.Oldclasses)
+                    {                        
+                        if(oc.FromAge == 0 && oc.ToAge == 99)
+                        {                                    
+                                <input class="form-check-input" type="checkbox" name="alleklassen" value="@oc.OldclassId" id="alleklassen">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    @oc.Name
+                                </label>                            
+                            <br/>
+                        }
+                    }
                 </div>
             </div>
             <div class="form-group">
                 <label asp-for="RegattaCompetitions" class="control-label"></label>
-                <div>
-                    @Html.ListBox("CompetitionIds", ViewBag.CompetitionId as MultiSelectList, new { size = 15, @class = "form-control" })
+                <div class="form-check">
+                    <h4>Wettkämpfe</h4>
+                    <input class="from-check-input" type="checkbox" onClick="toggleCompetitions(this)" />
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Alle Wettkämpfe
+                    </label><br/> 
+                    @foreach(var comp in ViewBag.Competitions)
+                    {                                  
+                        <input class="form-check-input" name="CompetitionIds" type="checkbox" value="@comp.CompetitionId" id="CompetitionIds">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            @comp.Boatclasses.Name @comp.Raceclasses.Name
+                        </label>                            
+                        <br/>
+                    }                    
                 </div>
             </div>
             <div class="form-group">
@@ -231,3 +303,26 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script language="JavaScript">
+  function toggleSchueler(source) {
+    checkboxes = document.getElementsByName('schueler');
+    for(let checkbox of checkboxes)
+      checkbox.checked = source.checked;
+  }
+  function toggleJugend(source) {
+    checkboxes = document.getElementsByName('jugend');
+    for(let checkbox of checkboxes)
+      checkbox.checked = source.checked;
+  }
+  function toggleAltersklassen(source) {
+    checkboxes = document.getElementsByName('altersklassen');
+    for(let checkbox of checkboxes)
+      checkbox.checked = source.checked;
+  }
+  function toggleCompetitions(source) {
+    checkboxes = document.getElementsByName('CompetitionIds');
+    for(let checkbox of checkboxes)
+      checkbox.checked = source.checked;
+  }
+</script>

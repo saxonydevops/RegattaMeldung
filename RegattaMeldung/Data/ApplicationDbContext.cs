@@ -127,7 +127,7 @@ namespace RegattaMeldung.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
 
-            builder.Entity<Club>().HasData(new Club { ClubId = 1, City = "Ansbach", Name = "Kanu-Sportclub Ansbach", VNr = "02-001", ShortName = "Ansbach" });
+            builder.Entity<Club>().HasData(new Club { ClubId = 294, City = "Ansbach", Name = "Kanu-Sportclub Ansbach", VNr = "02-001", ShortName = "Ansbach" });
             builder.Entity<Club>().HasData(new Club { ClubId = 2, City = "Aschaffenburg", Name = "SSKC Poseidon Aschaffenburg Kanuabt.", VNr = "02-002", ShortName = "Aschaffenburg" });
             builder.Entity<Club>().HasData(new Club { ClubId = 11, City = "Berlin", Name = "Kanu-Gemeinschaft Tegel e. V.", VNr = "03-063", ShortName = "KG Tegel" });
             builder.Entity<Club>().HasData(new Club { ClubId = 101, City = "Göttingen", Name = "Vereinigung für Kanurennsport Nord (VKN)", VNr = "09-252", ShortName = "VKN Göttingen" });
@@ -343,7 +343,7 @@ namespace RegattaMeldung.Data
             builder.Entity<Club>().HasData(new Club { ClubId = 291, City = "Würzburg", Name = "TG Würzburg Heidingsfeld Kanuabt.", VNr = "02-101", ShortName = "TG Würzburg" });
             builder.Entity<Club>().HasData(new Club { ClubId = 292, City = "Wurzen", Name = "Sportgemeinschaft Lokomotive Wurzen e.V.", VNr = "15-007", ShortName = "SG Lok Wurzen" });
             builder.Entity<Club>().HasData(new Club { ClubId = 293, City = "Wusterwitz", Name = "Blau Weiß Wusterwitz e.V., Abtl. Kanu", VNr = "04-019", ShortName = "BW Wusterwitz" });
-            builder.Entity<Club>().HasData(new Club { ClubId = 294, City = "Platzhalter", Name = "Platzhalter", VNr = "00-000", ShortName = "Platzhalter" });
+            builder.Entity<Club>().HasData(new Club { ClubId = 1, City = "Platzhalter", Name = "Platzhalter", VNr = "00-000", ShortName = "Platzhalter" });
             builder.Entity<Club>().HasData(new Club { ClubId = 4, City = "Bad Lobenstein", Name = "Kanuteam Thüringen e.V.", VNr = "18-031", ShortName = "Bad Lobenstein" });
             builder.Entity<Club>().HasData(new Club { ClubId = 31, City = "Bitburg", Name = "Turnverein Bitburg 1911 e.V. Kanuabteilung", VNr = "13-001", ShortName = "TV Bitburg" });
             builder.Entity<Club>().HasData(new Club { ClubId = 32, City = "Bochum", Name = "Bochumer Kanu-Club e.V.", VNr = "10-016", ShortName = "Bochumer KC" });
@@ -466,9 +466,13 @@ namespace RegattaMeldung.Data
             builder.Entity<Raceclass>().HasData(new Raceclass { RaceclassId = 1006, Length = 250, Name = "250m" });
 
             builder.Entity<Member>().HasData(new Member { MemberId = 1, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
-            //builder.Entity<Member>().HasData(new Member { MemberId = 2, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
-            //builder.Entity<Member>().HasData(new Member { MemberId = 3, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
-            //builder.Entity<Member>().HasData(new Member { MemberId = 4, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
+            builder.Entity<Member>().HasData(new Member { MemberId = 2, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
+            builder.Entity<Member>().HasData(new Member { MemberId = 3, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
+            builder.Entity<Member>().HasData(new Member { MemberId = 4, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
+            builder.Entity<Member>().HasData(new Member { MemberId = 5, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
+            builder.Entity<Member>().HasData(new Member { MemberId = 6, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
+            builder.Entity<Member>().HasData(new Member { MemberId = 7, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
+            builder.Entity<Member>().HasData(new Member { MemberId = 8, Birthyear = 2000, ClubId = 294, FirstName = "WIRD", Gender = "M", LastName = "GESUCHT", RentedToClubId = 0, isRented = false });
         }
 
         public DbSet<RegattaMeldung.Models.Boatclass> Boatclasses { get; set; }

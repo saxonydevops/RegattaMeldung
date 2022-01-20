@@ -11,57 +11,67 @@
 <p>
     <a class="btn btn-success" asp-action="Create">Neue Regatta erstellen</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)                
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FromDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ToDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Club)
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                    @if(item.IsApproved == true) { <text>(freigegeben)</text>}
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FromDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ToDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Club.Name)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.RegattaId" class="btn btn-secondary btn-sm">Bearbeiten</a> <br />
-                    <a asp-action="Delete" asp-route-id="@item.RegattaId" class="btn btn-danger btn-sm">L&ouml;schen</a> <br />
-                    <a asp-action="Index" asp-route-id="@item.RegattaId" class="btn btn-dark btn-sm">Filtern</a>
-                </td>
-                <td>
-                    <a asp-action="Invite" asp-route-id="@item.RegattaId" class="btn btn-success btn-sm">Vereine einladen</a> <br />
-                    <a asp-action="createReportedRaces" asp-route-id="@item.RegattaId" class="btn btn-secondary btn-sm">Rennliste generieren</a>                    
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)                
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FromDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ToDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Club)
+                </th>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
-
-
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                        @if (item.IsApproved == true)
+                        {
+                            <text>(freigegeben)</text>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FromDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ToDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Club.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.RegattaId" class="btn btn-secondary btn-sm">Bearbeiten</a> <br />
+                        <a asp-action="Delete" asp-route-id="@item.RegattaId" class="btn btn-danger btn-sm">L&ouml;schen</a> <br />
+                        <a asp-action="Index" asp-route-id="@item.RegattaId" class="btn btn-dark btn-sm">Filtern</a>
+                    </td>
+                    <td>
+                        <a asp-action="Invite" asp-route-id="@item.RegattaId" class="btn btn-success btn-sm">Vereine einladen</a> <br />
+                        <a asp-action="createReportedRaces" asp-route-id="@item.RegattaId" class="btn btn-secondary btn-sm">Rennliste generieren</a>                    
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <hr />
+    <h3>Noch keine Regatta angelegt!</h3>
+    <hr />
+}
 <h4>Eingeladene Vereine</h4>
 <table class="table table-hover">
     <thead>

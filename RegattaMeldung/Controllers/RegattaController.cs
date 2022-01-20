@@ -74,8 +74,9 @@ namespace RegattaMeldung.Controllers
 
             ViewData["ClubId"] = new SelectList(_context.Clubs.OrderBy(e => e.Name), "ClubId", "Name");
             ViewData["WaterId"] = new SelectList(_context.Waters, "WaterId", "Name");
-            ViewData["OldclassIds"] = new MultiSelectList(_context.Oldclasses.OrderBy(e => e.FromAge), "OldclassId", "Name");
-            ViewData["CompetitionIds"] = new MultiSelectList(_context.Competitions.Include(e => e.Boatclasses).Include(e => e.Raceclasses).OrderBy(e => e.Boatclasses.Name).ThenBy(e => e.Raceclasses.Length), "CompetitionId", "Name");
+            ViewBag.Oldclasses = _context.Oldclasses.OrderBy(e => e.FromAge);
+            ViewBag.Competitions = _context.Competitions.Include(e => e.Boatclasses).Include(e => e.Raceclasses).OrderBy(e => e.Boatclasses.Name).ThenBy(e => e.Raceclasses.Length);
+            ViewBag.Boatclasses = _context.Boatclasses;
             ViewData["StartingFeeIds"] = new MultiSelectList(sfvm, "StartingFeeId", "Name");
             ViewData["CampingFeeIds"] = new MultiSelectList(_context.CampingFees, "CampingFeeId", "LongName");
             return View();
@@ -88,7 +89,7 @@ namespace RegattaMeldung.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("RegattaName,RegattaVon,RegattaBis,Waterdepth,Startslots,ReportText,ReportSchedule,ReportOpening," +
             "ReportAddress,ReportTel,ReportFax,ReportMail,Judge,Awards,Security,ScheduleText,SubscriberFee,Accomodation,Comment,Catering,ClubId,WaterId,Organizer,IsApproved")] RegattaVM regattaVM,
-            IEnumerable<int> OldclassIds, IEnumerable<int> CompetitionIds, IEnumerable<int> StartingFeeIds, IEnumerable<int> CampingFeeIds)
+            IEnumerable<int> schueler, IEnumerable<int> jugend, IEnumerable<int> altersklassen, IEnumerable<int> alleklassen, IEnumerable<int> CompetitionIds, IEnumerable<int> StartingFeeIds, IEnumerable<int> CampingFeeIds)
         {
             Regatta regatta = new Regatta();
 
@@ -125,7 +126,19 @@ namespace RegattaMeldung.Controllers
 
                 _context.SaveChanges();
 
-                foreach (var oc in OldclassIds)
+                foreach (var oc in schueler)
+                {
+                    _context.RegattaOldclasses.Add(new RegattaOldclass { RegattaId = regatta.RegattaId, OldclassId = oc });
+                }
+                foreach (var oc in jugend)
+                {
+                    _context.RegattaOldclasses.Add(new RegattaOldclass { RegattaId = regatta.RegattaId, OldclassId = oc });
+                }
+                foreach (var oc in altersklassen)
+                {
+                    _context.RegattaOldclasses.Add(new RegattaOldclass { RegattaId = regatta.RegattaId, OldclassId = oc });
+                }
+                foreach (var oc in alleklassen)
                 {
                     _context.RegattaOldclasses.Add(new RegattaOldclass { RegattaId = regatta.RegattaId, OldclassId = oc });
                 }
@@ -381,17 +394,17 @@ namespace RegattaMeldung.Controllers
                 {
                     _context.ReportedStartboatStandbys.Remove(rsbs);
                 }
-                _context.SaveChanges();
+                //_context.SaveChanges();
             }
 
-            _context.SaveChanges();
+            //_context.SaveChanges();
 
             foreach(var rsb in reportedstartboats)
             {
                 _context.ReportedStartboats.Remove(rsb);
             }
 
-            _context.SaveChanges();
+            //_context.SaveChanges();
 
             var regattacompetitions = _context.RegattaCompetitions.Where(e => e.RegattaId == id);
 

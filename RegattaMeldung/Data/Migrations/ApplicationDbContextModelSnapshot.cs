@@ -348,7 +348,7 @@ namespace RegattaMeldung.Data.Migrations
                     b.HasData(
                         new
                         {
-                            ClubId = 1,
+                            ClubId = 294,
                             City = "Ansbach",
                             Name = "Kanu-Sportclub Ansbach",
                             ShortName = "Ansbach",
@@ -2081,7 +2081,7 @@ namespace RegattaMeldung.Data.Migrations
                         },
                         new
                         {
-                            ClubId = 294,
+                            ClubId = 1,
                             City = "Platzhalter",
                             Name = "Platzhalter",
                             ShortName = "Platzhalter",
@@ -2805,6 +2805,83 @@ namespace RegattaMeldung.Data.Migrations
                         new
                         {
                             MemberId = 1,
+                            Birthyear = 2000,
+                            ClubId = 294,
+                            FirstName = "WIRD",
+                            Gender = "M",
+                            LastName = "GESUCHT",
+                            RentedToClubId = 0,
+                            isRented = false
+                        },
+                        new
+                        {
+                            MemberId = 2,
+                            Birthyear = 2000,
+                            ClubId = 294,
+                            FirstName = "WIRD",
+                            Gender = "M",
+                            LastName = "GESUCHT",
+                            RentedToClubId = 0,
+                            isRented = false
+                        },
+                        new
+                        {
+                            MemberId = 3,
+                            Birthyear = 2000,
+                            ClubId = 294,
+                            FirstName = "WIRD",
+                            Gender = "M",
+                            LastName = "GESUCHT",
+                            RentedToClubId = 0,
+                            isRented = false
+                        },
+                        new
+                        {
+                            MemberId = 4,
+                            Birthyear = 2000,
+                            ClubId = 294,
+                            FirstName = "WIRD",
+                            Gender = "M",
+                            LastName = "GESUCHT",
+                            RentedToClubId = 0,
+                            isRented = false
+                        },
+                        new
+                        {
+                            MemberId = 5,
+                            Birthyear = 2000,
+                            ClubId = 294,
+                            FirstName = "WIRD",
+                            Gender = "M",
+                            LastName = "GESUCHT",
+                            RentedToClubId = 0,
+                            isRented = false
+                        },
+                        new
+                        {
+                            MemberId = 6,
+                            Birthyear = 2000,
+                            ClubId = 294,
+                            FirstName = "WIRD",
+                            Gender = "M",
+                            LastName = "GESUCHT",
+                            RentedToClubId = 0,
+                            isRented = false
+                        },
+                        new
+                        {
+                            MemberId = 7,
+                            Birthyear = 2000,
+                            ClubId = 294,
+                            FirstName = "WIRD",
+                            Gender = "M",
+                            LastName = "GESUCHT",
+                            RentedToClubId = 0,
+                            isRented = false
+                        },
+                        new
+                        {
+                            MemberId = 8,
                             Birthyear = 2000,
                             ClubId = 294,
                             FirstName = "WIRD",
