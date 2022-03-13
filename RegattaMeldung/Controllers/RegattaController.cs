@@ -493,7 +493,7 @@ namespace RegattaMeldung.Controllers
             {
                 Host = "mailgate.tbls.biz",
                 Port = 25,                
-                Credentials = new NetworkCredential("regattaplanernet@regattaplaner.net","t/MRR0rPFzeoL/Gy9gK3uqr/XAexDN")                
+                Credentials = new NetworkCredential("regattaplanernet@regattaplaner.net", "t/MRR0rPFzeoL/Gy9gK3uqr/XAexDN")                
             };
 
             using (var message = new MailMessage("info@regattaplaner.net", club.EMail)
