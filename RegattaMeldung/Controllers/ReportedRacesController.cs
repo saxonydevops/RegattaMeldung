@@ -114,7 +114,7 @@ namespace RegattaMeldung.Controllers
         public IActionResult Create()
         {
             ViewData["RegattaId"] = new SelectList(_context.Regattas, "RegattaId", "Name");
-            ViewData["CompetitionId"] = new SelectList(_context.Competitions.Include(e => e.Boatclasses).Include(e => e.Raceclasses).OrderBy(e => e.Boatclasses.Name), "CompetitionId", "Name");
+            ViewData["CompetitionId"] = new SelectList(_context.Competitions.Include(e => e.Boatclasses).Include(e => e.Raceclasses).OrderBy(e => e.Boatclasses.Name).ThenBy(e => e.Raceclasses.Length), "CompetitionId", "Name");
             ViewData["OldclassId"] = new SelectList(_context.Oldclasses.OrderBy(e => e.FromAge), "OldclassId", "Name");
             return View();
         }
