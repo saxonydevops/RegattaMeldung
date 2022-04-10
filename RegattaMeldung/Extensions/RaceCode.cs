@@ -65,6 +65,9 @@ namespace RegattaMeldung.Extensions
 
             switch (ocname)
             {
+                case "Schüler D":
+                    c3 = "19";
+                    break;
                 case "Schüler C/B10":
                     c3 = "01";
                     break;
@@ -118,6 +121,9 @@ namespace RegattaMeldung.Extensions
                     break;
                 case "Senioren D":
                     c3 = "15";
+                    break;
+                case "Senioren":
+                    c3 = "20";
                     break;
                 default:
                     c3 = "00";
