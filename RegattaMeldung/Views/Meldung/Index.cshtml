@@ -111,83 +111,86 @@
                 </td>
                 <td>                    
                     @if (reportedraces.Gender.Equals("M"))
+                    {
+                        @if(reportedraces.Oldclass.FromAge >=17 && reportedraces.Oldclass.ToAge <= 99)
                         {
-                            @if(reportedraces.Oldclass.FromAge >=17 && reportedraces.Oldclass.ToAge <= 99)
-                            {
-                                @:Herren
-                            }
-                            else if(reportedraces.Oldclass.FromAge >= 15 && reportedraces.Oldclass.ToAge <= 16)
-                            {
-                                @:männliche    
-                            }              
-                            @reportedraces.Oldclass.Name                                    
+                            @:Herren
                         }
-                        else if (string.Equals(reportedraces.Gender, "W"))
-                        {                            
-                            @if (reportedraces.Oldclass.FromAge >= 17 && reportedraces.Oldclass.ToAge <= 99)
-                            {
-                                @:Damen 
-                                @reportedraces.Oldclass.Name
-                            }
-                            else if(reportedraces.Oldclass.FromAge >= 15 && reportedraces.Oldclass.ToAge <= 16)
-                            {                                
-                                @:weibliche
-                                @reportedraces.Oldclass.Name
-                            }
-                            else
-                            {
-                                switch(reportedraces.Oldclass.Name)
-                                {                                    
-                                    case "Schüler C7":
-                                        @:Schülerinnen C7
-                                        break;
-                                    case "Schüler C8":
-                                        @:Schülerinnen C8
-                                        break;
-                                    case "Schüler C9":
-                                        @:Schülerinnen C9
-                                        break;
-                                    case "Schüler C":
-                                        @:Schülerinnen C
-                                        break;
-                                    case "Schüler B10":
-                                        @:Schülerinnen B10
-                                        break;
-                                    case "Schüler B11":
-                                        @:Schülerinnen B11
-                                        break;
-                                    case "Schüler B12":
-                                        @:Schülerinnen B12
-                                        break;
-                                    case "Schüler B":
-                                        @:Schülerinnen B
-                                        break;
-                                    case "Schüler C/B10":
-                                        @:Schülerinnen C/B10
-                                        break;
-                                    case "Schüler B11/B12":
-                                        @:Schülerinnen B11/B12
-                                        break;
-                                    case "Schüler A13":
-                                        @:Schülerinnen A13
-                                        break;
-                                    case "Schüler A14":
-                                        @:Schülerinnen A14
-                                        break;
-                                    case "Schüler A":
-                                        @:Schülerinnen A
-                                        break;
-                                    default:
-                                        @reportedraces.Oldclass.Name
-                                        break;
-                                }
-                            }
-                        }
-                        else if (string.Equals(reportedraces.Gender, "X"))
+                        else if(reportedraces.Oldclass.FromAge >= 15 && reportedraces.Oldclass.ToAge <= 16)
                         {
-                            @:mixed
+                            @:männliche    
+                        }              
+                        @reportedraces.Oldclass.Name                                    
+                    }
+                    else if (string.Equals(reportedraces.Gender, "W"))
+                    {                            
+                        @if (reportedraces.Oldclass.FromAge >= 17 && reportedraces.Oldclass.ToAge <= 99)
+                        {
+                            @:Damen 
                             @reportedraces.Oldclass.Name
-                        }  
+                        }
+                        else if(reportedraces.Oldclass.FromAge >= 15 && reportedraces.Oldclass.ToAge <= 16)
+                        {                                
+                            @:weibliche
+                        @reportedraces.Oldclass.Name
+                    }
+                    else
+                    {
+                        switch(reportedraces.Oldclass.Name)
+                        {
+                            case "Schüler D":
+                                @:Schülerinnen D
+                                break;
+                            case "Schüler C7":
+                                @:Schülerinnen C7
+                                break;
+                            case "Schüler C8":
+                                @:Schülerinnen C8
+                                break;
+                            case "Schüler C9":
+                                @:Schülerinnen C9
+                                break;
+                            case "Schüler C":
+                                @:Schülerinnen C
+                                break;
+                            case "Schüler B10":
+                                @:Schülerinnen B10
+                                break;
+                            case "Schüler B11":
+                                @:Schülerinnen B11
+                                break;
+                            case "Schüler B12":
+                                @:Schülerinnen B12
+                                break;
+                            case "Schüler B":
+                                @:Schülerinnen B
+                                break;
+                            case "Schüler C/B10":
+                                @:Schülerinnen C/B10
+                                break;
+                            case "Schüler B11/B12":
+                                @:Schülerinnen B11/B12
+                                break;
+                            case "Schüler A13":
+                                @:Schülerinnen A13
+                                break;
+                            case "Schüler A14":
+                                @:Schülerinnen A14
+                                break;
+                            case "Schüler A":
+                                @:Schülerinnen A
+                                break;
+                            default:
+                                @reportedraces.Oldclass.Name
+                                break;
+                        }
+                    }
+                }
+                else if (string.Equals(reportedraces.Gender, "X"))
+                {
+                    @:mixed
+                    @reportedraces.Oldclass.Name
+                }  
                 </td>
                 <td>
                     @reportedraces.Competition.Boatclasses.Name
