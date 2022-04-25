@@ -226,7 +226,7 @@ else
                                     {                                        
                                         @string.Format(" ({0})", member.Club.ShortName);
                                     }
-                                    @if (member.isRented == true && member.RentedToClubId != startboat.ClubId && member.RentYear == ViewBag.ThisYear)
+                                    @if (member.isRented == true && member.RentedToClubId != startboat.ClubId)
                                     {
                                         @foreach (var ac in ViewBag.AllClubs)
                                         {
@@ -236,7 +236,7 @@ else
                                             }
                                         }
                                     }
-                                    @if (member.isRented == true && member.RentedToClubId == startboat.ClubId && member.RentYear == ViewBag.ThisYear)
+                                    @if (member.isRented == true && member.RentedToClubId == startboat.ClubId)
                                     {
                                         @: (ausgeliehen)
                                     }
@@ -255,7 +255,6 @@ else
                             {
                                 if (member.MemberId == sbs.MemberId)
                                 {
-                                    //@if(member.MemberId == 1 || member.MemberId == 2 || member.MemberId == 3 || member.MemberId == 4)
                                     @if(member.MemberId == 1)
                                     {
                                         @: <b>
@@ -270,7 +269,7 @@ else
                                     {
                                         @string.Format(" ({0})", member.Club.ShortName);
                                     }
-                                    @if (member.isRented == true && member.RentedToClubId != startboat.ClubId && member.RentYear == ViewBag.ThisYear)
+                                    @if (member.isRented == true && member.RentedToClubId != startboat.ClubId)
                                     {
                                         @foreach (var ac in ViewBag.AllClubs)
                                         {
