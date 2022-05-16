@@ -345,6 +345,11 @@ namespace RegattaMeldung.Controllers
                     return RedirectToAction("Details", "Meldung", new { id = id, guid = guid });
                 }
 
+                if (seat2 == 1)
+                {
+                    seat2 = 2;
+                }
+
                 seats.Add(seat1); 
                 seats.Add(seat2);
 
@@ -367,14 +372,7 @@ namespace RegattaMeldung.Controllers
 
                 if (seats.GroupBy(s => s).SelectMany(grp => grp.Skip(1)).Count() >= 1) 
                 {
-                    if(seat2 == 1)
-                    {
-                        seat2 = 2;
-                    }
-                    else
-                    {
-                        isDouble = true;
-                    }
+                    isDouble = true;
                 }                        
                 
                 if(isDouble == false)
@@ -401,6 +399,16 @@ namespace RegattaMeldung.Controllers
                 if (seat1 == 0 || seat2 == 0 || seat3 == 0)
                 {
                     return RedirectToAction("Details", "Meldung", new { id = id, guid = guid });
+                }
+                
+                if (seat2 == 1)
+                {
+                    seat2 = 2;
+                }
+                
+                if (seat3 == 1)
+                {
+                    seat3 = 3;
                 }
 
                 seats.Add(seat1); 
@@ -442,18 +450,7 @@ namespace RegattaMeldung.Controllers
 
                 if (seats.GroupBy(s => s).SelectMany(grp => grp.Skip(1)).Count() >= 1)
                 {
-                    if(seat2 == 1)
-                    {
-                        seat2 = 2;
-                    }
-                    else if(seat3 == 1)
-                    {
-                        seat3 = 3;
-                    }
-                    else
-                    {
-                        isDouble = true;
-                    }
+                    isDouble = true;
                 }  
 
                 if(isDouble == false)
@@ -485,6 +482,21 @@ namespace RegattaMeldung.Controllers
                 if (seat1 == 0 || seat2 == 0 || seat3 == 0 || seat4 == 0)
                 {
                     return RedirectToAction("Details", "Meldung", new { id = id, guid = guid });
+                }
+
+                if (seat2 == 1)
+                {
+                    seat2 = 2;
+                }
+                
+                if (seat3 == 1)
+                {
+                    seat3 = 3;
+                }
+                
+                if (seat4 == 1)
+                {
+                    seat4 = 4;
                 }
 
                 seats.Add(seat1); 
@@ -527,22 +539,7 @@ namespace RegattaMeldung.Controllers
 
                 if (seats.GroupBy(s => s).SelectMany(grp => grp.Skip(1)).Count() >= 1)
                 {
-                    if(seat2 == 1)
-                    {
-                        seat2 = 2;
-                    }
-                    else if(seat3 == 1)
-                    {
-                        seat3 = 3;
-                    }
-                    else if(seat4 == 1)
-                    {
-                        seat4 = 4;
-                    }
-                    else
-                    {
-                        isDouble = true;
-                    }
+                    isDouble = true;
                 }  
 
                 if(isDouble == false)
@@ -579,6 +576,41 @@ namespace RegattaMeldung.Controllers
                 if (seat1 == 0 || seat2 == 0 || seat3 == 0 || seat4 == 0 || seat5 == 0 || seat6 == 0 || seat7 == 0 || seat8 == 0)
                 {
                     return RedirectToAction("Details", "Meldung", new { id = id, guid = guid });
+                }
+
+                if (seat2 == 1)
+                {
+                    seat2 = 2;
+                }
+
+                if (seat3 == 1)
+                {
+                    seat3 = 3;
+                }
+
+                if (seat4 == 1)
+                {
+                    seat4 = 4;
+                }
+
+                if (seat5 == 1)
+                {
+                    seat5 = 5;
+                }
+
+                if (seat6 == 1)
+                {
+                    seat6 = 6;
+                }
+
+                if (seat7 == 1)
+                {
+                    seat7 = 7;
+                }
+
+                if (seat8 == 1)
+                {
+                    seat8 = 8;
                 }
 
                 seats.Add(seat1); 
@@ -653,10 +685,10 @@ namespace RegattaMeldung.Controllers
                         return RedirectToAction("Details", "Meldung", new { id = id, guid = guid });
                     }
                     seats.Add(standby8);
-                }
+                }                
 
                 if (seats.GroupBy(s => s).SelectMany(grp => grp.Skip(1)).Count() >= 1)
-                {
+                {                    
                     isDouble = true;
                 }  
 
