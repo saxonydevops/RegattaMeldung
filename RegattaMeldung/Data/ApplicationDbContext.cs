@@ -433,6 +433,7 @@ namespace RegattaMeldung.Data
             builder.Entity<Boatclass>().HasData(new Boatclass { BoatclassId = 8, Name = "S2", Seats = 2 });
             builder.Entity<Boatclass>().HasData(new Boatclass { BoatclassId = 9, Name = "S6", Seats = 6 });
             builder.Entity<Boatclass>().HasData(new Boatclass { BoatclassId = 10, Name = "S8", Seats = 8 });
+            builder.Entity<Boatclass>().HasData(new Boatclass { BoatclassId = 12, Name = "S3", Seats = 3 });
 
             builder.Entity<Oldclass>().HasData(new Oldclass { OldclassId = 1, FromAge = 0, Name = "Schüler D", ToAge = 6 });
             builder.Entity<Oldclass>().HasData(new Oldclass { OldclassId = 2, FromAge = 7, Name = "Schüler C", ToAge = 9 });
@@ -455,6 +456,7 @@ namespace RegattaMeldung.Data
             builder.Entity<Oldclass>().HasData(new Oldclass { OldclassId = 8, FromAge = 32, Name = "Senioren A", ToAge = 39 });
             builder.Entity<Oldclass>().HasData(new Oldclass { OldclassId = 9, FromAge = 40, Name = "Senioren B", ToAge = 49 });
             builder.Entity<Oldclass>().HasData(new Oldclass { OldclassId = 10, FromAge = 50, Name = "Senioren C", ToAge = 59 });
+            builder.Entity<Oldclass>().HasData(new Oldclass { OldclassId = 12, FromAge = 32, Name = "Senioren", ToAge = 99 });
 
             builder.Entity<Raceclass>().HasData(new Raceclass { RaceclassId = 1, Length = 200, Name = "200m" });
             builder.Entity<Raceclass>().HasData(new Raceclass { RaceclassId = 2, Length = 500, Name = "500m" });
